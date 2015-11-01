@@ -20,6 +20,9 @@ page '/*.txt', layout: false
 # Helpers
 ###
 
+activate :relative_assets
+set :relative_links, true
+
 # Reload the browser automatically whenever files change
 # configure :development do
 #   activate :livereload
