@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/middleman/middleman-blog.git
+  revision: f1150cc9191a0e22f8606610b8fcd1bc3e182b52
+  ref: f1150cc9191a0e22f8606610b8fcd1bc3e182b52
+  specs:
+    middleman-blog (4.0.0.rc.1)
+      addressable (~> 2.3.5)
+      middleman-core (>= 4.0.0.rc.1)
+      tzinfo (>= 0.3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -88,6 +98,7 @@ PLATFORMS
 
 DEPENDENCIES
   middleman (>= 4.0.0.rc.1)
+  middleman-blog!
   tzinfo-data
   wdm (~> 0.1.0)
 
