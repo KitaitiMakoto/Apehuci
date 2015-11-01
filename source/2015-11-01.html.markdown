@@ -1,0 +1,20 @@
+---
+title: 日記を移行し始めた
+---
+
+日記を移行し始めた
+------------------
+
+[Sqale][]＋[tDiary][]で書いていた[前の日記][]から、[GitHub Pages][]＋[Middleman-Blog][]に移行を始めた。
+
+[はてなブログ][]なんかのサービスにしようか、迷ったけれど結局静的サイトジェネレーターを選んだ。
+サービスだと、更に移行する時にコンテンツを引き継ぐのが面倒そうだったからだ。あと、やるかやらないか分からないけど、というか、今までのtDiaryの運用を見ているとやらなさそうではあるけど、JavaScriptとか自由に使って遊べるほうがいいかな、というくらい。
+
+GitHub Pages使うとGitを使うわけで、携帯とかから更新できなくて時代に逆行している感じがあるけど、まあ、まあ。Werckerとか使って、特定のブランチで書いたら（そこまではGitHub上のエディターでできる）自動で更新、とかやってもいいしね、必要になったら。
+
+[Sqale]: http://sqale.jp/
+[tDiary]: http://www.tdiary.org/
+[前の日記]: http://apehuci-kitaitimakoto.sqale.jp/apehuci/
+[GitHub Pages]: https://pages.github.com/
+[Middleman-Blog]: https://middlemanapp.com/jp/basics/blogging/
+[はてなブログ]: http://hatenablog.com/
