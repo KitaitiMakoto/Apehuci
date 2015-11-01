@@ -42,3 +42,8 @@ configure :build do
 end
 
 activate :blog
+
+activate :deploy do |deploy|
+  deploy.deploy_method = :git
+  deploy.remote = 'github'
+end
