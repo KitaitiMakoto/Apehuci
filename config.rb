@@ -44,6 +44,12 @@ configure :build do
   activate :minify_javascript
 
   activate :asset_hash
+
+  activate :minify_html do |html|
+    html.remove_intertag_spaces = true
+    html.simple_doctype = true
+    html.remove_form_attributes = true
+  end
 end
 
 activate :blog do |blog|
