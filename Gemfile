@@ -10,3 +10,4 @@ gem 'tzinfo-data', platforms: [:mswin, :mingw, :jruby]
 
 # Middleman Gems
 gem 'middleman', '>= 4.0.0.rc.1'
+gem 'middleman-blog', :github => 'middleman/middleman-blog', :ref => 'f1150cc9191a0e22f8606610b8fcd1bc3e182b52'
