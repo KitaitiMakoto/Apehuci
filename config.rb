@@ -44,7 +44,10 @@ configure :build do
   # activate :minify_javascript
 end
 
-activate :blog
+activate :blog do |blog|
+  blog.sources = '{year}-{month}-{day}.html'
+  blog.permalink = '{year}/{month}/{day}.html'
+end
 
 activate :deploy do |deploy|
   deploy.deploy_method = :git
