@@ -65,6 +65,7 @@ end
 activate :blog do |blog|
   blog.sources = '{year}-{month}-{day}.html'
   blog.permalink = '{year}/{month}/{day}.html'
+  blog.layout = 'blog'
 end
 
 activate :deploy do |deploy|
