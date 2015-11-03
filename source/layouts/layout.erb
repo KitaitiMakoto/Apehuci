@@ -18,11 +18,13 @@
   </head>
 
   <body class="<%= page_classes %>">
-    <paper-header-panel>
+    <paper-header-panel mode=waterfall-tall>
       <paper-toolbar>
         <h1><%= current_page.data.title || "アペフチ" %></h1>
       </paper-toolbar>
+      <main>
+        <%= yield %>
+      </main>
     </paper-header-panel>
-    <%= yield %>
   </body>
 </html>
