@@ -37,6 +37,8 @@ set :relative_links, true
 
 # Build-specific configuration
 configure :build do
+  ignore /\Abower_components/
+
   # Minify CSS on build
   activate :minify_css
 
