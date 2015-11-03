@@ -23,8 +23,10 @@
         <h1><%= current_page.data.title || "アペフチ" %></h1>
       </paper-toolbar>
     </paper-header-panel>
-    <paper-card>
-      <%= yield %>
-    </paper-card>
+    <article>
+      <paper-card>
+        <%= yield %>
+      </paper-card>
+    </article>
   </body>
 </html>

@@ -3,11 +3,13 @@ title: アペフチ
 ---
 
 <% blog.articles.each do |article| %>
-<paper-card>
-  <% link_to article.path do %>
-  <h1><%=h article.title %></h1>
-  <time pubdate><%=h article.date.strftime('%F') %></time>
-  <% end %>
-  <%= article.body %>
-</paper-card>
+<article>
+  <paper-card>
+    <% link_to article.path do %>
+    <h1><%=h article.title %></h1>
+    <time pubdate><%=h article.date.strftime('%F') %></time>
+    <% end %>
+    <%= article.body %>
+  </paper-card>
+</article>
 <% end %>
