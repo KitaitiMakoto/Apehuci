@@ -18,6 +18,9 @@
   </head>
 
   <body class="<%= page_classes %>">
+    <paper-toolbar>
+      <h1><%= current_page.data.title || "アペフチ" %></h1>
+    </paper-toolbar>
     <%= yield %>
   </body>
 </html>
