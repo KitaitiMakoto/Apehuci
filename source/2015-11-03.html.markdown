@@ -1,0 +1,94 @@
+---
+title: Rubyでの文字列の「長さ」
+tags: Ruby
+---
+
+Rubyでの文字列の「長さ」
+=======================
+
+Rubyでは、文字列（`String`）クラスに[`length`][String#length]というメソッドがあって、これは文字列の長さを返してくれる。「文字列の長さ」というのは一体何なのだ、というのは実は自明ではない（「実は」とか言ってみたけど、みんな、知っている気がするな）。文字の数かも知れないし、バイト（オクテット）の長さかも知れない。Rubyの`String#length`の場合は、文字の数を返す。バイト数が欲しければ[`bytesize`][String#bytesize]メソッドを使う。
+
+余談だけど、Rubyで文字を扱おうと思ったら、るびまの[Ruby M17N の設計と実装][]をぜひ読んだほうがいい。
+
+さて長さに戻って、文字の長さというのは、例えばこういうことだ。
+
+~~~
+# coding: utf-8
+# ソースコードファイルのエンコーディングをUTF-8とする
+
+"a".length #=> 1
+"a".bytesize #=> 1
+
+"あいう".length #=> 3 三文字の文字列
+"あいう".bytesize #=> 9 ソースコードファイルがUTF-8なので、文字列リテラルもUTF-8になり、バイト数は9になる
+
+"あいう".encode("UTF-16LE").length #=> 3
+"あいう".encode("UTF-16LE").bytesize #=> 6
+
+# UTF-16でエンディアンを明示しない場合は、（ファイルではなく文字列オブジェクト自体に）2バイトのBOMが付く
+"あいう".encode("UTF-16").length #=> 4
+"あいう".encode("UTF-16").bytesize #=> 8
+~~~
+（今どき断らなくていいとは思うけど、ここでは1バイトは1オクテット＝8ビット）
+
+UTF-16にはサロゲートペアという物があって、多くの文字は一文字あたり16ビット（2バイト）なんだけど、サロゲートペアを使って表す文字は一文字表すのに32ビット（4バイト）使う。
+
+~~~
+"𩸽".bytesize #=> 4
+~~~
+
+それでも、Rubyはこれを「一文字」として数えてくれる。
+
+~~~
+"𩸽".encode('UTF-16LE').length #=> 1
+~~~
+
+人間にとってとても分かり易い。
+
+JavaScriptではこれは「長さ」が2となるらしい（[JavaScriptでのサロゲートペア文字列のメモ][]）。16ビットが何個分か、という数え方のようだ。JavaScritpでは内部エンコーディングがUTF-16らしいから、処理系の設計者にとってこれが自然だったんだろう。
+
+ここまでなら、Rubyは人間に優しい言語ですね、よかったよかった、となる。しかしたまに困ることがある。
+
+この前気まぐれで、[Nokogiri::XML::Range][]というRubyGemを作った。これは、ブラウザーのマウスで選択した部分を表したりする時に使う[DOM Range][]という仕様を、[Nokogiri][]を使って実装してみた物だ。
+
+これを書く時に、文字列の「長さ」を扱う必要があった。長さとは一体何なのか、仕様書の中を探していくと
+
+> The length attribute must return the number of code units in data.  
+（length属性はデータのcode unitの数を返す）
+
+という表現に行き着く（[https://dom.spec.whatwg.org/#dom-characterdata-length](https://dom.spec.whatwg.org/#dom-characterdata-length)）。
+
+更に、この「code unit」のリンクを踏むと、
+
+> The value of the string token is the sequence of 16 bit unsigned integer code units (hereafter referred to just as code units) corresponding to the UTF-16 encoding of S.  
+（文字列トークンの値は、文字列SのUTF-16エンコーディングに対応する16ビット符号なし整数のcode unitの列（以後、単にcode unitとする）である）
+
+という表現が現れる（[https://heycam.github.io/webidl/#dfn-code-unit](https://heycam.github.io/webidl/#dfn-code-unit)）。ここだけ切り取って翻訳するのは僕には難しかったので、できれば前後まとめて読んでほしいけど、要は「16ビットが何個あるか」を文字列の「長さ」とする、ということだ。UTF-16では多くの場合一文字が16ビットで表現されるので、この長さは直感と一致する。でもさっきの「𩸽（ほっけ、らしい）」の場合は32ビットなので、一文字でも「長さ」は2になる。
+
+どうもUnicodeか何かの規格でも、「UTF-16 length」という物が定義されていて、ここで言う「長さ」と同様の物らしい。正直あんま調べる気の起きないところなので教えてもらったツイートをそのまま貼る：
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr"><a href="https://twitter.com/KitaitiMakoto">@KitaitiMakoto</a> ですね。サロゲ以外にも合成文字とかもあります。utf-16にエンコードしたときの2バイト単位の長さと考えるば良いかと。</p>&mdash; OE Waku (@wakufactory) <a href="https://twitter.com/wakufactory/status/661340825687752704">2015, 11月 3</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Nokogiri::XML::Rangeで扱う対象はNokogiriで扱う対象なので、文字エンコーディングが何になるかは分からない、決め打ちできない。その前提で、途中で「長さ」を扱うために、一旦UTF-16に変換して長さを数える、という処理を入れざるを得なかった。多分、この「長さ」は実際には人間の感じる一文字、つまりRubyの`String#length`の値にしても殆どの場合問題ないだろうなと思いつつ、ライブラリーなのでそうではない場合も一応扱えないといけない、ということでパフォーマンスが落ちるの覚悟でこんなことをしないといけないのはもやもやした。
+
+もう一つ困ったことがある。[EPUB CFI][]の仕様でも、文字を数えるのに「UTF-16 length」を扱うことだ（上のツイートの「UTF-16 length」というのはこの仕様の表現を使った）。
+
+EPUB CFIを非常に大雑把に説明すると、「EPUBファイルの中のある一点、もしくはある範囲を表現する物」だ。EPUBの読む部分は多くの場合XHTMLになっているので、テキスト中のある一点（一文字）を指す場合には、「DOMツリー中の親要素までのパス＋文字オフセット」という物を使うことになる。例えばこういう風な見た目をしている。
+
+    book.epub#epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)
+
+全体の意味を知りたい場合は仕様なり解説記事なりを読んでほしいけど、最後の「`:10`」というのが文字オフセットの部分だ。対象テキストノードの10文字目、ということになる。「文字目」と言ったが実際にはUTF-16 lengthなので、人間的な感覚の文字数とは限らない。
+
+EPUB CFIは表現の仕様であって、用途について決まった物があるわけではないけど、例えば、ウェブページのURIのフラグメントのように、文書の途中にリンクを貼る場合に使うことができる。このEPUB CFIを渡してやると、EPUBリーダーがその部分を頭出しして開いてくれる、というのは普通に期待される使い方だ（実際、[BiB/i][]というEPUBリーダーはこれに対応している）。
+
+JavaScriptでこれを扱うなら（或いはJavaも？）簡単なんだろうけど、Rubyだとやはり不必要に思われる処理を入れないといけない。せっかく人間に優しく出来ているのに、仕様のほうがそうなってなかった（いや、UTF-16で暮らしてる人にはフレンドリーなんだろうけどね）。まあ技術文書なので、そういうもんなんだろうけど、愚痴りたくもなりますね。
+
+[String#length]: http://ref.xaio.jp/ruby/classes/string/length
+[String#bytesize]: http://ref.xaio.jp/ruby/classes/string/bytesize
+[Ruby M17N の設計と実装]: http://magazine.rubyist.net/?0025-Ruby19_m17n
+[JavaScriptでのサロゲートペア文字列のメモ]: http://qiita.com/YusukeHirao/items/2f0fb8d5bbb981101be0#iii-ii-%E6%96%87%E5%AD%97%E5%88%97%E9%95%B7%E3%82%92%E6%AD%A3%E3%81%97%E3%81%8F%E5%8F%96%E5%BE%97%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84
+[Nokogiri::XML::Range]: https://github.com/KitaitiMakoto/nokogiri-xml-range
+[DOM Range]: https://dom.spec.whatwg.org/#ranges
+[Nokogiri]: http://www.nokogiri.org/
+[EPUB CFI]: http://www.idpf.org/epub/linking/cfi/epub-cfi.html
+[BiB/i]: http://bibi.epub.link/
