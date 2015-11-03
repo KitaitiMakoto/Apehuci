@@ -1,0 +1,19 @@
+{
+  "name": "apehuci",
+  "authors": [
+    "KITAITI Makoto <KitaitiMakoto@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "CC0",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
