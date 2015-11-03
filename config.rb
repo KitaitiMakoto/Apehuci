@@ -28,12 +28,20 @@ set :relative_links, true
 #   activate :livereload
 # end
 
+set :components_dir, 'components'
 # Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+helpers do
+  def component_import_tag(*sources)
+    options = {
+      rel: 'import'
+    }.update(sources.extract_options!.symbolize_keys)
+    sources.flatten.inject(ActiveSupport::SafeBuffer.new) do |all, source|
+      components_dir = app.config[:components_dir] || 'components'
+      url = url_for(File.join(components_dir, "#{source}.html"))
+      all << tag(:link, {href: url}.update(options))
+    end
+  end
+end
 
 # Build-specific configuration
 configure :build do
