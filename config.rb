@@ -59,6 +59,7 @@ configure :build do
     html.remove_intertag_spaces = true
     html.simple_doctype = true
     html.remove_form_attributes = true
+    html.remove_quotes = true
   end
 end
 
