@@ -1,0 +1,27 @@
+---
+title: Polymerでマテリアルデザインする時に読むといい物
+tags: マテリアルデザイン Polymer
+---
+
+Polymer 0.5、0.8の頃は、Polymerでマテリアルデザインするのが（少なくともその取っ掛かりは）簡単だったように思うけど、1.0になって難しくなったと感じていた。0.8でも1.0でも同様に、[Paper Elements][]というコンポーネントセット（`paper-*`というタグ集）が予め用意されていて、それを使うとマテリアルデザインが始められるようになっているのに、どこが違うんだろう。
+
+というところでググったりしていて思い付いたのは、チュートリアルがないからだ。Polymer 1.0自体のチュートリアルはある（[Quick tour of Polymer][]）。でもこれは、Polymerを使って自分で要素を作り、それを使うというチュートリアルだ。名前もチュートリアルではなくクイックツアーになっている。他に公式サイトで探して見付かるのはPaper Elementsカタログの各要素のサンプルと、あとは[Polymer Starter Kit][]くらい。前者はリファレンスなので全体の考え方が掴みにくいし、後者はあっさりしすぎている。
+
+でもPolymer 0.5は、自分でPaper Elementsを使いながら一つのウェブアプリケーションを作るチュートリアルがあった（[Getting the starter project][]）。これをやっていたので0.5でPaper Elementsを使ってページを作るのに、細々したところはともかく、「全体としてはこういう流れてやるんだな」というところに躓いた憶えがなかったのだ（と、いうほど、使っていないけれど）。
+
+日記をこのGitHub Pages＋Middlemanにするにあたって、フレームワークにPolymerを選んだところで改めて探して、ようやく、Paper Elementsの使い方にふさわしい公式ドキュメントを見付けた。
+
+[Responsive Material Design layouts][]だ。
+
+細かいステップを通じて、レイアウトする時の「枠」を教えてくれる。各ステップでデモンストレーションも用意されているので分かりやすい。おすすめ。
+
+Polymerの公式サイトを探しているのではだめで、[Element Catalog][]の下の方にあるガイドを探すべきだった。上のドキュメントから参照している[Flexbox layout with iron-flex-layout][]もほぼ必読のドキュメントだと言っていいと思う。まだ読んでいないけど[neon-animation][]も気になっている。確か今策定中のWeb Animationsを使う要素のコレクションだったと思う。
+
+[Paper Elements]: https://elements.polymer-project.org/browse?package=paper-elements
+[Quick tour of Polymer]: https://www.polymer-project.org/1.0/docs/start/quick-tour.html
+[Polymer Starter Kit]: https://developers.google.com/web/tools/polymer-starter-kit/
+[Getting the starter project]: https://www.polymer-project.org/0.5/docs/start/tutorial/intro.html
+[Responsive Material Design layouts]: https://elements.polymer-project.org/guides/responsive-material-design-layouts
+[Element Catalog]: https://elements.polymer-project.org
+[Flexbox layout with iron-flex-layout]: https://elements.polymer-project.org/guides/flex-layout
+[neon-animation]: https://elements.polymer-project.org/guides/using-neon-animations
