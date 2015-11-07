@@ -1,0 +1,48 @@
+---
+title: Middleman v4でシンタックスハイライト
+tags: middleman
+---
+
+[Middleman][]でシンタックスハイライトするには[middleman-syntax][]がある。でもこの日記はMiddleman v4で作っていて、middleman-syntaxは今日時点ではv4に対応していない。のでフォークして対応させようかなと思ったけど、ふと思い出した。[kramdown][]がそもそもシンタックスハイライトに対応しているはずだ。
+
+kramdownはRuby製のMarkdownパーサー＋αのライブラリーで、MiddlemanでMarkdownを使う時のデフォルトエンジンにもなっている。MiddlemanでのMarkdownエンジンの設定方法、調整方法は公式ドキュメントにある（[テンプレートエンジンオプション][]）。`markdown_engine`設定はデフォルトのままで構わないので、`markdown`設定だけ、config.rbにこう追加した。
+
+~~~ ruby
+set :markdown, 'syntax_highlighter' => 'rouge'
+~~~
+
+これで、Markdownの記事でのコード部分にシンタックスハイライト用の`<span>`が追加される。ここでは`rouge`を指定しているけど`coderay`も使える（gemは自分でGemfileに書いてインストールする必要がある）。この設定ではブロックレベルのコードだけでなく、文中の`span`要素もハイライトされる。この日記ではそのままにしているけど、嫌な場合には
+
+~~~ ruby
+set :markdown, 'syntax_highlighter' => 'rouge',
+    'syntax_highlighter_opts' => {
+      'span' => {'disable' => true}
+    }
+~~~
+
+と、`span`の時だけ無効化してやればいい。その他、使えるオプションはkramdownサイトの[Syntax Highlighting With Rouge][]というドキュメントにあるので参照されたい（Coderayの場合は[Syntax Highlighting With Coderay][]）。
+
+これだけでは単に`<span>`が追加されるだけでスタリングはされない。CSSを追加する必要がある。Rougeで使えるテーマは[Rougeのthemesディレクトリー][]を見ればよくて、この日記ではGitHubテーマを使っている。stylesheets/highlight.css.erbというファイルを作って、こう書いた：
+
+~~~ erb
+<%= Rouge::Themes::Github.render(scope: '.highlighter-rouge') %>
+~~~
+
+この設定には[Room 3100][]というブログの[middleman-blogのハイライトにMonokaiテーマを使う][]という記事を大いに参考にさせてもらった。ありがとうございます。
+
+あとは「\`...\`」（インライン）やフェンストコードブロックでマークアップしてやればよい。注意が必要なのは、kramdownのコードブロックはGitHubのフェンストコードブロックとちょっと違って、「`~`」（チルダ）を三つ並べる（[Language of Code Blocks][]）。
+
+    ~~~ ruby
+    set :markdown, 'syntax_highlighter' => 'rouge'
+    ~~~
+
+[Middleman]: https://middlemanapp.com/jp/
+[middleman-syntax]: https://github.com/middleman/middleman-syntax
+[kramdown]: http://kramdown.gettalong.org/
+[テンプレートエンジンオプション]: https://middlemanapp.com/jp/basics/template_engine_options/
+[Syntax Highlighting With Rouge]: http://kramdown.gettalong.org/syntax_highlighter/rouge.html
+[Syntax Highlighting With Coderay]: http://kramdown.gettalong.org/syntax_highlighter/coderay.html
+[Rougeのthemesディレクトリー]: https://github.com/jneen/rouge/tree/master/lib/rouge/themes
+[Room 3100]: http://3100.github.io/
+[middleman-blogのハイライトにMonokaiテーマを使う]: http://3100.github.io/blog/2013/10/31/monokai-theme-to-middleman-blog.html
+[Language of Code Blocks]: http://kramdown.gettalong.org/syntax.html#language-of-code-blocks
