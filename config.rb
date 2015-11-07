@@ -23,6 +23,8 @@ page '/*.txt', layout: false
 activate :relative_assets
 set :relative_links, true
 
+set :markdown, 'syntax_highlighter' => 'rouge'
+
 # Reload the browser automatically whenever files change
 # configure :development do
 #   activate :livereload
