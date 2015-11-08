@@ -13,7 +13,6 @@ gem 'middleman', '>= 4.0.0.rc.1'
 gem 'middleman-blog', :github => 'middleman/middleman-blog'
 gem 'middleman-deploy', '>= 2.0.0.pre.alpha'
 gem 'middleman-minify-html'
-gem 'middleman-livereload'
 
 # Used to highlight syntax via kramdown
 gem 'rouge'
