@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/middleman/middleman-blog.git
   revision: f1150cc9191a0e22f8606610b8fcd1bc3e182b52
-  ref: f1150cc9191a0e22f8606610b8fcd1bc3e182b52
   specs:
     middleman-blog (4.0.0.rc.1)
       addressable (~> 2.3.5)
@@ -19,7 +18,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     atomic (1.1.99)
-    backports (3.6.6)
+    backports (3.6.7)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -46,7 +45,7 @@ GEM
     i18n (0.7.0)
     json (1.8.3)
     kramdown (1.9.0)
-    listen (3.0.3)
+    listen (3.0.4)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     middleman (4.0.0.rc.1)
