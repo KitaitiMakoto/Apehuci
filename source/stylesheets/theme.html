@@ -1,6 +1,8 @@
 <style is=custom-style>
   :root {
     --default-primary-color: #F44336;
+    --primary-text-color: #212121;
+    --default-link-color: #F44336;
   }
   body {
     margin: 0;
@@ -10,9 +12,23 @@
   article {
     margin: 1em auto;
     text-align: center;
+    color: var(--primary-text-color);
   }
   p {
     line-height: 2;
+  }
+  a {
+    color: var(--default-link-color);
+  }
+  a {
+    text-decoration: none;
+  }
+  article a:hover:, a:active {
+    text-decoration: underline;
+  }
+  article a:active {
+    color: white;
+    background-color: var(--default-primary-color);
   }
   paper-toolbar {
     @apply(--layout-vertical);
