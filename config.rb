@@ -26,9 +26,10 @@ set :relative_links, true
 set :markdown, 'syntax_highlighter' => 'rouge'
 
 # Reload the browser automatically whenever files change
-# configure :development do
+configure :development do
 #   activate :livereload
-# end
+  set :component_suffix, '.html'
+end
 
 set :components_dir, 'components'
 # Methods defined in the helpers block are available in templates
@@ -39,7 +40,8 @@ helpers do
     }.update(sources.extract_options!.symbolize_keys)
     sources.flatten.inject(ActiveSupport::SafeBuffer.new) do |all, source|
       components_dir = app.config[:components_dir] || 'components'
-      url = url_for(File.join(components_dir, "#{source}.html"))
+      suffix = app.config[:component_suffix] || '.html'
+      url = url_for(File.join(components_dir, "#{source}#{suffix}"), relative: true)
       all << tag(:link, {href: url}.update(options))
     end
   end
@@ -47,6 +49,8 @@ end
 
 # Build-specific configuration
 configure :build do
+  set :component_suffix, '.vulcanized.html'
+
   ignore /\Abower_components/
 
   # Minify CSS on build
@@ -88,3 +92,5 @@ class Vulcanize < Middleman::Extension
 end
 
 ::Middleman::Extensions.register :vulcanize, Vulcanize
+
+activate :vulcanize
