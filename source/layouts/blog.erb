@@ -33,9 +33,21 @@
           <h1><%= current_page.data.title %></h1>
           <%= yield %>
         </paper-card>
+        <footer>
+          <paper-card>
+            <% if current_page.next_article %>
+            <% link_to current_page.next_article.url, :rel => 'next' do %>
+            <paper-button raised><%= current_page.next_article.data.title %></paper-button>
+            <% end %>
+            <% end %>
+            <% if current_page.previous_article %>
+            <% link_to current_page.previous_article.url, :rel => 'previous' do %>
+            <paper-button raised><%= current_page.previous_article.data.title %></paper-button>
+            <% end %>
+            <% end %>
+          </paper-card>
+        </footer>
       </article>
-      <%= link_to current_page.next_article.data.title, current_page.next_article.url if current_page.next_article %>
-      <%= link_to current_page.previous_article.data.title, current_page.previous_article.url if current_page.previous_article %>
     </paper-header-panel>
   </body>
 </html>
