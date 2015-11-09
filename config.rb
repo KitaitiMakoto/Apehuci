@@ -75,3 +75,16 @@ activate :deploy do |deploy|
   deploy.deploy_method = :git
   deploy.remote = 'github'
 end
+
+class Vulcanize < Middleman::Extension
+  def initialize(app, options={}, &block)
+    super
+    app.after_build do |builder|
+      command = 'cd source && vulcanize -o ../build/components/elements.vulcanized.html components/elements.html'
+      $stderr.puts "run: #{command}"
+      $stderr.puts `#{command}`
+    end
+  end
+end
+
+::Middleman::Extensions.register :vulcanize, Vulcanize
