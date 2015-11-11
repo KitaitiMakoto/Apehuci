@@ -16,3 +16,6 @@ gem 'middleman-minify-html'
 
 # Used to highlight syntax via kramdown
 gem 'rouge'
+
+# For summary of blog articles
+gem 'nokogiri'
