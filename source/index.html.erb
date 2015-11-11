@@ -4,7 +4,7 @@ title: アペフチ
 
 <% blog.articles.each do |article| %>
 <article>
-  <paper-card>
+  <paper-card elevation=2>
     <% link_to article.path do %>
     <h1><%=h article.title %></h1>
     <time pubdate><%=h article.date.strftime('%F') %></time>
