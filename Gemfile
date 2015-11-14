@@ -19,3 +19,5 @@ gem 'rouge'
 
 # For summary of blog articles
 gem 'nokogiri'
+
+gem 'middleman-web_component', :github => 'KitaitiMakoto/middleman-web_component'
