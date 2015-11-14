@@ -10,6 +10,9 @@ title: アペフチ
     <time pubdate><%=h article.date.strftime('%F') %></time>
     <% end %>
     <%= article.summary %>
+    <% link_to article do %>
+    <paper-button raised>もっと読む</paper-button>
+    <% end %>
   </paper-card>
 </article>
 <% end %>
