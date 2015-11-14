@@ -31,6 +31,7 @@
       <article>
         <paper-card>
           <h1><%= current_page.data.title %></h1>
+          <time pubdate><%=h current_page.date.strftime('%F') %></time>
           <%= yield %>
         </paper-card>
         <footer>
