@@ -9,7 +9,7 @@ title: アペフチ
     <h1><%=h article.title %></h1>
     <time pubdate><%=h article.date.strftime('%F') %></time>
     <% end %>
-    <%= article.body %>
+    <%= article.summary %>
   </paper-card>
 </article>
 <% end %>
