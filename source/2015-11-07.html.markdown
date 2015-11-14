@@ -1,6 +1,7 @@
 ---
 title: Middleman v4でシンタックスハイライト
-tags: middleman
+tags:
+ - middleman
 ---
 
 [Middleman][]でシンタックスハイライトするには[middleman-syntax][]がある。でもこの日記はMiddleman v4で作っていて、middleman-syntaxは今日時点ではv4に対応していない。のでフォークして対応させようかなと思ったけど、ふと思い出した。[kramdown][]がそもそもシンタックスハイライトに対応しているはずだ。
