@@ -33,19 +33,8 @@ end
 
 set :components_dir, 'components'
 # Methods defined in the helpers block are available in templates
-helpers do
-  def component_import_tag(*sources)
-    options = {
-      rel: 'import'
-    }.update(sources.extract_options!.symbolize_keys)
-    sources.flatten.inject(ActiveSupport::SafeBuffer.new) do |all, source|
-      components_dir = app.config[:components_dir] || 'components'
-      suffix = app.config[:component_suffix] || '.html'
-      url = url_for(File.join(components_dir, "#{source}#{suffix}"), relative: true)
-      all << tag(:link, {href: url}.update(options))
-    end
-  end
-end
+# helpers do
+# end
 
 # Build-specific configuration
 configure :build do
@@ -69,6 +58,8 @@ configure :build do
   end
 end
 
+activate :web_component
+
 activate :blog do |blog|
   blog.sources = '{year}-{month}-{day}.html'
   blog.permalink = '{year}/{month}/{day}.html'
@@ -79,18 +70,3 @@ activate :deploy do |deploy|
   deploy.deploy_method = :git
   deploy.remote = 'github'
 end
-
-class Vulcanize < Middleman::Extension
-  def initialize(app, options={}, &block)
-    super
-    app.after_build do |builder|
-      command = 'cd source && vulcanize -o ../build/components/elements.vulcanized.html components/elements.html'
-      $stderr.puts "run: #{command}"
-      $stderr.puts `#{command}`
-    end
-  end
-end
-
-::Middleman::Extensions.register :vulcanize, Vulcanize
-
-activate :vulcanize
