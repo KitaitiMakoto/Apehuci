@@ -9,6 +9,13 @@ title: アペフチ
     <h1><%=h article.title %></h1>
     <time pubdate><%=h article.date.strftime('%F') %></time>
     <% end %>
+    <% if article.data.tags && !article.data.tags.empty? %>
+    <ul class="tags">
+      <% article.data.tags.each do |tag| %>
+      <li><%= tag %></li>
+      <% end %>
+    </ul>
+    <% end %>
     <%= article.summary %>
     <% link_to article do %>
     <paper-button raised>もっと読む</paper-button>

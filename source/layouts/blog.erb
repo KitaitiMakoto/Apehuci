@@ -32,6 +32,13 @@
         <paper-card>
           <h1><%= current_page.data.title %></h1>
           <time pubdate><%=h current_page.date.strftime('%F') %></time>
+          <% if current_page.data.tags && !current_page.data.tags.empty? %>
+          <ul class="tags">
+            <% current_page.data.tags.each do |tag| %>
+            <li><%= tag %></li>
+            <% end %>
+          </ul>
+          <% end %>
           <%= yield %>
         </paper-card>
         <footer>
