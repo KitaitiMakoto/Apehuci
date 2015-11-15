@@ -72,7 +72,7 @@ activate :deploy do |deploy|
   deploy.remote = 'github'
 end
 
-set :feed_uri, 'recent-articles.atom'
+set :feed_uri, 'recent-days.atom'
 class Feed < ::Middleman::Extension
   def initialize(app, option_hash={}, &block)
     super
