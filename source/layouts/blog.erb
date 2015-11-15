@@ -43,18 +43,20 @@
           <%= yield %>
         </paper-card>
         <footer>
-          <paper-card>
+          <% if current_page.next_article || current_page.previous_article %>
+          <ul>
             <% if current_page.next_article %>
             <% link_to current_page.next_article.url, :rel => 'next' do %>
-            <paper-button raised><%= current_page.next_article.data.title %></paper-button>
+            <li><paper-button raised><%= current_page.next_article.data.title %></paper-button></li>
             <% end %>
             <% end %>
             <% if current_page.previous_article %>
             <% link_to current_page.previous_article.url, :rel => 'previous' do %>
-            <paper-button raised><%= current_page.previous_article.data.title %></paper-button>
+            <li><paper-button raised><%= current_page.previous_article.data.title %></paper-button></li>
             <% end %>
             <% end %>
-          </paper-card>
+          </ul>
+          <% end %>
           <paper-card>
             <%= partial 'author' %>
           </paper-card>
