@@ -96,6 +96,7 @@ class Feed < ::Middleman::Extension
           generator.uri = 'https://middlemanapp.com/'
           generator.version = Middleman::Blog::VERSION
         end
+        maker.items.do_sort = true
 
         articles.each do |article|
           date = article.date.time
