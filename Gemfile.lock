@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/KitaitiMakoto/middleman-web_component.git
-  revision: 9bfa66963d993cd78f1aed5ed7a3db45a50a17ae
+  remote: git://github.com/KitaitiMakoto/middleman-web_components.git
+  revision: b723318a32a3fc5d65535cfe38622773d06da8ac
   specs:
-    middleman-web_component (0.0.1)
+    middleman-web_components (0.0.1)
       middleman-core (>= 4.0.0.rc.1)
 
 GIT
@@ -123,7 +123,7 @@ DEPENDENCIES
   middleman-blog!
   middleman-deploy (>= 2.0.0.pre.alpha)
   middleman-minify-html
-  middleman-web_component!
+  middleman-web_components!
   nokogiri
   rouge
   tzinfo-data

@@ -59,7 +59,7 @@ configure :build do
   end
 end
 
-activate :web_component
+activate :web_components
 
 activate :blog do |blog|
   blog.sources = '{year}-{month}-{day}.html'
