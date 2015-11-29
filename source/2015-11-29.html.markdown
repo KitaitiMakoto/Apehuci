@@ -11,7 +11,7 @@ tags:
 <a href="http://www.storyboards.jp/viewer/yct228">http://www.storyboards.jp/viewer/yct228</a>
 <iframe src="http://www.storyboards.jp/widget/yct228" width="640" height="480"></iframe>
 
-今年のテーマ（去年までは「全文検索エンジンGroongaを囲む夕べ」という名前でやっていたイベント）は「よいところ」なので、Droongaのよいところを発表してきた。
+今年のテーマ（去年までは「全文検索エンジンGroongaを囲む夕べ」という名前でやっていたイベント）は「よいところ」なので、Droongaのよいところを発表してきた。発表の機会を貰えたことはとても価値のあることだった。本当にありがとうございました。
 
 反省点色々あった。ただ、これに関する色々なことを実際のDroonga開発者の方に聞けて、三つくらい疑問が解消したのがあって、僕にとってはとても有意義だった。ありがとうございました。
 
