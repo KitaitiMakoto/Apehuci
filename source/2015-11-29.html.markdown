@@ -1,0 +1,20 @@
+---
+title: Rubyでプラグインを作れる分散全文検索エンジンDroonga
+tags:
+  - Groonga
+  - Ruby
+---
+
+[Groonga Meatup 2015][]で発表してきた。タイトルは「Rubyでプラグインを作れる分散全文検索エンジンDroonga」で、資料は以下の通り。
+
+<iframe src="http://www.storyboards.jp/widget/yct228" width="640" height="480"></iframe>
+
+今年のテーマ（去年までは「全文検索エンジンGroongaを囲む夕べ」という名前でやっていたイベント）は「よいところ」なので、Droongaのよいところを発表してきた。
+
+反省点色々あった。ただ、これに関する色々なことを実際のDroonga開発者の方に聞けて、三つくらい疑問が外傷したのがあって、僕にとってはとても有意義だった。ありがとうございました。
+
+あと、プレゼンに使った[Stobo][]はそれなりに面白がってくれて、自分で作った物ではないけどこれも嬉しかった。
+
+
+[Groonga Meatup 2015]: https://groonga.doorkeeper.jp/events/31482
+[Stobo]: http://www.storyboards.jp/
