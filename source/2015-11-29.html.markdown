@@ -15,8 +15,10 @@ tags:
 
 反省点色々あった。ただ、これに関する色々なことを実際のDroonga開発者の方に聞けて、三つくらい疑問が解消したのがあって、僕にとってはとても有意義だった。ありがとうございました。
 
-あと、プレゼンに使った[Stobo][]はそれなりに面白がってくれて、自分で作った物ではないけどこれも嬉しかった。
+あと、プレゼンに使った[Stobo][]はそれなりに面白がってくれて、自分で作った物ではないけどこれも嬉しかった。本当は[Rabbit][]でスライド作って[Rabbit Slide Show][]に上げたいなと思っていたのだけど時間無さ過ぎて慣れてるツールになったというのは秘密。
 
 
 [Groonga Meatup 2015]: https://groonga.doorkeeper.jp/events/31482
 [Stobo]: http://www.storyboards.jp/
+[Rabbit]: http://rabbit-shocker.org/ja/
+[Rabbit Slide Show]: http://slide.rabbit-shocker.org/
