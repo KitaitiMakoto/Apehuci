@@ -6,7 +6,9 @@ tags:
 ---
 
 [Groonga Meatup 2015][]で発表してきた。タイトルは「Rubyでプラグインを作れる分散全文検索エンジンDroonga」で、資料は以下の通り。
+（iframeで埋め込んでいるけど、HTTPS非対応なので埋め込み表示できていないかも知れない。リンク先に飛ぶか、このページのURIをHTTPにすると見られる。）
 
+<a href="http://www.storyboards.jp/viewer/yct228">http://www.storyboards.jp/viewer/yct228</a>
 <iframe src="http://www.storyboards.jp/widget/yct228" width="640" height="480"></iframe>
 
 今年のテーマ（去年までは「全文検索エンジンGroongaを囲む夕べ」という名前でやっていたイベント）は「よいところ」なので、Droongaのよいところを発表してきた。
