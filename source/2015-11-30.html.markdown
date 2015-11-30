@@ -1,0 +1,32 @@
+---
+title: Action Cableが便利そう
+tags:
+  - Action Cable
+  - Ruby
+---
+
+とても久し振りに[Sendagaya.rb][]に参加して来た。
+
+[第128回][]の今日は、三十分くらい雑談した後、QiitaのAction Cableの記事[[Rails5]Action Cableのサンプルを読み解いてみる][qiita-article]を読みながらああだこうだ言っていた。一通り見ての感想は「便利そう」「使いたい」。
+
+[Action Cable][]はRails 5から入るらしい新機能で、WebSocketをRailsに統合した形で扱える物らしい。まともに記事など読んだのは今日が初めてで、これがRais界隈でどれくらい認知されているかは分からない。僕が「RailsでWebSocket」と聞いて漠然と思い浮かべたのが`ActionController::Live`だったのだけど全然違う（`ActionController::Live`については[Is It Live?][]がよい紹介記事だ）。
+
+Action Cableでは、Railsのプロセスの他にAction Cable用のプロセスを立ち上げる。こいつがブラウザーとWebSocketで通信する。普通だ。Action Cableのいい所はここからで、Railsとセッション用のクッキー情報を共有できる（電子署名が付いているあれだ）。だから、WebSocketを使ってAction Cableに接続してきたクライアントが、Rails（のデータベース）で管理しているどのユーザーに相当するのか、見付けることができるのだ。
+
+更に、Railsのプロセスからブラウザーに、WebSocket経由でメッセージを送ることができる。例えば、フォームなどから普通にコメントを投稿した時に、そのことをWebSocketで繋がっている全ユーザーに通知できる。だがRailsがWebSocketを使ってAction Cableに接続しているわけではない。Active Jobを使ってRedisにメッセージを送信するのだ。Action CableはRedisのpubsub機能を使っていて、Rails（Active Job実装のワーカープロセス）がパブリッシャー、Action Cableプロセスがサブスクライバーになっている。Action Cableはサブスクライブしたメッセージを、予めAction Cable用に書かれたコードに従って、必要なクライアントに流す。もちろん、クライアント同士WebSocket経由での通信もできる。（そう言えば、はて、クライアントからDBのレコードを弄るような場合、Action Cableプロセスがやるのだろうか、Railsプロセスがやるのだろうか。後者はフォームなりAjaxなりでやることが自然に思い浮かべられるが、前者は逆方向のpubsubになる？　と考えると、そういうことはなさそうだなと思う。）
+
+    Rails --(Active Job)--> Worker --(Redis pubsub)--> Cable --(WebSocket)--> Clients
+
+副産物として、始めからRedisのpubsubでWebSocketサーバーをつなぐのが前提なので、プロセスを増やすだけで簡単にスケールアウトさせられそうだ。これは悪いことではない、というかむしろいいことだが、Railsはモノリシックなのが特徴の一つという印象を持っていたので、結構変わり種のコンポーネントだな、と感じた。繰り返すが悪いことではない。
+
+と、便利なところだったが、実は半分くらいは推測で書いている。件の記事の内容からは内部の動きは分からないからだ。だから今度はAction Cableのソースコードを読みたいと思っているし、もしかしたら次回のSendagaya.rbでソースコードリーディングができるかも知れない。
+
+余談。「RailsからRedisにパブリッシュするためにはSidekiqなどが必要で、更に別のプロセスを立てないといけない」といった話をしている時に、[@tkawa][]さんに[Sucker Punch][]を教えてもらった。Railsプロセス内にCelluloidを使ってアクタースレッドを立て、それを使ってActive Jobのジョブを実行する物のようだ。ぱっと見本番で使っていいかは不安に思ったが、開発環境で使う分には便利だろう。
+
+[Sendagaya.rb]: https://sendagayarb.doorkeeper.jp/
+[第128回]: https://sendagayarb.doorkeeper.jp/events/35276
+[qiita-article]: http://qiita.com/bisque33/items/1360477c2260b361ec03
+[Action Cable]: https://github.com/rails/actioncable
+[Is It Live?]: http://tenderlovemaking.com/2012/07/30/is-it-live.html
+[@tkawa]: https://twitter.com/tkawa
+[Sucker Punch]: https://github.com/brandonhilkert/sucker_punch
