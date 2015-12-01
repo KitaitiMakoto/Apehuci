@@ -8,6 +8,7 @@
     <!-- Use title if it's in the page YAML frontmatter -->
     <title><%= current_page.data.title || "アペフチ" %></title>
 
+    <%= partial 'android_firefox' %>
     <%= javascript_include_tag '../bower_components/webcomponentsjs/webcomponents.min.js' %>
     <%= component_import_tag :elements %>
 
