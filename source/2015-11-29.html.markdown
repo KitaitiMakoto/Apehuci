@@ -5,7 +5,12 @@ tags:
   - Ruby
 ---
 
-[Groonga Meatup 2015][]で発表してきた。タイトルは「Rubyでプラグインを作れる分散全文検索エンジンDroonga」で、資料は以下の通り。
+[Groonga Meatup 2015][]で発表してきた。タイトルは「Rubyでプラグインを作れる分散全文検索エンジンDroonga」。発表を録画してもらえていて、以下で見られる。
+
+[https://youtu.be/_Ep-OnP1lhA?t=2h39m42s](https://youtu.be/_Ep-OnP1lhA?t=2h39m42s)
+（あとで個別に切り分けたものが出てきそう）
+
+資料は以下の通り。
 （iframeで埋め込んでいるけど、HTTPS非対応なので埋め込み表示できていないかも知れない。リンク先に飛ぶか、このページのURIをHTTPにすると見られる。）
 
 <a href="http://www.storyboards.jp/viewer/yct228">http://www.storyboards.jp/viewer/yct228</a>
