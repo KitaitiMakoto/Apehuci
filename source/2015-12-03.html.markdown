@@ -1,0 +1,35 @@
+---
+title: Firefox for AndroidでもPolymerが動作するようにする
+tags:
+  - Webコンポーネント
+  - Polymer
+---
+
+この日記は[Polymer][] 1.2.1で作っているのだが、この前まで僕のメインブラウザーであるFirefox for Androidでは読めなかった。今でも[Polymer Element Catalog][]のサイトを見るとそれが体験できる。Firefox for PCでは問題ない。Firefox for iOSは知らない。
+
+[webcomponentsjs][]やPolymerに`console.log()`を仕込みながらプリントデバッグを頑張って原因を突き止めたところ、webcomponentsjsでの[HTMLインポート][]の検出に問題があることが分かった。現時点でのwebcomponentsjsでは、ブラウザーにHTMLインポートの機能があるかどうかを、`link`要素の（JavaScriptの）オブジェクトに`import`プロパティ（あれば関数）が存在するかどうか、`in`演算子で確認してチェックして判断している（[該当箇所][]）。HTMLインポートをサポートしていないブラウザー（Firefox for PCなど）では`import`プロパティが存在せず、その場合はshimを使う。ところがFirefox for Androidでは、「`link`要素に`import`プロパティが存在する」「しかしHTMLインポート機能はサポートしていない」ということになっている。`link.import`が、`null`になっているのだ。たとえ`null`であっても、値が存在すれば`in`演算子は`true`を返す。従ってFirefox for AndroidにはHTMLインポート機能が存在する、とwebcomponentsjsは判断しているわけだ。
+
+一応、[バグレポート][]はした。プルリクエストはリクエストしなかった。[コントリビューションページ][]によると、コントリビュートするにはライセンスに同意する必要がある。それは構わなかったのだが、同意手続きの過程で住所を入力欄が現れた。それも必須項目として。漠然と不安を覚えてプルリクエストは躊躇ってしまった。
+
+webcomponentsjsでこの問題が対応されるかは分からない。だから今この日記ではこんなワークアラウンドを入れている。
+
+~~~ javascript
+(function() {
+  var ua = navigator.userAgent;
+  if (ua.indexOf("Android") !== -1 &&
+    ua.indexOf("Firefox") !== -1 &&
+    document.createElement("link").import === null) {
+    delete HTMLLinkElement.prototype.import;
+  }
+})();
+~~~
+
+これを、webcomponentsjsをロードする`script`タグの**前**に置いている。`if`節の条件は`null`のチェックだけでよさそうだが、そうするとなぜかChromiumやChromeでページが読めなくなってしまったので、プラットフォームも判断している。なぜ読めなくなったかは調べていない。
+
+[Polymer]: https://www.polymer-project.org/
+[Polymer Element Catalog]: https://elements.polymer-project.org/
+[webcomponentsjs]: http://webcomponents.org/polyfills/
+[HTMLインポート]: http://www.w3.org/TR/html-imports/
+[該当箇所]: https://github.com/webcomponents/webcomponentsjs/blob/fedfe0210aa853a9531bd976f6d161d585cc22fb/src/HTMLImports/base.js#L28
+[コントリビューションページ]: https://github.com/webcomponents/webcomponentsjs/blob/master/CONTRIBUTING.md
+[バグレポート]: https://github.com/webcomponents/webcomponentsjs/issues/452
