@@ -1,0 +1,106 @@
+---
+title: DroongaをインストールするItamaeレシピ
+tags:
+  - Droonga
+  - Itamae
+---
+
+今日の日記は[Groonga Advent Calendar 2015][]の五日目です。昨日は[cosmo0920][]さんの[Groonga族のHomebrewの変遷を振り返る][]でした。やっぱりコマンド一つで簡単にインストールできるのはよい。しかし、そのためには陰で誰かが苦労しているということも伺える記事だった。
+
+今日は、Homebrewなどで一発インストールのできないGroonga族の一員、[Droonga][]のインストールについて書く。
+
+Groongaにはレプリケーション機能がない。DroongaはGroongaを複数のマシンにレプリケーションさせるプロダクトだ。公式サイトのほか、[去年のGroonga Advent Calendar][Groonga Advent Calendar 2014]にも記事があって、とても面白く読んだ。Droongaが何かということはこれらを見てほしい。
+
+公式サイトには勿論[インストール手順][]も書かれているのだが、今日時点でこれはうまくいかない。そこで僕は、サーバーの構成管理ツールである[Itamae][]のレシピを作ってインストールしている。今日はそれを使ったインストール方法を書こうと思う。以下、[Vagrant][]を使ってUbuntu 15.04の環境で実行している。マシンイメージは[Vagrant Cloud][]から[公式のイメージ][ubuntu/vivid64]を持って来た。
+
+Droongaのインストール時にはメモリーが必要なので、`Vagrantfile`に設定を書いて2GiBくらい確保しておく。
+
+~~~ ruby
+Vagrant.configure(2) do |config|
+  config.vm.define :ubuntu1504 do |node|
+    node.vm.box = "ubuntu/vivid64"
+    node.vm.provider "virtualbox" do |provider|
+      provider.memory = 2048
+    end
+  end
+  # :
+  # :
+end
+~~~
+
+バーチャルマシンを起動したら、まずログインして環境を更新する。
+
+    [host]$ vagrant up ubuntu1504
+    [host]$ vagrant ssh ubuntu 1504
+    [vm]$ sudo apt-get update
+    [vm]$ sudo apt-get upgrade -y
+
+ここでようやくレシピの登場。GitHubに上げている（[https://github.com/KitaitiMakoto/itamae-plugin-recipe-droonga](https://github.com/KitaitiMakoto/itamae-plugin-recipe-droonga)）。gemまたはItamaeプラグインの形をしているがrubygems.orgには上げていないので、`git clone`で持って来る必要がある。もっと一般的にしてからリリースしたいなと思って、そのまま時間が過ぎてしまっているのだ……。
+
+    [host]$ git clone https://github.com/KitaitiMakoto/itamae-plugin-recipe-droonga.git
+
+リポジトリーをクローンしたら、Itamaeのレシピファイル（ここでは`recipe.rb`）を用意して、以下のように一行書く。
+
+~~~ ruby
+include_recipe "./itamae-plugin-recipe-droonga
+/lib/itamae/plugin/recipe/droonga/default.rb"
+
+~~~
+
+そうしたらItamaeを実行すればよい。簡単だ。但し時間は掛かる。
+
+    [host]$ itamae --vagrant --host ubuntu1504 recipe.rb
+
+（上のイメージだとこれでいいが、DigitalOceanだと依存パッケージが足りなくてうまくいかなかったかも知れない。エラーメッセージを見ながら必要な物をインストールしてほしい。）
+
+Droongaは二つのコンポーネントからなっている。Groongaデータベースを操作したり、他ノードと連携してレプリケーションを実現する[Droonga Engine][]と、そこへのHTTPインターフェイスを提供する[Droonga HTTP Server][]だ。それぞれそれ用のプロセスを起動する必要がある。
+
+公式サイトの記事では`service`コマンドを使ってこれをコントロールすることになっているが、Ubuntuは15.04からUpstartに代わってsystemdが導入されたので、レシピでは`systemctl`コマンドを使うようにしている。
+
+    [vm]$ sudo systemctl status droong-engine
+    ● droonga-engine.service - Droonga Engine
+    Loaded: loaded (/lib/systemd/system/droonga-engine.service; enabled; vendor preset: enabled)
+    Active: active (running) since Fri 2015-12-04 20:09:56 UTC; 37s ago
+    Main PID: 30190 (droonga-engine)
+    CGroup: /system.slice/droonga-engine.service
+    (snip)
+    [vm]$ sudo systemctl status droonga-http-server
+    ● droonga-http-server.service - Droonga HTTP Server
+    Loaded: loaded (/lib/systemd/system/droonga-http-server.service; enabled; vendor preset: enabled)
+    Active: active (running) since Fri 2015-12-04 20:09:57 UTC; 2min 11s ago
+    Main PID: 30228 (node)
+    CGroup: /system.slice/droonga-http-server.service
+    (snip)
+
+これでDroongaが動くはずだし、実際[EPUB Searcherデモサイト][]ではこの方法でインストールして、現在でも動作している。
+
+尚、Droongaを動かすには、内部・外部から、`hostname`で返って来るホスト名で名前解決できる必要がある。`hostname`と違うホスト名を使いたい場合は、レシピのインストールの箇所（[Droonga Engine該当箇所](https://github.com/KitaitiMakoto/itamae-plugin-recipe-droonga/blob/87c7c9015b626a84b14bfa226d399eb02839bd84/lib/itamae/plugin/recipe/droonga/default.rb#L28)、[Droonga HTTP Server該当箇所](https://github.com/KitaitiMakoto/itamae-plugin-recipe-droonga/blob/87c7c9015b626a84b14bfa226d399eb02839bd84/lib/itamae/plugin/recipe/droonga/default.rb#L36)）の最後の`bash`実行時に`HOST`環境を設定し、また`/etc/hosts`でも設定する必要があるので書き換えること。
+
+~~~ ruby
+# :
+# :
+execute "curl -sL https://deb.nodesource.com/setup_0.12 | bash HOST=..." do
+  not_if "test -e /etc/apt/sources.list.d/nodesource.list"
+end
+# :
+# :
+execute "curl https://raw.githubusercontent.com/droonga/droonga-engine/master/install.sh | bash HOST=..." do
+  not_if "type droonga-engine"
+end
+# :
+# :
+~~~
+
+[Groonga Advent Calendar 2015]: http://qiita.com/advent-calendar/2015/groonga
+[Groonga族のHomebrewの変遷を振り返る]: http://qiita.com/cosmo0920/items/ed7e071d111c533e217c
+[cosmo0920]: http://qiita.com/cosmo0920
+[Droonga]: http://droonga.org/ja/
+[Groonga Advent Calendar 2014]: http://qiita.com/advent-calendar/2014/groonga
+[インストール手順]: http://droonga.org/ja/install/
+[Itamae]: http://itamae.kitchen/
+[Vagrant]: https://www.vagrantup.com/
+[Vagrant Cloud]: https://atlas.hashicorp.com/boxes/search?utm_source=vagrantcloud.com&vagrantcloud=1
+[ubuntu/vivid64]: https://atlas.hashicorp.com/ubuntu/boxes/vivid64
+[Droonga Engine]: https://github.com/droonga/droonga-engine
+[Droonga HTTP Server]: https://github.com/droonga/droonga-http-server
+[EPUB Searcherデモサイト]: http://epub-searcher-demo.kitaitimakoto.net/
