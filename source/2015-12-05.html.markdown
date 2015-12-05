@@ -31,7 +31,7 @@ end
 バーチャルマシンを起動したら、まずログインして環境を更新する。
 
     [host]$ vagrant up ubuntu1504
-    [host]$ vagrant ssh ubuntu 1504
+    [host]$ vagrant ssh ubuntu1504
     [vm]$ sudo apt-get update
     [vm]$ sudo apt-get upgrade -y
 
@@ -49,13 +49,13 @@ include_recipe "./itamae-plugin-recipe-droonga
 
 そうしたらItamaeを実行すればよい。簡単だ。但し時間は掛かる。
 
-    [host]$ itamae --vagrant --host ubuntu1504 recipe.rb
+    [host]$ itamae ssh --vagrant --host ubuntu1504 recipe.rb
 
 （上のイメージだとこれでいいが、DigitalOceanだと依存パッケージが足りなくてうまくいかなかったかも知れない。エラーメッセージを見ながら必要な物をインストールしてほしい。）
 
 Droongaは二つのコンポーネントからなっている。Groongaデータベースを操作したり、他ノードと連携してレプリケーションを実現する[Droonga Engine][]と、そこへのHTTPインターフェイスを提供する[Droonga HTTP Server][]だ。それぞれそれ用のプロセスを起動する必要がある。
 
-公式サイトの記事では`service`コマンドを使ってこれをコントロールすることになっているが、Ubuntuは15.04からUpstartに代わってsystemdが導入されたので、レシピでは`systemctl`コマンドを使うようにしている。
+公式サイトの記事では`service`コマンドを使ってこれをコントロールすることになっているが、Ubuntuでは15.04からUpstartに代わってsystemdが導入されたので、レシピでは`systemctl`コマンドを使うようにしている。
 
     [vm]$ sudo systemctl status droong-engine
     ● droonga-engine.service - Droonga Engine
