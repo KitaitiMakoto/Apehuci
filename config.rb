@@ -70,7 +70,6 @@ end
 
 activate :deploy do |deploy|
   deploy.deploy_method = :git
-  deploy.remote = 'github'
 end
 
 set :feed_uri, 'recent-days.atom'
