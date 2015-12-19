@@ -5,15 +5,6 @@ GIT
     middleman-web_components (0.0.1)
       middleman-core (>= 4.0.0.rc.1)
 
-GIT
-  remote: git://github.com/middleman/middleman-blog.git
-  revision: c5bee39332561180707633c42d02fd4b71280099
-  specs:
-    middleman-blog (4.0.0)
-      addressable (~> 2.4.0)
-      middleman-core (>= 4.0.0)
-      tzinfo (>= 0.3.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -64,6 +55,10 @@ GEM
       middleman-cli (= 4.0.0)
       middleman-core (= 4.0.0)
       sass (>= 3.4.0, < 4.0)
+    middleman-blog (4.0.0)
+      addressable (~> 2.4.0)
+      middleman-core (>= 4.0.0)
+      tzinfo (>= 0.3.0)
     middleman-cli (4.0.0)
       thor (>= 0.17.0, < 2.0)
     middleman-core (4.0.0)
@@ -132,8 +127,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  middleman (>= 4.0.0.rc.1)
-  middleman-blog!
+  middleman (~> 4)
+  middleman-blog
   middleman-deploy (>= 2.0.0.pre.alpha)
   middleman-minify-html
   middleman-web_components!
