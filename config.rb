@@ -29,18 +29,14 @@ set :markdown, 'syntax_highlighter' => 'rouge'
 # Reload the browser automatically whenever files change
 configure :development do
 #   activate :livereload
-  set :component_suffix, '.html'
 end
 
-set :components_dir, 'components'
 # Methods defined in the helpers block are available in templates
 # helpers do
 # end
 
 # Build-specific configuration
 configure :build do
-  set :component_suffix, '.vulcanized.html'
-
   ignore /\Abower_components/
 
   # Minify CSS on build
