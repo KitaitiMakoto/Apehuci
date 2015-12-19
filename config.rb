@@ -37,15 +37,34 @@ end
 
 # Build-specific configuration
 configure :build do
-  ignore /\Abower_components/
+  used_bower_components = %w[
+    webcomponentsjs/webcomponents.min.js
+    paper-header-panel/paper-header-panel.css
+  ]
+
+  ignore do |path|
+    ignored = true
+    ignored = false unless path.start_with? 'bower_components/'
+    used_bower_components.each do |used_file|
+      ignored = false if path == File.join('bower_components', used_file)
+    end
+
+    ignored
+  end
 
   # Minify CSS on build
-  activate :minify_css
+  activate :minify_css do |css|
+    css.ignore = /"#{used_bower_components.join('|')}/
+  end
 
   # Minify Javascript on build
-  activate :minify_javascript
+  activate :minify_javascript do |js|
+    js.ignore = /"#{used_bower_components.join('|')}/
+  end
 
-  activate :asset_hash
+  activate :asset_hash do |asset|
+    asset.ignore = /\Abower_components\//
+  end
 
   activate :minify_html do |html|
     html.remove_intertag_spaces = true
