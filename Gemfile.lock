@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/KitaitiMakoto/middleman-web_components.git
-  revision: b723318a32a3fc5d65535cfe38622773d06da8ac
+  revision: d7f048e427b6ede847e6820a02d9c28e76a285bb
   specs:
     middleman-web_components (0.0.1)
-      middleman-core (>= 4.0.0.rc.1)
+      middleman-core (>= 4.0.0)
 
 GEM
   remote: https://rubygems.org/
