@@ -39,7 +39,6 @@ end
 configure :build do
   used_bower_components = %w[
     webcomponentsjs/webcomponents.min.js
-    paper-header-panel/paper-header-panel.css
   ]
 
   ignore do |path|
