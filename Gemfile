@@ -17,7 +17,4 @@ gem 'middleman-minify-html'
 # Used to highlight syntax via kramdown
 gem 'rouge'
 
-# For summary of blog articles
-gem 'nokogiri'
-
 gem 'middleman-web_components', :github => 'KitaitiMakoto/middleman-web_components'
