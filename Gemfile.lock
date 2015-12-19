@@ -7,11 +7,11 @@ GIT
 
 GIT
   remote: git://github.com/middleman/middleman-blog.git
-  revision: f1150cc9191a0e22f8606610b8fcd1bc3e182b52
+  revision: c5bee39332561180707633c42d02fd4b71280099
   specs:
-    middleman-blog (4.0.0.rc.1)
-      addressable (~> 2.3.5)
-      middleman-core (>= 4.0.0.rc.1)
+    middleman-blog (4.0.0)
+      addressable (~> 2.4.0)
+      middleman-core (>= 4.0.0)
       tzinfo (>= 0.3.0)
 
 GEM
@@ -23,7 +23,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.3.8)
+    addressable (2.4.0)
     backports (3.6.7)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -56,19 +56,19 @@ GEM
     listen (3.0.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    middleman (4.0.0.rc.2)
+    middleman (4.0.0)
       coffee-script (~> 2.2)
       compass-import-once (= 1.0.5)
       haml (>= 4.0.5)
       kramdown (~> 1.2)
-      middleman-cli (= 4.0.0.rc.2)
-      middleman-core (= 4.0.0.rc.2)
+      middleman-cli (= 4.0.0)
+      middleman-core (= 4.0.0)
       sass (>= 3.4.0, < 4.0)
-    middleman-cli (4.0.0.rc.2)
+    middleman-cli (4.0.0)
       thor (>= 0.17.0, < 2.0)
-    middleman-core (4.0.0.rc.2)
+    middleman-core (4.0.0)
       activesupport (~> 4.2)
-      addressable (~> 2.3.5)
+      addressable (~> 2.4.0)
       backports (~> 3.6)
       bundler (~> 1.1)
       capybara (~> 2.5.0)
@@ -100,7 +100,7 @@ GEM
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
-    nokogiri (1.6.7)
+    nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     padrino-helpers (0.13.0)
       i18n (~> 0.6, >= 0.6.7)
@@ -116,7 +116,7 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rouge (1.10.1)
-    sass (3.4.19)
+    sass (3.4.20)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -143,4 +143,4 @@ DEPENDENCIES
   wdm (~> 0.1.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
