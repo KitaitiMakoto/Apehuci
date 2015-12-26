@@ -1,0 +1,49 @@
+---
+title: Middleman Blogの類似記事をGroongaを使ってリストアップするRubyGemを作った
+tags:
+  - Groonga
+  - Middleman
+---
+
+この日記は[Groonga Advent Calendar 2015][]の21日目の記事です。今日は25日です。大幅に遅れてしまって、本当に申し訳ありません。
+
+Middlemanでブログの類似記事一覧を作る拡張に[Middleman-Blog-Similar][]がある。類似判定のアルゴリズムを選べたりといい所もあるのだがこれは今のMiddleman v4に対応していない。それにGroonga Advent CalendarのネタとしてもGroongaが使いたかったので、Groongaの類似文書検索機能を使って同様のことをやってみた。
+
+[https://github.com/KitaitiMakoto/middleman-blog-similar-groonga](https://github.com/KitaitiMakoto/middleman-blog-similar-groonga)
+
+使うには`middleman-blog-similar-groonga`をインストールし、`config.rb`で
+
+~~~ ruby
+activate :blog_similar_groonga
+~~~
+
+と追記する。
+
+拡張を有効化するとブログ記事向けのレイアウトで`similar_articles`というヘルパーが使えるようになる。ここでイテレートされるオブジェクトには
+
+* `key.key`（パス）
+* `title`
+* `path`
+* `body`（タグを取り除いたもの）
+
+の属性があって、わざわざ他記事の`BlogArticles`オブジェクトまで辿らなくても済むようになっている。類似記事のタイトルを表示しつつリンクにしたいだけなら充分だろう。
+
+~~~ erb
+<section>
+  <h2>類似記事</h2>
+  <ul>
+  <% similar_articles.each do |article| %>
+    <li><%= link_to article.title, article.key.key %></li>
+  <% end %>
+  </ul>
+</section>
+~~~
+
+として使うことができる。
+
+今は本文での類似しか見ていないが、タイトルやタグを使ったほうが人間の感覚に合うだろうから、改善を続けていきたい。
+
+名前は似ているがMiddleman-Blog-Similarとは全く互換性が無いので注意すること。
+
+[Groonga Advent Calendar 2015]: http://qiita.com/advent-calendar/2015/groonga
+[Middleman-Blog-Similar]: https://github.com/ngs/middleman-blog-similar
