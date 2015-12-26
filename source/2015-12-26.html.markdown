@@ -1,0 +1,12 @@
+---
+title: Middleman Web Components
+tags:
+  - Middleman
+  - Webコンポーネント
+---
+
+何度か書いたように、この日記はPolymerで作っている、つまりウェブコンポーネントを使っている。そこで、一般的に使いそうな機能をMiddleman拡張として書いていたのだが、今日RubyGemとしてリリースした。[Middleman Web Components][]だ。
+
+もちろんまだまだ足りないことは多いんだろうと思うが、自分の日記を触りながら拡張していきたいと思う。
+
+[Middleman Web Components]: http://www.rubydoc.info/gems/middleman-web_components
