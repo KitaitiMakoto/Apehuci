@@ -7,8 +7,8 @@ tags:
 
 [Groonga Meatup 2015][]で発表してきた。タイトルは「Rubyでプラグインを作れる分散全文検索エンジンDroonga」。発表を録画してもらえていて、以下で見られる。
 
-[https://youtu.be/_Ep-OnP1lhA?t=2h39m42s](https://youtu.be/_Ep-OnP1lhA?t=2h39m42s)
-（あとで個別に切り分けたものが出てきそう）
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9TfYtKolbcg?list=PLLwHraQ4jf7MRIR36oO_Zys4V5oJ8DGDb" frameborder="0" allowfullscreen></iframe>
+（<del>あとで個別に切り分けたものが出てきそう</del><ins>出てきたので差し替えた。ありがとうございます！</ins>）
 
 資料は以下の通り。
 （iframeで埋め込んでいるけど、HTTPS非対応なので埋め込み表示できていないかも知れない。リンク先に飛ぶか、このページのURIをHTTPにすると見られる。）
