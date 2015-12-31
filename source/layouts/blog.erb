@@ -38,7 +38,7 @@
             <% if current_page.data.tags && !current_page.data.tags.empty? %>
             <ul class="tags">
               <% current_page.data.tags.each do |tag| %>
-              <li><%= tag %></li>
+              <li><%= link_to tag, tag_path(tag), :rel => 'tag' %></li>
               <% end %>
             </ul>
             <% end %>
