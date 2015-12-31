@@ -12,12 +12,12 @@
   body[unresolved] {
     opacity: 0;
   }
-  article {
+  article, section {
     margin: 1em auto;
     text-align: center;
     color: var(--primary-text-color);
   }
-  article header {
+  article header, section header {
     margin-bottom: 0.5em;
   }
   article time {
@@ -108,5 +108,11 @@
     background-color: #EEEEEE;
     padding: 2em;
     overflow-x: auto;
+  }
+  ul.tagged-articles {
+    list-style: none;
+  }
+  ul.tagged-articles li {
+    padding: 0.2em;
   }
 </style>
