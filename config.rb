@@ -80,6 +80,7 @@ activate :blog do |blog|
   blog.sources = '{year}-{month}-{day}.html'
   blog.permalink = '{year}/{month}/{day}.html'
   blog.layout = 'blog'
+  blog.tag_template = 'tag.html'
 end
 
 activate :deploy do |deploy|

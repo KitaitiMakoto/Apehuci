@@ -1,0 +1,54 @@
+---
+layout: false
+---
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+
+    <title><%=h tagname %>とタグ付けられたページ</title>
+
+    <%= partial 'android_firefox' %>
+    <%= javascript_include_tag '../bower_components/webcomponentsjs/webcomponents.min.js' %>
+    <%= component_import_tag :elements %>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+    <link href=<%= url_for h(app.config[:feed_uri]) %> rel=alternate type="application/atom+xml">
+
+    <%= stylesheet_link_tag :site %>
+    <%= javascript_include_tag :all %>
+  </head>
+
+  <body class="<%= page_classes %>" unresolved>
+    <paper-header-panel>
+      <paper-toolbar>
+        <h2>
+          <% link_to '/index.html' do %>
+          アペフチ
+          <paper-ripple></paper-ripple>
+          <% end %>
+        </h2>
+      </paper-toolbar>
+      <section>
+        <header>
+          <paper-card>
+            <h1><%=h tagname %>とタグ付けられたページ</h1>
+          </paper-card>
+        </header>
+        <paper-card>
+          <ul class=tagged-articles>
+            <% articles.each do |article| %>
+            <li><%= link_to h("#{article.date.strftime('%F')} #{article.title}"), article %></li>
+            <% end %>
+          </ul>
+        </paper-card>
+        <footer>
+          <paper-card>
+            <%= partial 'author' %>
+          </paper-card>
+        </footer>
+      </section>
+  </body>
+</html>
