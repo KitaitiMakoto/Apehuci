@@ -12,7 +12,7 @@ title: アペフチ
     <% if article.data.tags && !article.data.tags.empty? %>
     <ul class="tags">
       <% article.data.tags.each do |tag| %>
-      <li><%= tag %></li>
+      <li><%= link_to tag, tag_path(tag), :rel => 'tag' %></li>
       <% end %>
     </ul>
     <% end %>
