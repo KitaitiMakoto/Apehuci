@@ -20,6 +20,14 @@ page '/*.atom', layout: false
 ###
 # Helpers
 ###
+helpers do
+  include Erubis::XmlHelper
+
+  def encode_url_path_segments(path)
+    path.split('/').map {|segment| url_encode(segment)}.join('/')
+  end
+  alias upath encode_url_path_segments
+end
 
 activate :relative_assets
 set :relative_links, true
