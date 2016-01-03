@@ -1,0 +1,51 @@
+---
+title: 『APIデザインケーススタディ』を、ソースコードのシンタックスハイライトしながら読む
+tags:
+  - EPUB
+  - Ruby
+---
+
+昨日（[EPUB書籍に正誤表を反映する（Rubyスクリプトで）、またはEPUBのパッチプログラムの試み][]）に引き続き「ちゃんと正誤表を公表してくれる著者と、DRMをかけない素のEPUBファイルを配信してくれる出版社があればこそ」シリーズの第二弾（第三弾は多分無い）。
+
+以前[Dockerエキスパート養成読本を、ソースコードのシンタックスハイライトしながら読む][]という日記を書いたが、その時のスクリプトを修正して、『APIデザインケーススタディ』にも対応させた。
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="http://www.amazon.co.jp/API%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%B1%E3%83%BC%E3%82%B9%E3%82%B9%E3%82%BF%E3%83%87%E3%82%A3-%7ERuby%E3%81%AE%E5%AE%9F%E4%BE%8B%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%80%82%E5%95%8F%E9%A1%8C%E3%81%AB%E5%8D%B3%E3%81%97%E3%81%9F%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%81%A8%E6%99%AE%E9%81%8D%E3%81%AE%E8%80%83%E3%81%88%E6%96%B9-WEB-PRESS-plus/dp/4774178020%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774178020" target="_blank"><img src="http://ecx.images-amazon.com/images/I/514Ve4nSUZL._SL160_.jpg" width="105" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="http://www.amazon.co.jp/API%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%B1%E3%83%BC%E3%82%B9%E3%82%B9%E3%82%BF%E3%83%87%E3%82%A3-%7ERuby%E3%81%AE%E5%AE%9F%E4%BE%8B%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%80%82%E5%95%8F%E9%A1%8C%E3%81%AB%E5%8D%B3%E3%81%97%E3%81%9F%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%81%A8%E6%99%AE%E9%81%8D%E3%81%AE%E8%80%83%E3%81%88%E6%96%B9-WEB-PRESS-plus/dp/4774178020%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774178020" target="_blank">APIデザインケーススタディ ~Rubyの実例から学ぶ。問題に即したデザインと普遍の考え方 (WEB+DB PRESS plus)</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E7%94%B0%E4%B8%AD%E5%93%B2" target="_blank">田中哲</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">技術評論社</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2015-12-16</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4774178020" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+元々の本は（PDF版から類推するに）ソースコードの所も白黒のようだけど、こうしてハイライトして読むことができるようになる。
+<figure>
+  <a href="https://gyazo.com/ed5d038aace704a0fcea8313dddf3fb9" target="gyazo"><img src="//gyazo.com/ed5d038aace704a0fcea8313dddf3fb9.png" alt="Rubyのコードがシンタックスハイライトされている" style="max-width: 50%;"></a><a href="https://gyazo.com/5bf04bb00b3537f488e4811ceab3f826" target="gyazo"><img src="//gyazo.com/5bf04bb00b3537f488e4811ceab3f826.png" alt="PythonやPerlも含めソースコードがシンタックスハイライトされている" style="max-width: 50%;"></a>
+</figure>
+
+スクリプトは前と同じ所に置いてある：  
+<a href="https://gist.github.com/KitaitiMakoto/0779a34fd74bae96468f">https://gist.github.com/KitaitiMakoto/0779a34fd74bae96468f</a>
+
+クローンなりダウンロードなりして
+
+    $ ruby rougify-gdp-book.rb path/to/api-design.epub
+
+と実行すればよい。
+
+これで、ようやく本を読む準備が整った。
+
+> ともあれ、**こんなことができるのも、ちゃんと正誤表を公表してくれる著者と、DRMをかけない素のEPUBファイルを配信してくれる出版社があればこそ**。感謝したい。
+
+（<a href="http://sho.tdiary.net/20151222.html"><cite>EPUB書籍に正誤表を反映する</cite></a>）
+
+
+である。
+
+---
+
+スクリプトの修正にあたって、プログラミング言語の推測に苦労した（ハイライトに使っている[Rouge][]はshebangを見るくらいしかしてくれない）。主な方法は、「そのソースコードが含まれる節の見出し（`h2`や`h3`）と言語の対応表を作る」ということになった。「見出しにシステムコールという語が含まれていればCだろう」という具合である。
+
+これも中々うまい法則を見付けられず、結局一つ一つの見出しと`code`要素を見て手作業で対応表を作った。途中、「こんなのは人間の仕事ではない！」と思って[github-linguist][]の使用も検討したが、Gitリポジトリー全体でなく個別のテキストに対して使う方法がすぐに分からなかったのでやめた。
+
+技評の方で`<code>`要素の`class`属性や`data-*`属性で言語名を書いておいてくれると、一番楽なんだけどなあ。
+
+---
+
+ところで、確認中に、EPUB版の索引が全然機能しないことに気付いたんだけど、これも本文へのリンクにするスクリプトを配ったら喜ばれるものだろうか……。
+
+[EPUB書籍に正誤表を反映する（Rubyスクリプトで）、またはEPUBのパッチプログラムの試み]: 02.html
+[Dockerエキスパート養成読本を、ソースコードのシンタックスハイライトしながら読む]: http://apehuci-kitaitimakoto.sqale.jp/apehuci/?date=20150705
+[Rouge]: http://rouge.jneen.net/
+[github-linguist]: https://github.com/github/linguist
