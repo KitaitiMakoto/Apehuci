@@ -3,6 +3,7 @@ title: Action Cableが便利そう
 tags:
   - Action Cable
   - Ruby
+  - Ruby on Rails
 ---
 
 とても久し振りに[Sendagaya.rb][]に参加して来た。
