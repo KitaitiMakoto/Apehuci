@@ -48,20 +48,10 @@
           <%= yield %>
         </paper-card>
         <footer>
-          <% if current_page.next_article || current_page.previous_article %>
-          <ul>
-            <% if current_page.next_article %>
-            <% link_to current_page.next_article.url, :rel => 'next' do %>
-            <li><paper-button raised><%= current_page.next_article.data.title %></paper-button></li>
-            <% end %>
-            <% end %>
-            <% if current_page.previous_article %>
-            <% link_to current_page.previous_article.url, :rel => 'previous' do %>
-            <li><paper-button raised><%= current_page.previous_article.data.title %></paper-button></li>
-            <% end %>
-            <% end %>
-          </ul>
-          <% end %>
+          <%= partial 'adjacent', :locals => {
+                :next_page => {:page => current_page.next_article, :label => current_page.next_article&.data&.title},
+                :previous_page => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
+              } %>
           <paper-card>
             <%= partial 'author' %>
           </paper-card>
