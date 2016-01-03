@@ -23,7 +23,7 @@
   <body class="<%= page_classes %>" unresolved>
     <paper-header-panel mode=waterfall-tall>
       <paper-toolbar>
-        <h1><%= current_page.data.title || data.site.title %></h1>
+        <h1><%= link_to data.site.title, '/' %></h1>
       </paper-toolbar>
       <main>
         <%= yield %>
