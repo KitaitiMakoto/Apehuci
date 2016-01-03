@@ -96,5 +96,6 @@ activate :deploy do |deploy|
 end
 
 require_relative 'extensions/feed'
-set :feed_uri, 'recent-days.atom'
-activate :feed
+activate :feed do |feed|
+  feed.uri = 'recent-days.atom'
+end

@@ -1,11 +1,13 @@
 class Feed < ::Middleman::Extension
+  option :uri, 'feed.atom', 'Feed URI'
+
   def initialize(app, option_hash={}, &block)
     super
     require 'rss'
   end
 
   def manipulate_resource_list(resources)
-    feed = Middleman::Sitemap::StringResource.new(app.sitemap, app.config[:feed_uri]) {
+    feed = Middleman::Sitemap::StringResource.new(app.sitemap, options.uri) {
       articles = app.sitemap.resources.select {|resource| resource.kind_of? Middleman::Blog::BlogArticle}
       RSS::Maker.make('atom') {|maker|
         maker.channel.id = maker.channel.link = app.data.site.uri
@@ -13,7 +15,7 @@ class Feed < ::Middleman::Extension
         maker.channel.author = app.data.site.author
         maker.channel.links.new_link do |link|
           link.rel = 'self'
-          link.href = app.data.site.uri + app.config[:feed_uri]
+          link.href = app.data.site.uri + options.uri
           link.type = 'application/atom+xml'
         end
         maker.channel.generator do |generator|
