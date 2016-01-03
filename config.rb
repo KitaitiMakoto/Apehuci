@@ -89,6 +89,9 @@ activate :blog do |blog|
   blog.permalink = '{year}/{month}/{day}.html'
   blog.layout = 'blog'
   blog.tag_template = 'tag.html'
+
+  blog.paginate = true
+  blog.per_page = 3
 end
 
 activate :deploy do |deploy|

@@ -1,8 +1,9 @@
 ---
 title: アペフチ
+pageable: true
 ---
 
-<% blog.articles.each do |article| %>
+<% page_articles.each do |article| %>
 <article>
   <paper-card elevation=2>
     <% link_to article do %>
