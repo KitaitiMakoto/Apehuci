@@ -6,7 +6,7 @@
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title><%= current_page.data.title || "アペフチ" %></title>
+    <title><%= current_page.data.title || data.site.title %></title>
 
     <%= partial 'android_firefox' %>
     <%= javascript_include_tag '../bower_components/webcomponentsjs/webcomponents.min.js' %>
@@ -23,7 +23,7 @@
   <body class="<%= page_classes %>" unresolved>
     <paper-header-panel mode=waterfall-tall>
       <paper-toolbar>
-        <h1><%= current_page.data.title || "アペフチ" %></h1>
+        <h1><%= current_page.data.title || data.site.title %></h1>
       </paper-toolbar>
       <main>
         <%= yield %>
