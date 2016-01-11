@@ -98,7 +98,7 @@ activate :deploy do |deploy|
   deploy.deploy_method = :git
 end
 
-require_relative 'extensions/feed'
+require 'lib/feed'
 activate :feed do |feed|
   feed.uri = 'recent-days.atom'
 end
