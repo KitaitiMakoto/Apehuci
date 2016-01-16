@@ -123,7 +123,7 @@ range.insert_node text_to_replace
 
 ### EPUB Maker ###
 
-[EPUB Maker][]は[EPUB Parser][]の拡張で、その名の通りEPUBを作成するためのgem……というのは表の顔で、これを作った一番の動機はEPUBのインプレース編集にあった（EPUBを作るなら[gepub][]など他のgemのほうがいいと思う）。
+[EPUB Maker][]は[EPUB Parser][]の拡張で、その名の通りEPUBを作成するためのgem……というのは表の顔で、これを作った一番の動機はEPUBのインプレース編集にあった（EPUBを作るなら[Re:VIEW][]や[gepub][]など他のgemのほうがいいと思う）。
 
 冒頭でちょっと触れたDocker本のシンタックスハイライトでも使っているが、EPUBファイルの中身を、Nokogiriを使ったDOM操作などで直接書き換えることができる。
 
@@ -205,4 +205,5 @@ EPUB CFI、あまり好きではないのだけど、今回のようなことを
 [Rangeオブジェクト]: https://developer.mozilla.org/ja/docs/Web/API/range
 [Nokogiri]: http://www.nokogiri.org/
 [EPUB Maker]: http://www.rubydoc.info/gems/epub-maker
+[Re:VIEW]: https://github.com/kmuto/review
 [gepub]: https://github.com/skoji/gepub
