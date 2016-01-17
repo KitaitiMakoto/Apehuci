@@ -1,0 +1,32 @@
+---
+title: 『nginx実践入門』をシンタックスハイライトする
+tags:
+  - EPUB
+  - Ruby
+  - Nginx
+---
+
+『[nginx実践入門][]』を買った。
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="http://www.amazon.co.jp/nginx%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80-WEB-DB-PRESS-plus-%E4%B9%85%E4%BF%9D/dp/4774178667%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774178667" target="_blank"><img src="http://ecx.images-amazon.com/images/I/511NShYrT8L._SL160_.jpg" width="105" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="http://www.amazon.co.jp/nginx%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80-WEB-DB-PRESS-plus-%E4%B9%85%E4%BF%9D/dp/4774178667%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774178667" target="_blank">nginx実践入門 (WEB+DB PRESS plus)</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E4%B9%85%E4%BF%9D%E9%81%94%E5%BD%A6" target="_blank">久保達彦</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">技術評論社</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2016-01-16</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4774178667" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+早速設定ファイルの所などをシンタックスハイライトした。
+<a href="https://gyazo.com/7fa685b4b5ff7ab226c72794b5a89d4b"><img src="https://gyazo.com/7fa685b4b5ff7ab226c72794b5a89d4b.png" alt="Nginxの設定ファイルがシンタックスハイライトされている" style="max-width: 60%;"></a>
+
+以下の手順で再現可能。本のEPUBファイルが`path/to/nginx実践入門.epub`にあるものとする。
+
+    $ gem install epub-parser -v '>= 0.2.4'
+    $ gem install epub-maker 0.0.3
+    $ gem install rouge rouge-lexers-docker
+    $ git clone https://gist.github.com/0779a34fd74bae96468f.git rougify-gdp-book
+    $ cd rougify-gdp-book
+    $ ruby rougify-gdp-book.rb path/to/nginx実践入門.epub
+
+EPUBファイルを**上書きする**ので注意すること。
+
+『[APIデザインケーススタディ][]』（[『APIデザインケーススタディ』を、ソースコードのシンタックスハイライトしながら読む][]）とか『[Dockerエキスパート養成読本][]』（[Dockerエキスパート養成読本を、ソースコードのシンタックスハイライトしながら読む][]）とか、EPUBファイルに後から手を加えてシンタックスハイライトしているけど、別にこれがそれほどいいことだとは思っていない。こういうことができるように、DRMなしのEPUBを売ってくれている技術評論社には感謝しているが、できれば本を作る時にハイライトを入れてくれるのが一番いいと思っている。
+
+[nginx実践入門]: https://gihyo.jp/dp/ebook/2016/978-4-7741-7936-0
+[APIデザインケーススタディ]: https://gihyo.jp/dp/ebook/2015/978-4-7741-7879-0
+[『APIデザインケーススタディ』を、ソースコードのシンタックスハイライトしながら読む]: ../../2016/01/03.html
+[Dockerエキスパート養成読本]: https://gihyo.jp/dp/ebook/2015/978-4-7741-7464-8
+[Dockerエキスパート養成読本を、ソースコードのシンタックスハイライトしながら読む]: http://apehuci-kitaitimakoto.sqale.jp/apehuci/?date=20150705
