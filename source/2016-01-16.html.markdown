@@ -25,6 +25,16 @@ EPUBファイルを**上書きする**ので注意すること。
 
 『[APIデザインケーススタディ][]』（[『APIデザインケーススタディ』を、ソースコードのシンタックスハイライトしながら読む][]）とか『[Dockerエキスパート養成読本][]』（[Dockerエキスパート養成読本を、ソースコードのシンタックスハイライトしながら読む][]）とか、EPUBファイルに後から手を加えてシンタックスハイライトしているけど、別にこれがそれほどいいことだとは思っていない。こういうことができるように、DRMなしのEPUBを売ってくれている技術評論社には感謝しているが、できれば本を作る時にハイライトを入れてくれるのが一番いいと思っている。
 
+追記
+----
+
+こんなコメントを貰った。
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">“できれば本を作る時にハイライトを入れてくれるのが一番いいと思っている” モノクロ端末や誤認識を考えると入れるのに二の足を踏むのはあるかも / “『nginx実践入門』をシンタックスハイライトする” <a href="https://t.co/xvneTcDdwf">https://t.co/xvneTcDdwf</a></p>&mdash; masayoshi takahashi (@takahashim) <a href="https://twitter.com/takahashim/status/688686509696811009">2016, 1月 17</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+なるほど、確かに。色の区別がつきにくい人もいるし、白黒のままのほうがよさそうだ。切り替えられるように作るべきかは、悩ましいところ。
+
 [nginx実践入門]: https://gihyo.jp/dp/ebook/2016/978-4-7741-7936-0
 [APIデザインケーススタディ]: https://gihyo.jp/dp/ebook/2015/978-4-7741-7879-0
 [『APIデザインケーススタディ』を、ソースコードのシンタックスハイライトしながら読む]: ../../2016/01/03.html
