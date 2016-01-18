@@ -1,0 +1,82 @@
+---
+title: "Sendagaya.rb #133"
+tags:
+  - Ruby
+  - Ruby On Rails
+  - Action Cable
+---
+
+[Sendagaya.rb #133][]に行って来た。今日は、前半『[メタプログラミングRuby 第2版][]』を読んで、後半は[Action Cable][]を読んだ。
+
+* 目次
+{:toc}
+
+メタプログラミングRuby 第2版
+----------------------------
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="http://www.amazon.co.jp/%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Ruby-%E7%AC%AC2%E7%89%88-Paolo-Perrotta/dp/4873117437%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873117437" target="_blank"><img src="http://ecx.images-amazon.com/images/I/5102wwx0VzL._SL160_.jpg" width="117" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="http://www.amazon.co.jp/%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Ruby-%E7%AC%AC2%E7%89%88-Paolo-Perrotta/dp/4873117437%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873117437" target="_blank">メタプログラミングRuby 第2版</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/Paolo+Perrotta" target="_blank">Paolo Perrotta</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">オライリージャパン</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2015-10-10</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4873117437" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+[fukajun][]さんが「本を読むってどうやってやるんですかねえ？」って言ったけど誰も答えを持ち合わせていなかった。十五分みんな黙読し、その後気になったことを話すというスタイルになった。範囲は「2章 月曜日：オブジェクトモデル」の始めから「2.2.4 オブジェクトとクラスのまとめ」まで。みんなRubyを書けるので特に問題がなく、字が汚いとか
+
+~~~ ruby
+module Rake
+  class Task
+    # ...
+~~~
+
+を
+
+~~~ ruby
+class Rake::Task
+  # ...
+~~~
+
+って書いたら[HoundCI][]に怒られるんだけどなんでだろう？　といったことを話していた。
+
+次回は「2.2.5 ネームスペースを使う」から。毎週ちょっとずつは読むとのこと。
+
+また、ここのところ本にシンタックスハイライトを入れるのをやっていたので、この本も帰ったらやろうと思っていたが、始めからハイライトされていた。
+<a href="https://gyazo.com/bcd51dd81e50c33c4b8fe5d714ca8887"><img src="https://gyazo.com/bcd51dd81e50c33c4b8fe5d714ca8887.png" alt="『メタプログラミングRuby 第2版』は始めからシンタックスハイライトされている" style="max-width: 80%;"></a>
+
+Action Cable
+------------
+
+`ApplicationCable::Channel`のユーザー定義のメソッドのスタックトレースを遡って、どこから呼ばれるのかを見ていった。
+
+fukajunさんがプロジェクターで映しながらエディターを開いてソースを追い掛け、みんなで横からああだこおだと言っていた。読んだのはだいたいこの辺。
+
+* <a href="https://github.com/rails/rails/blob/39f383bad01e52c217c9007b5e9d3b239fe6a808/actioncable/lib/action_cable/connection/subscriptions.rb">action_cable/connection/subscriptions.rb</a>
+* <a href="https://github.com/rails/rails/blob/39f383bad01e52c217c9007b5e9d3b239fe6a808/actioncable/lib/action_cable/connection/message_buffer.rb">action_cable/connection/message_buffer.rb</a>
+* <a href="https://github.com/rails/rails/blob/39f383bad01e52c217c9007b5e9d3b239fe6a808/actioncable/lib/action_cable/server/worker.rb">action_cable/server/worker.rb</a>
+
+一度[Celluloid][]をやめて[Concurrent Ruby][]にしたところ（<a href="https://github.com/rails/rails/commit/3b7ccadfc1c8dfec61af898167e1300b17f5cf25">3b7ccad</a>）、それを巻き戻し（<a href="https://github.com/rails/rails/commit/d0393fccffc118a5de37654aa222774b66123393">d0393fc</a>）、更にまた巻き戻す（<a href="https://github.com/rails/rails/commit/01c320001bcce617196270f3d398d48a89a6ea2a">01c3200</a>）ということをしていて、この辺の扱い大変なんだなあという話をした。使いたいのはCelluloidの方であるようだ（<a href="https://github.com/rails/rails/pull/22977">#22977</a>）。
+
+ここを読んだおかげで、[Rails5.0.0-beta1のActionCableを使って超簡易チャットを実装してみた][]にある
+
+~~~ ruby
+class MessagesController < ApplicationController
+  def create
+    ActionCable.server.broadcast "messages",
+      message: params[:message][:body],
+      username: cookies.signed[:username]
+
+    head :ok
+  end
+end
+~~~
+
+みたいなコードを見ても驚かずに「なるほど`ActionCable.server.broadcast`に渡している`"messages"`コマンドは別スレッドで実行されるからここはブロックせずに、即座にブラウザーに応答することができるんだな」と考えることができるようになった（でも、僕は気にならないけど、コントローラー内でこういうことするのに違和感を覚える人もいた）。
+
+electron、rails-assets、JavaScript生態系
+----------------------------------------
+
+なんかelectronが盛り上がってるらしく、夕食を頂きながら仕組みとかHTMLで作るのどうなの？　とか、rails-assetsとか派生してJavaScriptの開発環境って今どんな感じなの？　といった話をした。
+
+[Sendagaya.rb #133]: https://sendagayarb.doorkeeper.jp/events/37324
+[メタプログラミングRuby 第2版]: https://www.oreilly.co.jp/books/9784873117430/
+[Action Cable]: https://github.com/rails/rails/tree/master/actioncable
+[fukajun]: http://fukajun.org/
+[HoundCI]: https://houndci.com/
+[Celluloid]: https://github.com/celluloid/celluloid
+[Concurrent Ruby]: https://github.com/ruby-concurrency/concurrent-ruby
+[Rails5.0.0-beta1のActionCableを使って超簡易チャットを実装してみた]: http://necojackarc.hatenablog.com/entry/2015/12/20/043612
