@@ -13,7 +13,7 @@
     <%= component_import_tag :elements %>
 
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
-    <link href=<%= url_for h(app.extensions[:feed].options.uri) %> rel=alternate type="application/atom+xml">
+    <%= feed_tag :atom, h(url_for(File.join('/', app.extensions[:feed].options.uri))), :title => app.data.site.title %>
 
     <%= stylesheet_link_tag :site %>
     <%= stylesheet_link_tag :highlight %>
