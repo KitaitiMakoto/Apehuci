@@ -15,7 +15,7 @@ tags:
 以下の手順で再現可能。本のEPUBファイルが`path/to/nginx実践入門.epub`にあるものとする。
 
     $ gem install epub-parser -v '>= 0.2.4'
-    $ gem install epub-maker 0.0.3
+    $ gem install epub-maker -v 0.0.3
     $ gem install rouge rouge-lexers-docker
     $ git clone https://gist.github.com/0779a34fd74bae96468f.git rougify-gdp-book
     $ cd rougify-gdp-book
