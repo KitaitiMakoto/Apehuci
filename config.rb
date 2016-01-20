@@ -92,6 +92,13 @@ activate :blog do |blog|
 
   blog.paginate = true
   blog.per_page = 3
+
+  blog.summary_generator = ->(article, rendered, length, ellipsis) {
+    content = Nokogiri.HTML(rendered).content.gsub(/\s+/, ' ')
+
+    summary = content[0..length]
+    summary << ellipsis unless content == summary
+  }
 end
 
 activate :deploy do |deploy|

@@ -18,6 +18,11 @@
     <%= stylesheet_link_tag :site %>
     <%= stylesheet_link_tag :highlight %>
     <%= javascript_include_tag :all %>
+
+    <meta name=og:title content="<%=h app.data.site.title %>">
+    <meta name=twitter:description content="<%=h current_page.summary(180) %>">
+    <meta name=twitter:card content=summary>
+    <meta name=twitter:site content=@KitaitiMakoto>
   </head>
 
   <body class="<%= page_classes %>" unresolved>
