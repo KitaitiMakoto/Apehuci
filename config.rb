@@ -109,3 +109,8 @@ require 'lib/feed'
 activate :feed do |feed|
   feed.uri = 'recent-days.atom'
 end
+
+require 'lib/amp'
+activate :amp do |amp|
+  amp.layout = 'amp'
+end
