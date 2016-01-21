@@ -1,0 +1,28 @@
+---
+title: "渋谷.rb[:20160120]"
+tags:
+  - Ruby
+  - Itamae
+---
+
+久し振りに[渋谷.rb[:20160120]][shibuyarb20160120]に行って来た。初参加の人が半分近くいて、すごいなあと思った。
+
+予め予告のあった[主人がExcel方眼紙に殺されてRubyを書き始めてから5ヶ月が過ぎました][]っていう発表のほか、みんな何かしら話すことがあって、九時過ぎまで発表が続いていた。中でも[yuku-t][]さんの発表が印象に残っていて、最終的には[duck_testing][]っていうRubyGemの紹介と「いい感じにしてほしい」というお願いになったんだけど、このgemを作るに至る経緯の説明がよかった。
+
+基本的には、型でチェックしたいという話。だから、各メソッドにはYARD向けのコメントで引数の型と戻り値の型を書いている。でも当然ながらYARDのコメントをRubyは見てくれないので、[contracts.ruby][]の導入を検討した。でも、実装方法が危なっかしい（中では古い人は知っているかも知れない、[MethodDecorators][]を使っている）のと、本番でオフにできないので、やめた。YARDのコメントを読み取って自動で型に関するテストを生成し実行する、というgemを作ったとのこと。
+
+YARDはコードの解析に[Ripper][]を使っていて、そのASTにプラグインからアクセスできるので、contarcts.ruby用のプラグインを書けばそこからドキュメントを自動生成できるはずだし、事実そういうYARDプラグインがあるらしい。でも既にYARD向けのコメントをたくさん書いていて、それを全部直して回るのは大変。さらに、YARDでドキュメントコメントを書いているgemは多いので、そこに一行足すだけで自動的にテスまでできるという物は、多くの人に役立つはずだ、という説明がされた。最後の、自分の問題を解決すると、より多くの人の問題も、労力無く解決できるという視点が素晴らしいなと思った。期待したい。
+
+僕は先日の日記に書いた[『nginx実践入門』をシンタックスハイライトする][]の内容をデモしつつ、「コードからその言語を判定するところ、今は目視でやって設定をハードコードしていて辛いので、やってくれるgemを知っている人がいたら教えてください」という相談をしてきた。その後の夕食の時とかに聞くと、意外とこれが反響があって嬉しかった。もうちょっと抽象化してgemにしたいなという気持ちになってきた。
+
+あと、渋谷.rbとは関係ないけど日記なので書くと、[itamae-plugin-resource-security_context][]というItamaeプラグインをリリースした。今のところ`restorecon`をするだけだけど、仕事で必要になるに連れてほかのこともできるようにしていきたい。SELinux使っている人がもしいたら、一緒に開発していきましょう……。
+
+[shibuyarb20160120]: https://shibuyarb.doorkeeper.jp/events/37064
+[主人がExcel方眼紙に殺されてRubyを書き始めてから5ヶ月が過ぎました]: https://docs.google.com/presentation/d/1RTUIJYJUCx_8MRj4hHx7uPbMOQSmCIF3Nobrttd1HfQ/edit
+[duck_testing]: https://github.com/yuku-t/duck_testing
+[yuku-t]: https://github.com/yuku-t
+[contracts.ruby]: https://github.com/egonSchiele/contracts.ruby
+[MethodDecorators]: https://github.com/michaelfairley/method_decorators
+[Ripper]: http://docs.ruby-lang.org/ja/2.3.0/class/Ripper.html
+[『nginx実践入門』をシンタックスハイライトする]: ../../2016/01/16.html
+[itamae-plugin-resource-security_context]: https://github.com/KitaitiMakoto/itamae-plugin-resource-security_context
