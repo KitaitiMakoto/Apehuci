@@ -1,0 +1,48 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title><%= current_page.data.title || data.site.title %></title>
+    <link href="<%=h current_page.destination_path.sub(/\.amp\.html\z/, '.html') %>" rel=canonical>
+
+    <meta name=og:title content="<%=h app.data.site.title %>">
+    <meta name=twitter:description content="<%=h current_page.summary(180) %>">
+    <meta name=twitter:card content=summary>
+    <meta name=twitter:site content=@KitaitiMakoto>
+    <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+    <script async src=https://cdn.ampproject.org/v0.js></script>
+  </head>
+
+  <body class="<%= page_classes %>">
+    <h2>
+      <% link_to '/index.html' do %>
+      <%=h data.site.title %>
+      <% end %>
+    </h2>
+    <article>
+      <header>
+          <h1><%= current_page.data.title %></h1>
+          <time><%=h current_page.date.strftime('%F') %></time>
+          <% if current_page.data.tags && !current_page.data.tags.empty? %>
+          <ul class="tags">
+            <% current_page.data.tags.each do |tag| %>
+            <li><%= link_to tag, upath(tag_path(tag)), :rel => 'tag' %></li>
+            <% end %>
+          </ul>
+          <% end %>
+      </header>
+      <%= yield %>
+      <footer>
+        <%= partial 'adjacent.amp', :locals => {
+        :next_page => {:page => current_page.next_article, :label => current_page.next_article&.data&.title},
+        :previous_page => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
+        } %>
+        <%= partial 'author' %>
+      </footer>
+    </article>
+  </body>
+</html>
