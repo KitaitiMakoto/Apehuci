@@ -23,6 +23,7 @@
     <meta name=twitter:description content="<%=h current_page.summary(180) %>">
     <meta name=twitter:card content=summary>
     <meta name=twitter:site content=@KitaitiMakoto>
+    <link href="<%= url_for h(File.join('/', current_page.destination_path.sub(/\.html\z/, '.amp.html'))) %>" rel=amphtml>
   </head>
 
   <body class="<%= page_classes %>" unresolved>
