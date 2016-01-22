@@ -36,6 +36,10 @@ class Feed < ::Middleman::Extension
             entry.title = article.title
             entry.content.type = 'html'
             entry.content.content = article.body
+            entry.links.new_link do |link|
+              link.href = app.data.site.uri + article.destination_path
+              link.type = 'text/html'
+            end
           end
         end
       }
