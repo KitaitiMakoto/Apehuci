@@ -1,0 +1,40 @@
+---
+title: Droongaのインストーラーを直した
+tags:
+  - Droonga
+---
+
+[Droonga][]は、しばらく[マニュアル][]通りにインストールできない状態だったので、インストーラーを直してプルリクエストを送った。
+
+* [https://github.com/droonga/droonga-engine/pull/39](https://github.com/droonga/droonga-engine/pull/39)
+* [https://github.com/droonga/droonga-http-server/pull/13](https://github.com/droonga/droonga-http-server/pull/13)
+
+（マージしてもらった後に問題に気付いて追加でちょいちょいパッチを投げてもいる）
+
+マージされたものの、今はまだ修正版がリリースはされていないので、それぞれこういう風に`VERSION`環境変数を指定してインストールする必要がある。
+
+    # curl https://raw.githubusercontent.com/droonga/droonga-engine/master/install.sh | \
+        VERSION=master bash
+    # curl https://raw.githubusercontent.com/droonga/droonga-http-server/master/install.sh | \
+        VERSION=master bash
+
+リリースされたら`VERSION=master`はなくてもインストールできるようになる。
+
+また、マニュアルでは`service`コマンドでDroongaの二つのプロセスを管理しているけど、今回のパッチで[systemd][]を使うようになったので、今マニュアルを直しているところ。来週中にはパッチを送れるはず。
+
+マニュアル通りに入れられないこと自体は認識していて、ワークアラウンド入りの[Itamae][]レシピを作って使っていた（[DroongaをインストールするItamaeレシピ]）。後ろめたさがあった。スキル的には自分で直せるはずなのにそうしていないのは愚か、問題報告すらしていなかった。今回修正して、受け入れてもらって、喉の小骨がようやく取り除けた気分だ。
+
+恥ずかしながらシェルスクリプトに不慣れで、プルリクエストを送ったあとで、色々指摘してもらいながら直していた。ありがとうございました。
+
+systemdのunitファイルにも不安があるので、こうしたほうがいいよというのがあったらぜひ教えてほしい。
+
+* [droonga-engine.service][]
+* [droonga-http-server.service][]
+
+[Droonga]: http://droonga.org/ja/
+[マニュアル]: http://droonga.org/ja/install/
+[DroongaをインストールするItamaeレシピ]: ../../2015/12/05.html
+[systemd]: http://freedesktop.org/wiki/Software/systemd/
+[Itamae]: http://itamae.kitchen/
+[droonga-engine.service]: https://github.com/droonga/droonga-engine/blob/master/install/droonga-engine.service
+[droonga-http-server.service]: https://github.com/droonga/droonga-http-server/blob/master/install/droonga-http-server.service
