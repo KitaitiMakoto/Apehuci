@@ -8,7 +8,7 @@ class Feed < ::Middleman::Extension
 
   def manipulate_resource_list(resources)
     feed = Middleman::Sitemap::StringResource.new(app.sitemap, options.uri) {
-      articles = app.sitemap.resources.select {|resource| resource.kind_of? Middleman::Blog::BlogArticle}
+      articles = app.extensions[:blog].values.flatten.map{|blog| blog.data.articles}.flatten
       RSS::Maker.make('atom') {|maker|
         maker.channel.id = maker.channel.link = app.data.site.uri
         maker.channel.title = app.data.site.title
