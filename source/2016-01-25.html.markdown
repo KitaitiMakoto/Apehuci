@@ -1,0 +1,75 @@
+---
+title: "『メタプログラミングRuby 第2版』@Sendagaya.rb #134"
+tags:
+  - Ruby
+---
+
+[Sendagaya.rb #134][]に参加して『メタプログラミングRuby』の読書会をして来た。今日は初参加、それも「最近Ruby始めたばかりで……」とか「プログラミングを始めたばかりで……」という人がすごく多かった。何があったんだろう？
+
+先週に引き続き『[メタプログラミングRuby 第2版][]』を読んだ。
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="http://www.amazon.co.jp/%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Ruby-%E7%AC%AC2%E7%89%88-Paolo-Perrotta/dp/4873117437%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873117437" target="_blank"><img src="http://ecx.images-amazon.com/images/I/5102wwx0VzL._SL160_.jpg" width="117" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="http://www.amazon.co.jp/%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Ruby-%E7%AC%AC2%E7%89%88-Paolo-Perrotta/dp/4873117437%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873117437" target="_blank">メタプログラミングRuby 第2版</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/Paolo+Perrotta" target="_blank">Paolo Perrotta</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">オライリージャパン</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2015-10-10</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4873117437" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+「2.2.5 ネームスペースを使う」から15分みんなで黙読して、その後に気になることなどを話した。この「気になること」が盛り上がって、今日は他のことはしなかった。結構知らないことが書いてあって（第1版読んだはずなんだけど殆ど憶えてない……）面白い。
+
+例えばコラムで[load][]に触れていた。普通`load`は呼ぶ度にスクリプトが実行されるので、定数定義があると再定義の警告が表示されてしまう。ところが第二引数に`true`を渡して
+
+~~~ ruby
+load('defining-constants.rb', true)
+~~~
+
+と呼ぶと、この警告が避けられる。なぜかというと、「第二引数に`true`を渡すと、無名モジュールが作成され、スクリプトはその中で実行されるから」だと本では説明されている。「なるほどそうなのか、第二引数のこと知らなかった、勉強になったなあ」と、僕はあっさり流していたが、参加者から「無名モジュールってなんですか」っていう声が上がってそう言えば、知らないな、と思った。無名クラス（匿名クラス）はたまに使うのでそこからの類推と、文脈と合わせて勝手にイメージを作って納得していたが、知らない。ということで、デスクトップをプロジェクターで映していた[fukajun][]さんがターミナルを出して、動かしてくれる。みんなで「こういうことかな」「じゃあこういう時はこうなるのかな」などと言っていると、それも全部実行してくれる。こうしてみんなで無名モジュール（anonymous module。僕は匿名モジュールと呼びたい）の理解を深めた。
+
+その後`Class`のクラスは？　`Module`のクラスは？　`Module`のスーパークラスは？　みたいな話が出ていて、Ruby始めたばかりの人がぴんとこないということだったのでその解説をしたりもした（[tkawa][]さんが）。
+
+[prepend][]は第1版にはなかったこともあってかなり盛り上がった。次の記事を見て老害がノスタルジーに浸りながら`alias_method_chain`の仕組みを解説したりもした。  
+[Ruby2.0のModule#prependは如何にしてalias_method_chainを撲滅するのか！？][]
+
+本に戻って、文中、`prepend`に関して、こういう風に動作を説明してくれる。
+
+~~~ ruby
+module M1; end
+
+module M2
+  include M1
+end
+
+module M3
+  prepend M1
+  include M2
+end
+
+M3.ancestors # => [M1, M3, M2]
+~~~
+
+`M3`の**前**に`prepend`した`M1`が差し込まれて、**後**に`include`した`M2`が置かれている。一度継承ツリーに入ったモジュールは二度は入らない。説明の通りだ。では、
+
+~~~ ruby
+module M3
+  include M2
+  prepend M1
+end
+~~~
+
+と順番を変えたら、`M3.ancestors`はどうなるだろうか。実行せずに答えられるだろうか？　その答えに、どのくらい確信を持てるだろうか？　これも、各々推測を述べた後、「fukajunターミナル」で実行して、回答を得たりした。
+
+こういう、一人で本を読んでいるだけだと見逃しがちなことも、誰かが気付いて声を上げてくれるので読書会中々いいです。ただ（と言っても別に悪いとは思ってないけど）、このやり方は時間は掛かる。ので今日のSendagaya.rbはここで終わった。
+
+次回は
+
+* 『メタプログラミングRuby』引き続き
+* [The Rails Doctrine][]を読んで何か話す
+* [Upgrading to Rails 5 Beta - The Hard Way][]を読んでRails 5へのアップグレードの辛さを感じる
+
+なんかがいいですかねえ、って話をしていたけど、来週その場で決まることでしょう。
+
+ちなみに、今回は開催前日にDoorkeeperのイベントが作成されたけど、次回分はその日のうちに作成されていたので、もう申し込める：  
+[https://sendagayarb.doorkeeper.jp/events/38208](https://sendagayarb.doorkeeper.jp/events/38208)
+
+[Sendagaya.rb #134]: https://sendagayarb.doorkeeper.jp/events/38134
+[メタプログラミングRuby 第2版]: https://www.oreilly.co.jp/books/9784873117430/
+[load]: http://docs.ruby-lang.org/ja/2.3.0/method/Kernel/m/load.html
+[fukajun]: http://fukajun.org/
+[tkawa]: https://twitter.com/tkawa
+[prepend]: http://docs.ruby-lang.org/ja/2.3.0/method/Module/i/prepend.html
+[Ruby2.0のModule#prependは如何にしてalias_method_chainを撲滅するのか！？]: http://www.techscore.com/blog/2013/01/22/ruby2-0%E3%81%AEmodule-prepend%E3%81%AF%E5%A6%82%E4%BD%95%E3%81%AB%E3%81%97%E3%81%A6alias_method_chain%E3%82%92%E6%92%B2%E6%BB%85%E3%81%99%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%81%EF%BC%9F/
+[The Rails Doctrine]: http://rubyonrails.org/doctrine/
+[Upgrading to Rails 5 Beta - The Hard Way]: https://blog.heroku.com/archives/2016/1/22/rails-5-beta-upgrade
