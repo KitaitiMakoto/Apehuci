@@ -25,9 +25,13 @@
     display: block;
     text-align: right;
   }
-  :not(pre) code {
+  code {
     margin: 0 0.2em;
     padding: 0.1em 0.4em;
+  }
+  pre code {
+    margin: initial;
+    padding: initial;
   }
   paper-button {
     @apply(--layout-horizontal);
