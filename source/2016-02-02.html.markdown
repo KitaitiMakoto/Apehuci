@@ -1,0 +1,94 @@
+---
+title: "Sendagaya.rb #135"
+tags:
+  - Ruby
+  - Ruby on Rails
+---
+
+[Sendagaya.rb #135][]に行って来た。今日も前半は『[メタプログラミングRuby 第2版][]』を読んで、後半はRails 5のチェンジログから[Active Record 5.0.0.beta1のチェンジログ][]を眺めていた。
+
+メタプログラミングRuby Refinements
+----------------------------------
+
+今日は「2.4.2 メソッドの実行」から「2.4.3 Refinements」まで。
+
+メソッドの実行では他の言語から来ると`private`とかに戸惑うよねとか、`protected`って何に使うんだろうねという話をした。
+
+お次はいよいよ[Refinements][]。
+
+~~~ ruby
+class MyClass
+  def my_method
+    "original my_method"
+  end
+
+  def anothor_method
+    my_method
+  end
+end
+
+module MyClassRefinements
+  refine MyClass do
+    def my_method
+      "refined my_method"
+    end
+  end
+end
+
+using MyClassRefinements
+MyClass.new.my_method      # => "refined my_method"
+MyClass.new.another_method # => "original my_method"
+~~~
+
+この最後の行は驚かないだろうか。僕は驚いた。
+
+この挙動を本では
+
+> Refinementsが有効になっているコードは、（略）インクルードやプリペンドしたモジュールのコードよりも優先される。
+
+と説明している。しかしこれだけで、メソッド探索の順番を覚えられるだろうか。[@tkawa][]さんの説明が素晴らしかった。
+
+1. クラスやインクルードやプリペンドを考慮するより先に、まずRefinementsを探す
+2. 次に通常のメソッド探索手順に従って、プリペンドされた物、インクルードした物、特異クラス、クラス……とメソッドを探す
+
+ということだ。上の例で言うと、まず`my_methodを呼ぶ場合`
+
+1. Refinementsを探す
+2. `MyClassRefinements`が見付かる
+3. `my_method`が定義されている
+4. `MyClassRefinements#my_method`を呼ぶ
+
+で、結果は`"refined my_method"`になる。一方`another_method`は
+
+1. Refinementsを探す
+2. `MyClassRefinements`が見付かる
+3. `another_method`は定義されていない
+4. Refinementsの探索は終わり、今後二度と探索されない
+4. プリペンドされたモジュールやインクルードされたモジュールを探すが、ない
+5. クラスを見る
+6. `MyClass`である
+7. `another_method`が定義されている
+8. `another_method`を実行する
+9. `my_method`が呼ばれている
+10. Refinementsの探索は終わっているので、クラスの`my_method`が見付かる
+11. `MyClass#my_method`を実行する
+
+ということで、結果が`"original my_method"`になる、というわけだ。
+
+子の説明を聞いて僕は「あ。」と声が漏れるくらい腹に落ちた。
+
+Active Record 5.0.0.beta1チェンジログ
+-------------------------------------
+
+その後もちょいちょいRefinementsと遊んでからは[Active Record 5.0.0.beta1のチェンジログ]をざっと流しながら気になった所で止めて、あーだこーだ言っていた。結構RDBMSの個別機能に対応していたり、細かなユースケースを拾ったりしていて、「Active Recordは基本は既に成熟しているんだろうなあ」という感想を持った。
+
+次回は『メタプログラミングRuby』読むほか、fukajunさんがElectronについての発表をしたいということなのでそれは聞けるはずだ。あとはその場で決まるんだろう。その場で決まるので、聞きたいことを持って行けば、聞けると思う。
+
+次回分もすぐさまイベントが作られて、申し込める。  
+[https://sendagayarb.doorkeeper.jp/events/38655](https://sendagayarb.doorkeeper.jp/events/38655)
+
+[Sendagaya.rb #135]: https://sendagayarb.doorkeeper.jp/events/38208
+[メタプログラミングRuby 第2版]: https://www.oreilly.co.jp/books/9784873117430/
+[Active Record 5.0.0.beta1のチェンジログ]: https://github.com/rails/rails/blob/v5.0.0.beta1/activerecord/CHANGELOG.md
+[Refinements]: http://magazine.rubyist.net/?0041-200Special-refinement
+[@tkawa]: https://twitter.com/tkawa
