@@ -18,3 +18,5 @@ gem 'middleman-minify-html'
 gem 'rouge'
 
 gem 'middleman-web_components'
+
+gem 'groonga-client'

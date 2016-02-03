@@ -28,6 +28,12 @@ GEM
     fastimage (1.8.1)
       addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.10)
+    gqtp (1.0.6)
+    groonga-client (0.1.9)
+      gqtp (>= 1.0.4)
+      groonga-command (>= 1.0.8)
+    groonga-command (1.1.5)
+      json
     haml (4.0.7)
       tilt
     hamster (2.0.0)
@@ -122,6 +128,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  groonga-client
   middleman (~> 4)
   middleman-blog
   middleman-deploy (>= 2.0.0.pre.alpha)
