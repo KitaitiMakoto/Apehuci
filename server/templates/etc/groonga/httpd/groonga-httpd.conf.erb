@@ -1,0 +1,70 @@
+worker_processes 1;
+
+# Match this to the file owner of Groonga database files if groonga-httpd is
+# run as root.
+user groonga groonga;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
+  keepalive_timeout 65;
+
+  # The default Groonga database path.
+  groonga_database /var/lib/groonga/db/db;
+
+  # Create a Groonga database automatically if the Groonga database doesn't
+  # exist.
+  #
+  # Note that this option is danger when worker_processes is greater than 1.
+  # Because one or more worker processes may create the same Groonga database
+  # at the same time. If you can create a Groonga database before running
+  # groonga-httpd, you should do it.
+  groonga_database_auto_create on;
+
+  # The default Groonga cache limit. The cache limit can be set
+  # for each worker. It can't be set for each Groonga database.
+  # groonga_cache_limit 100;
+
+  server {
+    listen 10041;
+    server_name localhost;
+
+    location /d/select {
+      groonga on;
+    }
+
+    location /d/ {
+      groonga on;
+      # You can disable log for Groonga.
+      # groonga_log_path off;
+      # You can disable query log for Groonga.
+      # groonga_query_log_path off;
+      # You can custom database path.
+      # groonga_database /path/to/groonga/db;
+      # If you send large data with one 'load' command, you may need to
+      # increase the max size limitation.
+      # client_max_body_size 50m;
+
+      auth_basic "Groonga command";
+      auth_basic_user_file htpasswd;
+    }
+
+    location / {
+      root /usr/share/groonga/html/admin;
+      index index.html;
+
+      auth_basic "Groonga admin";
+      auth_basic_user_file htpasswd;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+      root html;
+    }
+  }
+}

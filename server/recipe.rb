@@ -28,6 +28,27 @@ end
   package pkg
 end
 
+template '/etc/groonga/httpd/groonga-httpd.conf' do
+  source :auto
+  owner  'root'
+  group  'root'
+  mode   '644'
+  notifies :run, 'execute[reload groonga-httpd]'
+end
+
+template '/etc/groonga/httpd/htpasswd' do
+  source :auto
+  owner 'root'
+  group 'root'
+  mode  '644'
+  notifies :run, 'execute[reload groonga-httpd]'
+end
+
 service 'groonga-httpd' do
   action [:enable, :start]
+end
+
+execute 'reload groonga-httpd' do
+  action :nothing
+  command '/usr/sbin/groonga-httpd -t && /usr/sbin/groonga-httpd -s reload'
 end

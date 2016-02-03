@@ -21,3 +21,5 @@
 
 /source/bower_components
 /source/components/elements.vulcanized.html
+
+/server/template/etc/groonga/httpd/htpasswd.erb
