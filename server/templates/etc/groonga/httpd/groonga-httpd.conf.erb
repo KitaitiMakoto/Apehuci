@@ -37,6 +37,8 @@ http {
     location /d/select {
       groonga on;
       groonga_base_path /d/;
+
+      add_header Access-Cotnroll-Allow-Origin *;
     }
 
     location /d/ {
