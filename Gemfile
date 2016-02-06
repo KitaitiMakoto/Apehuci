@@ -19,4 +19,6 @@ gem 'rouge'
 
 gem 'middleman-web_components'
 
-gem 'groonga-client'
+gem 'rake'
+gem 'nokogiri'
+gem 'groonga-client', github: 'ranguba/groonga-client'
