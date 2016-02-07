@@ -1,6 +1,6 @@
 <blog-search
    url="http://search.apehuci.kitaitimakoto.net:10041/d"
-   base=<%=h app.environment == :production ? "/apehuci/" : "/" %>
+   base=<%=h app.config[:base] %>
    table=Apehuci
    debounce-duration=300
    ></blog-search>
