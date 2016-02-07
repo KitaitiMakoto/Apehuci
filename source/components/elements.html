@@ -13,12 +13,9 @@
     :host {
       display: block;
     }
-    paper-input {
-      display: inline-block;
-    }
   </style>
   <template>
-    <paper-input id=groongaQuery name=query placeholder="検索" on-keyup=search type=search required></paper-input>
+    <paper-input id=groongaQuery name=query label=検索 placeholder="例）Web Components" on-keyup=search type=search required></paper-input>
     <iron-ajax
        id=groongaSelect
        handle-as=json
