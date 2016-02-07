@@ -37,6 +37,7 @@ set :markdown, 'syntax_highlighter' => 'rouge'
 # Reload the browser automatically whenever files change
 configure :development do
 #   activate :livereload
+  config[:base] = '/'
 end
 
 # Methods defined in the helpers block are available in templates
@@ -45,6 +46,8 @@ end
 
 # Build-specific configuration
 configure :build do
+  config[:base] = '/apehuci/'
+
   used_bower_components = %w[
     webcomponentsjs/webcomponents.min.js
   ]
