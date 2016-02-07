@@ -53,6 +53,10 @@
       },
       search: function() {
         var query = this.$.groongaQuery.value;
+        if (query === "") {
+          this.result = [];
+          return;
+        }
         if (this.$.groongaSelect.params.query === query) {
           return;
         }
