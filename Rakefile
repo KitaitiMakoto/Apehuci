@@ -6,7 +6,7 @@ task :default => [:gh_pages, :search_index]
 
 desc 'Deploy GitHub pages'
 task :gh_pages do |t|
-  shell 'bundle exec middleman deploy'
+  sh 'bundle exec middleman deploy'
 end
 
 GROONGA_URI = URI.parse('http://search.apehuci.kitaitimakoto.net:10041')
