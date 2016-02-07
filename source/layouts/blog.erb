@@ -59,8 +59,8 @@
                 :previous_page => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
               } %>
           <paper-card>
-            <%= partial 'author' %>
             <%= partial 'search' %>
+            <%= partial 'author' %>
           </paper-card>
         </footer>
       </article>
