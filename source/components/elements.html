@@ -52,7 +52,8 @@
         };
       },
       search: function() {
-        if (this.$.groongaSelect.params.query === this.$.groongaQuery.value) {
+        var query = this.$.groongaQuery.value;
+        if (this.$.groongaSelect.params.query === query) {
           return;
         }
         this.$.groongaSelect.params.query = this.$.groongaQuery.value;
