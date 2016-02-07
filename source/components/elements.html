@@ -1,7 +1,80 @@
 <link href=../bower_components/polymer/polymer.html rel=import>
+<link href=../bower_components/iron-ajax/iron-ajax.html rel=import>
 <link href=../bower_components/paper-ripple/paper-ripple.html rel=import>
 <link href=../bower_components/paper-button/paper-button.html rel=import>
 <link href=../bower_components/paper-header-panel/paper-header-panel.html rel=import>
 <link href=../bower_components/paper-toolbar/paper-toolbar.html rel=import>
 <link href=../bower_components/paper-card/paper-card.html rel=import>
+<link href=../bower_components/paper-input/paper-input.html rel=import>
 <link href=../stylesheets/theme.html rel=import>
+
+<dom-module is=blog-search>
+  <style>
+    :host {
+      display: block;
+    }
+    paper-input {
+      display: inline-block;
+    }
+  </style>
+  <template>
+    <paper-input id=groongaQuery name=query placeholder="検索" on-keyup=search type=search required></paper-input>
+    <iron-ajax
+       id=groongaSelect
+       handle-as=json
+       on-response=showResult>
+    </iron-ajax>
+
+    <template is=dom-if if="{{result}}">
+      <ul>
+        <template is=dom-repeat items="{{result}}">
+          <li><a href="{{item.url}}">[{{item.tags}}]{{item.title}}</a>({{item.score}})</li>
+        </template>
+      </ul>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: "blog-search",
+      properties: {
+        url: String,
+        base: String,
+        table: String,
+        debounceDucration: Number,
+        query: String,
+        result: Array
+      },
+      ready: function() {
+        this.$.groongaSelect.url = this.url + "/select";
+        this.$.groongaSelect.debounceDuration = this.debounceDuration;
+        this.$.groongaSelect.params = {
+          table: this.table,
+          match_columns: "title * 2,tags * 2,content",
+          output_columns: "_key,title,tags,snippet_html(content),_score",
+          sortby: "-_score"
+        };
+      },
+      search: function() {
+        if (this.$.groongaSelect.params.query === this.$.groongaQuery.value) {
+          return;
+       }
+        this.$.groongaSelect.params.query = this.$.groongaQuery.value;
+        this.$.groongaSelect.generateRequest();
+      },
+      showResult: function() {
+        var data = this.$.groongaSelect.lastResponse[1][0];
+        var count = data.shift();
+        var header = data.shift();
+        var base = this.base;
+        this.result = data.map(function(article) {
+          return {
+            url: base + article[0],
+            title: article[1],
+            tags: article[2].join(", "),
+            score: article[3]
+          };
+        });
+      }
+    });
+  </script>
+</dom-module>
