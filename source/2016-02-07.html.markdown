@@ -1,0 +1,49 @@
+---
+title: 日記に検索機能をつけた
+tags:
+  - Groonga
+  - Polymer
+  - Middleman
+---
+
+この日記に検索機能を付けてフッターに置いた。軽快にインクリメンタルサーチができていて、なかなかいい。
+
+Groongaを使った全文検索
+-----------------------
+
+この際に、二つやったことのない作業があって、その一つは検索エンジンを使った検索機能の作成。正直、静的サイトの検索なんて[Google Custom Search][]や[Swiftype][]を使えばいいと思うが、自分で遊ぶための場所を持つというのも日記を移行した目的の一つだったから、自分でやってみた。
+
+[Middleman][]でサイトをビルドした後、[Rake][]タスクでビルド済みディレクトリーから日記本文を抽出して、[Groonga][]に投げ込んでインデックスを作っている。始め、Middlemanのビルド時のidentical、updated、created、removedという状態変化の情報を利用して、必要な分だけGroonga上のインデックスを更新しようかと思っていた（そのための調査結果はQiitaの[Middlemanで「変更なし」「作成」「削除」「変更」の状態を取る][]という記事に書いた）。でも、実用上それで問題ないのだが、一応「ビルド環境が変わったらそういった状態変化の情報は変わる、ポータブルではない」ということに配慮して、毎回全日記の分をGroongaに投げるようにしている。今のところ、パフォーマンスが問題になったりということは全然ない。
+
+そのように毎回全部作り直すことにしたので、ローカルでインデックス構築済み[groonga-httpd][]の[Docker][]イメージを作って、それをデプロイするようにしようかとも思った。実際イメージを作るまではやっていた。が、せっかくGroongaがなるべくOSの機能を引き出すように作られているのに、仮想環境で動かすのはもったいないと思って「普通」にインストールして[systemd][]で起動して使っている（[Linode][]を使っているから、まあ、仮想環境ではあるが）。
+
+何故か`snippet_html()`関数がうまく動いていないので、別途調査が必要だ。
+
+そう言えば、記事を削除した時の対応もRakeタスクにない。消すことがあったら考えよう。記事データをGroongaを投げる時に削除できるよう自動化するのでなく、PostgreSQLの`VACUUM`みたいに、ユーザー側で明示的に実行するのでいいと思う。
+
+Polymerコンポーネントの作成
+---------------------------
+
+もう一つは、検索エリアを作るのに、[Polymer][]を使って検索用のコンポーネントを作った（HTMLソースを見れば`<blog-search>`というタグが見付かるはずだ）こと。
+
+作り始め、全く何も表示できないのですごい時間を浪費したが、内部で使っているコンポーネントを読み込む`<link>`要素の`import`属性を`ipmort`と書き間違えていただけだった。分かった時には脱力した。
+
+ユーザー入力（`<paper-input>`）、Groongaとの通信（`<iron-ajax>`）、その二つの繋ぎ（`<blog-search>`）という構成で作ったが、`<blog-search>`は昔ながらのjQueryを使った素朴な同期処理のようになってしまった。Polymerにはデータバインディングの仕組みがあるのにもったいない。もう少しすっきりするよう書き換えたい。
+
+しかし、他のコンポーネント指向のライブラリーもそうだと思うが、閉じたスコープのことだけを考えてHTML、CSS、JavaScriptを書けばよいというのは大分ストレスフリーだ。
+
+---
+
+前からずっと、「あの記事はどこだっけ」と思った時に`git grep`してURIを調べてからページを表示していたので、それが無くなって自分が嬉しい機能だ。
+
+[Middlemanで「変更なし」「作成」「削除」「変更」の状態を取る]: http://qiita.com/KitaitiMakoto/items/ca3792f75270b533d37c
+[Google Custom Search]: https://developers.google.com/custom-search/
+[Swiftype]: https://swiftype.com/
+[Middleman]: https://middlemanapp.com/jp/
+[Rake]: http://docs.ruby-lang.org/ja/2.3.0/library/rake.html
+[Groonga]: http://groonga.org/ja/
+[groonga-httpd]: http://groonga.org/ja/docs/reference/executables/groonga-httpd.html
+[Docker]: https://www.docker.com/
+[systemd]: http://www.freedesktop.org/wiki/Software/systemd/
+[Linode]: https://www.linode.com/
+[Polymer]: https://www.polymer-project.org/1.0/
