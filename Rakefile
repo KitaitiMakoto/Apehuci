@@ -9,7 +9,7 @@ task :gh_pages do |t|
   sh 'bundle exec middleman deploy'
 end
 
-GROONGA_URI = URI.parse('http://search.apehuci.kitaitimakoto.net:10041')
+GROONGA_URI = URI.parse('https://search.apehuci.kitaitimakoto.net')
 GROONGA_TABLE = 'Apehuci'
 
 desc 'Set up Groonga database'
