@@ -36,6 +36,11 @@ Polymerコンポーネントの作成
 
 前からずっと、「あの記事はどこだっけ」と思った時に`git grep`してURIを調べてからページを表示していたので、それが無くなって自分が嬉しい機能だ。
 
+追記
+----
+
+と思いきや、このサイトは外にリンクを置く時はHTTPSで置いているのだけどgroonga-httpdのdebパッケージにはTLSモジュールが組み込まれていなかった。取り敢えずNginxを前に立てたけど、groonga-httpdのウェブサーバー機能もNginxなので、こちらのビルド時にTLSモジュールを組み込むのが正しいと思う。後でメーリングリストに送って入れてもらうか自分でビルドするかしよう。
+
 [Middlemanで「変更なし」「作成」「削除」「変更」の状態を取る]: http://qiita.com/KitaitiMakoto/items/ca3792f75270b533d37c
 [Google Custom Search]: https://developers.google.com/custom-search/
 [Swiftype]: https://swiftype.com/
