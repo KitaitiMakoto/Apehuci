@@ -108,6 +108,12 @@ activate :deploy do |deploy|
   deploy.deploy_method = :git
 end
 
+configure :deploy do
+  set :skip_build_clean do |path|
+    path.match %r|\A\.git/|
+  end
+end
+
 require 'lib/feed'
 activate :feed do |feed|
   feed.uri = 'recent-days.atom'
