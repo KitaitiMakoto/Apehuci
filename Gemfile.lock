@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ranguba/groonga-client.git
-  revision: 52b023006fdca27954d3fd319d6b67fbd1d8cd63
+  revision: b3a4eab5575ac3a5b882e115643d5be6c8b0a784
   specs:
     groonga-client (0.2.0)
       gqtp (>= 1.0.4)
@@ -16,7 +16,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    backports (3.6.7)
+    backports (3.6.8)
     capybara (2.5.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -49,9 +49,9 @@ GEM
     i18n (0.7.0)
     json (1.8.3)
     kramdown (1.9.0)
-    listen (3.0.5)
+    listen (3.0.6)
       rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
+      rb-inotify (>= 0.9.7)
     middleman (4.1.1)
       coffee-script (~> 2.2)
       compass-import-once (= 1.0.5)
