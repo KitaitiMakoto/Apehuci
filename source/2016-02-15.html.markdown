@@ -1,0 +1,105 @@
+---
+title: "Sendagaya.rb #137"
+tags:
+  - Ruby
+  - Ruby on Rails
+---
+
+[Sendagaya.rb #137][]に参加して来た。『メタプログラミングRuby 第2版』と、Active Record enumsの話をして来た。
+
+
+メタプログラミングRuby 3章 メソッド
+-----------------------------------
+
+今回も[メタプログラミングRuby][]を読んだ。「3章 メソッド」から（こういう時、章にもリンクを貼りたいものだ）。
+
+同じようなメソッドの定義を繰り返すのではなく、動的に定義することで、重複した記述を減らす方法が紹介される。
+
+~~~ ruby
+class Computer
+  def initialize(computer_id, data_source)
+    @id = computer_id
+    @data_source = data_source
+  end
+
+   def self.define_component(name)
+    define_method(name) do
+      info = @data_source.send "get_#{name}_info", @id
+      price = @data_source.send "get_#{name}_price", @id
+      result = "#{name.capitalize}: #{info} ($#{price})"
+      return "* #{result}" if price >= 100
+      result
+    end
+  end
+
+  define_component :mouse
+  define_component :cpu
+  define_component :keyboard
+end
+~~~
+
+これで
+
+~~~ ruby
+  def mouse
+    info = @data_source.get_mouse_info(@id)
+    price = @data_source.get_mouse_price(@id)
+    result = "Mouse: #{info} ($#{price})"
+    return "* #{result}" if price >= 100
+    result
+  end
+~~~
+
+みたいなメソッドを幾つも書く作業から開放される。例によってふんふんなるほどと読んでいたが、例によって甘かった。十五分読んだ後にみんなで話している時に、このコードの「危なさ」を指摘する声が上がった。
+
+「`initialize`で`data_source`を引数に受け取っているが、別々のインスタンス初期化時に別々の`data_source`を受け取り得るから、クラス全体が和集合のような不要なメソッドも持った物になる」とのことだった。僕にはぴんとこなかった。その後、コードを使って説明してくれた。
+
+~~~ ruby
+methods = [:moge, :hoge]
+methods2 = [:moge, :hoge, :age]
+
+class Computer
+  def initialize(methods)
+    methods.each do |method|
+      self.class.define_kick method
+      puts method
+    end
+  end
+  def self.define_kick(name)
+    define_method("#{name}_kick") do
+    puts 'name'
+    end
+  end
+end
+c1 = Computer.new(methods)         # => "moge"、"hoge"を出力
+p c1.class.instance_methods(false) # => [:moge_kick, :hoge_kick]
+c2 = Computer.new(methods2)        # => "moge"、"hoge"、"age"を出力
+p c2.class.instance_methods(false) # => [:moge_kick, :hoge_kick, :age_kick]
+p c1.class == c2.class             # => true
+p c1.class.instance_methods(false) # => [:moge_kick, :hoge_kick, :age_kick]
+~~~
+
+（少しコメントを足し、改変した）
+
+最後の行、`c1`でも期待しないメソッド`#age_kick`が使えることを示している（その前の行からも明らかだが）。こういう危なさがあることに、僕は気が付かなかった。勿論、これが「危ない」かどうかは作るアプリケーション次第だ。別にこれで構わないということも理論上ある。それは何かと話していて、「サンプル」かなとなった。
+
+ActiveRecord enumsのDB内での値を文字列にする
+--------------------------------------------
+
+その後、今日は何を話そうかと話していると、Rails 4.1から入った[ActiveRecord enums][]の機能についての相談が上がった。
+
+この機能はRDBMSなんかでも実装されているenum（列挙型）の機能をRailsのレイヤーで実装した物で、ユーザー（Railsを使うプログラマー）はモデルオブジェクトが提供する、人間が読みやすいインターフェイスだけ扱っていればいいようになる。バックエンドではActiveRecordが数値に変換してDBに格納し、ユーザーとの間を取り持ってくれる。
+
+今回の相談は、この機能ではDBに格納する値も文字列にすることができるが、それは普通ではないのだろうか？　という物。
+
+始め、「何となく気持ち悪いですね」くらいしか言うことができなかった。一応、データサイズが増えるというのもあるが、このご時世、そこは気にするポイントではないだろうとのこと。しばらく話しながら思い付いたのは、文字列にするとインデックスを張ることになるだろうから、インサート時にインデックスを更新するコストが掛かって（遅くなって）しまうということだった。これはそれなりに妥当だと受け取られて、「じゃあ、やっぱり（ActiveRecordの）enumのバックエンドは数値にしておくのが普通なんですね」ということになった。
+
+ちなみに相談者が文字列を使いたい一番の背景は、Railsは分からないがSQLなら分かるという人のいる場（に、今いるらしい）では、値が数値で返って来ると人間の方で対応する文字列を参照しないといけないので、嫌だ、ということだった。これは勿論妥当だと思うので、この人のケースでは、文字列を使うのは正解だと思う（が、[RailsAdmin][]がエラーになるという問題があるらしかった）。それは置いておいても割と一般的に文字列を使いたいこだわりがありそうだったが、そこは深く話さなかった。今思うともったいなかったかも知れない。
+
+「そう言えば、Railsを使うとマスターテーブルを作ることをしなくなるな」という話もした。『[エンタープライズRails][]』には「アプリケーションのフレームワークや言語よりも、データベースのデータのほうが長く残るから、データだけで完結できるようにしておくべきだ」と書いてあったように思うのだけど、時代も違うし、エンタープライズだとウェブのコンシューマー向けサービスとは領域も違うということだろうか。
+
+[Sendagaya.rb #137]: https://sendagayarb.doorkeeper.jp/events/39087
+[メタプログラミングRuby]: https://www.oreilly.co.jp/books/9784873117430/
+[ActiveRecord enums]: http://edgeguides.rubyonrails.org/4_1_release_notes.html#active-record-enums
+[RailsAdmin]: https://github.com/sferik/rails_admin
+[エンタープライズRails]: https://www.oreilly.co.jp/books/9784873114163/
