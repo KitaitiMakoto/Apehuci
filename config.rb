@@ -49,6 +49,7 @@ configure :build do
   config[:base] = '/apehuci/'
 
   used_bower_components = %w[
+    promise-polyfill/Promise.js
     webcomponentsjs/webcomponents.min.js
   ]
 
