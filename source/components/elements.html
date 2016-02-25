@@ -9,12 +9,12 @@
 <link href=../stylesheets/theme.html rel=import>
 
 <dom-module is=blog-search>
-  <style>
-    :host {
-      display: block;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
     <paper-input id=groongaQuery name=query label=検索 placeholder="例）Web Components" on-keyup=search type=search required></paper-input>
     <iron-ajax
        id=groongaSelect
@@ -23,11 +23,12 @@
     </iron-ajax>
 
     <template is=dom-if if="{{result}}">
-      <ul>
+      <dl>
         <template is=dom-repeat items="{{result}}">
-          <li><a href="{{item.url}}">[{{item.tags}}]{{item.title}}</a>({{item.score}})</li>
+          <dt><a href="{{item.url}}">[{{item.tags}}]{{item.title}}</a>({{item.score}})</dt>
+          <dd inner-h-t-m-l={{item.snippetHtml}}></dd>
         </template>
-      </ul>
+      </dl>
     </template>
   </template>
   <script>
@@ -48,7 +49,8 @@
           table: this.table,
           match_columns: "title * 2,tags * 2,content",
           output_columns: "_key,title,tags,snippet_html(content),_score",
-          sortby: "-_score"
+          sortby: "-_score",
+          command_version: 2
         };
       },
       search: function() {
@@ -73,7 +75,8 @@
             url: base + article[0],
             title: article[1],
             tags: article[2].join(", "),
-            score: article[3]
+            snippetHtml: article[3].join("<br>"),
+            score: article[4]
           };
         });
       }
