@@ -4,6 +4,11 @@ require 'groonga/client'
 
 task :default => [:gh_pages, :search_index]
 
+desc 'Build site'
+task :site do
+  sh 'middleman build'
+end
+
 desc 'Deploy GitHub pages'
 task :gh_pages do |t|
   sh 'bundle exec middleman deploy'
