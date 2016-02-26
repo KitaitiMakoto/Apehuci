@@ -11,7 +11,7 @@ end
 
 desc 'Deploy GitHub pages'
 task :gh_pages do |t|
-  sh 'bundle exec middleman deploy'
+  sh 'middleman deploy'
 end
 
 GROONGA_URI = URI.parse('http://search.apehuci.kitaitimakoto.net:10041')
