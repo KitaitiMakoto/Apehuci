@@ -59,13 +59,6 @@ task :search_index do |t|
 end
 
 require 'groonga/client/protocol/http/synchronous'
-module GroongaNoKeepAlive
-  def headers
-    {"connection" => "Close"}.merge(super)
-  end
-end
-Groonga::Client::Protocol::HTTP::Synchronous.send :prepend, GroongaNoKeepAlive
-
 module GroongaHTTPS
   def send(command)
     begin
