@@ -5,7 +5,7 @@ tags:
   - Groonga
 ---
 
-この日記の検索機能（フッターの検索フォームからできる）では[groonga-httpd][]を使っている。日記本文は[GitHub Pages][]にホストしてもらっている。GitHub PagesはHTTPでもHTTPSでもどちらでもアクセスできて、ツイッターなどでURIを貼る時には僕はHTTPの方を使っている。だがgroonga-httpdはこれまでHTTPSに対応していなかったので、[XHR][]で接続することができなかった。仕方なく前段に[Nginx][]を立てて、そこでTLSの終端をしていた。
+この日記の検索機能（フッターの検索フォームからできる）では[groonga-httpd][]を使っている。日記本文は[GitHub Pages][]にホストしてもらっている。GitHub PagesはHTTPでもHTTPSでもどちらでもアクセスできて、ツイッターなどでURIを貼る時には僕はHTTPSの方を使っている。だがgroonga-httpdはこれまでHTTPSに対応していなかったので、[XHR][]で接続することができなかった。仕方なく前段に[Nginx][]を立てて、そこでTLSの終端をしていた。
 
 日課の`apt-get update && apt-get upgrade`をしていたらGroongaの各種パッケージが降って来たので更新内容を確認しに行った（[6.0.0リリース - 2016-02-29](http://groonga.org/ja/docs/news.html#release-6-0-0)）。そこにTLSサポートのことが書かれていたので、早速この日記の検索サーバーでもアップデートして、TLSを有効にした（と書くと白々しいか、TLSサポートは僕が要望した物だった：[https://osdn.jp/projects/groonga/lists/archive/dev/2016-February/003951.html](https://osdn.jp/projects/groonga/lists/archive/dev/2016-February/003951.html)）。
 
