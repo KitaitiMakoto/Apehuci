@@ -14,7 +14,7 @@ task :gh_pages do |t|
   sh 'middleman deploy'
 end
 
-GROONGA_URI = URI.parse('http://search.apehuci.kitaitimakoto.net:10041')
+GROONGA_URI = URI.parse('https://search.apehuci.kitaitimakoto.net')
 GROONGA_TABLE = 'Apehuci'
 
 desc 'Set up Groonga database'
@@ -53,7 +53,7 @@ task :search_index do |t|
     }
   }
 
-  Groonga::Client.open(host: GROONGA_URI.host, port: GROONGA_URI.port, protocol: GROONGA_URI.scheme, user: 'KitaitiMakoto', password: ENV['APEHUCI_HTPASSWD']) do |client|
+  Groonga::Client.open(host: GROONGA_URI.host, port: GROONGA_URI.port, protocol: GROONGA_URI.scheme, use_ssl: (GROONGA_URI.scheme == 'https'), user: 'KitaitiMakoto', password: ENV['APEHUCI_HTPASSWD']) do |client|
     client.load table: GROONGA_TABLE, values: resources
   end
 end
@@ -65,3 +65,30 @@ module GroongaNoKeepAlive
   end
 end
 Groonga::Client::Protocol::HTTP::Synchronous.send :prepend, GroongaNoKeepAlive
+
+module GroongaHTTPS
+  def send(command)
+    begin
+      Net::HTTP.start(@host, @port, @options) do |http|
+        http.read_timeout = read_timeout
+        response = send_request(http, command)
+        case response
+        when Net::HTTPSuccess, Net::HTTPBadRequest
+          yield(response.body)
+        else
+          if response.body.start_with?("[[")
+            yield(response.body)
+          else
+            message =
+              "#{response.code} #{response.message}: #{response.body}"
+            raise Error.new(message)
+          end
+        end
+      end
+    rescue SystemCallError, Timeout::Error
+      raise WrappedError.new($!)
+    end
+    Groonga::Client::EmptyRequest.new
+  end
+end
+Groonga::Client::Protocol::HTTP::Synchronous.send :prepend, GroongaHTTPS
