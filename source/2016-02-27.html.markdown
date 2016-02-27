@@ -1,0 +1,22 @@
+---
+title: 日記の検索部分をHTTP/2対応した
+tags:
+  - http/2
+  - Groonga
+---
+
+この日記の検索機能（フッターの検索フォームからできる）では[groonga-httpd][]を使っている。日記本文は[GitHub Pages][]にホストしてもらっている。GitHub PagesはHTTPでもHTTPSでもどちらでもアクセスできて、ツイッターなどでURIを貼る時には僕はHTTPの方を使っている。だがgroonga-httpdはこれまでHTTPSに対応していなかったので、[XHR][]で接続することができなかった。仕方なく前段に[Nginx][]を立てて、そこでTLSの終端をしていた。
+
+日課の`apt-get update && apt-get upgrade`をしていたらGroongaの各種パッケージが降って来たので更新内容を確認しに行った（[6.0.0リリース - 2016-02-29](http://groonga.org/ja/docs/news.html#release-6-0-0)）。そこにTLSサポートのことが書かれていたので、早速この日記の検索サーバーでもアップデートして、TLSを有効にした（と書くと白々しいか、TLSサポートは僕が要望した物だった：[https://osdn.jp/projects/groonga/lists/archive/dev/2016-February/003951.html](https://osdn.jp/projects/groonga/lists/archive/dev/2016-February/003951.html)）。
+
+また、groonga-httpdは前々からHTTP/2が使えるようになっていたので、ついでにそちらも有効にした。
+
+検索は単純にキーアップイベントを拾い、入力の一文字目からその都度groonga-httpdに検索リクエストを投げるようにしているので、HTTP/2でコネクションを張りっぱなしにして検索できるのは効果が大きいのではないかと思う（測ってない）。
+
+ただ、検索用に日記のデータを入力するのは手元のスクリプトで[groonga-client][] gemを使って実行していたのだが、このgemがHTTPS対応していないのでそこを対応しないといけない。それまでは、今日のこの日記以降の記事は検索対象にならない。HTTP接続用の別のポートを開けてもいいが、まあいいだろう。
+
+[groonga-httpd]: http://groonga.org/ja/docs/reference/executables/groonga-httpd.html
+[GitHub Pages]: https://pages.github.com/
+[XHR]: https://developer.mozilla.org/ja/docs/Web/API/XMLHttpRequest
+[Nginx]: http://nginx.org/
+[groonga-client]: https://github.com/ranguba/groonga-client
