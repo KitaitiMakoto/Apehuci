@@ -21,7 +21,7 @@ desc 'Set up Groonga database'
 task :setup_db do
   raise 'Environment variable APEHUCI_HTPASSWD not set' unless ENV['APEHUCI_HTPASSWD']
 
-  Groonga::Client.open(host: GROONGA_URI.host, port: GROONGA_URI.port, protocol: GROONGA_URI.scheme, user: 'KitaitiMakoto', password: ENV['APEHUCI_HTPASSWD']) do |client|
+  Groonga::Client.open(host: GROONGA_URI.host, port: GROONGA_URI.port, protocol: GROONGA_URI.scheme.to_sym, user: 'KitaitiMakoto', password: ENV['APEHUCI_HTPASSWD']) do |client|
     client.table_create name: GROONGA_TABLE, flags: 'TABLE_HASH_KEY', key_type: :ShortText
 
     client.column_create table: GROONGA_TABLE, name: 'title',   type: :ShortText
