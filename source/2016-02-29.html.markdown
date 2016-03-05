@@ -1,0 +1,32 @@
+---
+title: "Sendagaya.rb #139"
+tags:
+  - Ruby
+---
+
+今日も[Sendagaya.rb #139][]@[株式会社ランチェスター][]に参加して来た。『[メタプログラミングRuby 第2版][]』を少し読んだ後、参加者の持ち込んだ相談事の話をしたりした。
+
+メタプログラミングRuby method_missing
+-------------------------------------
+
+今日は「3.3 method_missing」から。
+
+[Hash#default][]なんてあったんだ、とか、引数なんて取れたんだ、と話していたが、本筋は問題なく読み進んでいた。
+
+
+相談事
+------
+
+その後は参加者の一人が持ち込んだ相談について話した。ただ、業務と直結していてここに書いていいか分からないので割愛。面白い話だったし、実際やってみてどうなったか、後日ぜひ聞きたい。
+
+
+Sendagaya.rb KPT
+----------------
+
+次回は第140回というまことに切りのいい数値なので、[fukajun][]さんの発案で、KPTをやることになった。多分、飲みながら。
+
+[Sendagaya.rb #139]: https://sendagayarb.doorkeeper.jp/events/39806
+[株式会社ランチェスター]: http://www.lanches.co.jp/company
+[メタプログラミングRuby 第2版]: https://www.oreilly.co.jp/books/9784873117430/
+[Hash#default]: http://docs.ruby-lang.org/ja/2.3.0/method/Hash/i/default.html
+[fukajun]: http://fukajun.org/
