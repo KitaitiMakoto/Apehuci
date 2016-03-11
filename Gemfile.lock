@@ -9,7 +9,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.5.2)
+    activesupport (4.2.6)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -38,7 +38,7 @@ GEM
       addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.10)
     gqtp (1.0.6)
-    groonga-command (1.1.6)
+    groonga-command (1.1.7)
       json
     haml (4.0.7)
       tilt
@@ -117,7 +117,7 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rake (10.5.0)
+    rake (11.1.0)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
