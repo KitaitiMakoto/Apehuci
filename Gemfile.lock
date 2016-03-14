@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ranguba/groonga-client.git
-  revision: 6ec9a711de714e2d860a2ba141c507e0019bb320
+  revision: 04f00f2a24e898506536d6c45f608976aadd7b31
   specs:
     groonga-client (0.2.0)
       gqtp (>= 1.0.4)
@@ -117,7 +117,7 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rake (11.1.0)
+    rake (11.1.1)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
