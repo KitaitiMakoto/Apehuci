@@ -2,6 +2,7 @@
 title: Groongaの類似文書検索
 tags:
   - Groonga
+  - Mroonga
   - 全文検索
   - 類似文書検索
 ---
