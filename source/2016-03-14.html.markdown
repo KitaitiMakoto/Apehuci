@@ -1,0 +1,39 @@
+---
+title: "SQLアンチパターン@Sendagaya.rb #141"
+tags:
+  - SQL
+  - Ruby
+---
+
+[Sendagaya.rb #141][]で[株式会社ランチェスター][]に行って来た。今回は『[SQLアンチパターン][]』に関連して相談したいことがあるという参加者がいたので、その話を前半（というか殆ど）やって、後半は『[メタプログラミングRuby][]』を読んだ。
+
+SQLアンチパターン
+-----------------
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="http://www.amazon.co.jp/SQL%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3-Bill-Karwin/dp/4873115892%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873115892" target="_blank"><img src="http://ecx.images-amazon.com/images/I/41qHKrFZi0L._SL160_.jpg" width="117" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="http://www.amazon.co.jp/SQL%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3-Bill-Karwin/dp/4873115892%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873115892" target="_blank">SQLアンチパターン</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/Bill+Karwin" target="_blank">Bill Karwin</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">オライリージャパン</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2013-01-26</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4873115892" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+僕はこの本を持っていないから具体的なことはあまり分からないけれど、「ポリモーフィック関連はよくない」と言っている箇所があって、ちょうど自分で作っている物でもポリモーフィック関連を使っている所があって、それで相談に来たということらしかった。本の該当箇所を説明してもらったり、[@tkawa][]さんが電子版を持っていたのでプロジェクターで映して見せてもらったりしながら話を聞いていると、基本的には外部キー制約が使えなくなることが問題のようで、これの解決方法として交差テーブル（だっけ？）という考え方と単一テーブル継承という考え方を紹介していた。
+
+ポリモーフィック関連はよくない、しかしではどうしたらいいだろうか、この本で提示されている解決策もあまりいいようには思われない、ということで、その人の扱っている具体的なテーブル構造なんかを教えてもらいながらみんなでああだこうだと言っていた。一般的な正解がないタイプの問題だし、ウェブのサービスだと将来要件が変わることは容易に想像できる、それも今の段階ではどう変わるか想像できないタイプの変わり方をするものだから、正解を探すのはますます難しい。[@iR3][]さんが、長年の経験からためになるアドバイスをするなどしていた。[fukajun][]さんもいいこと言ったり、もっと言いたいことありそうだった（前にもテーブル設計の時に言いたいこと残してそうだったのを思い出すに、RDBMS得意そう）のだけど、残念ながら体調不良でidobataによるテキストチャットでの参加だったものだから、勿体無い感じなってしまった。勿体無い。
+
+こういうのって、誰かに相談できる、話し相手がいることその物が価値だったりするものだなあという感覚を思い出した。
+
+メタプログラミングRuby
+----------------------
+
+最後三十分くらいで『メタプログラミングRuby 第2版』を読んだ。今回は主に`method_missing`の所だ。「`method_missing`を定義する時は一緒に`respond_to_missing?`も定義しましょう」というのがポイント。
+
+あと、ついエイリアスメソッドチェインという言葉を使ってしまって「それ何？」って聞かれたのだけど、2016年なんだし、ほぼ説明を要するような言葉は封印していくべきだと感じた。
+
+次回は[The Rails Doctrine][]（多分、[日本語訳][The Rails Doctrine ja]のほう）を読みながらおしゃべりする予定：  
+[https://sendagayarb.doorkeeper.jp/events/41208](https://sendagayarb.doorkeeper.jp/events/41208)
+
+[Sendagaya.rb #141]: https://sendagayarb.doorkeeper.jp/events/40813
+[株式会社ランチェスター]: http://www.lanches.co.jp/
+[SQLアンチパターン]: https://www.oreilly.co.jp/books/9784873115894/
+[メタプログラミングRuby]: https://www.oreilly.co.jp/books/9784873117430/
+[@tkawa]: https://twitter.com/tkawa
+[@iR3]: https://twitter.com/iR3
+[fukajun]: http://fukajun.org/
+[The Rails Doctrine]: http://rubyonrails.org/doctrine/
+[The Rails Doctrine ja]: http://postd.cc/rails-doctrine/
