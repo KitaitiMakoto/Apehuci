@@ -11,7 +11,7 @@ tags:
 
 READMEに従ってコーディングしていたけどいつまで経ってもプロセスを起動する所に辿り着かなくておかしいなあと思って、「今（Rails 5 Beta 3）のAction Cableの入門に一番いいのって何なんですかね？」と聞いてみたら[Action Cable and WebSockets: An in-Depth Tutorial][]という記事を教えてもらった。あと実は、READMEの下の方にプロセスの起動について書いてあったということも教えてもらった。
 
-最後に[@tyabe][]が渋谷Ruby会議01を考えてます、って案内していた。ウェブアプリケーションフレームワークをテーマにする予定だとか。
+最後に[@tyabe][]が渋谷Ruby会議02を考えてます、って案内していた。ウェブアプリケーションフレームワークをテーマにする予定だとか。
 
 [shibuyarb]: https://shibuyarb.doorkeeper.jp/events/40976
 [ピクスタ株式会社]: https://pixta.co.jp/
