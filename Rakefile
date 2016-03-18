@@ -10,7 +10,7 @@ task :site do
 end
 
 desc 'Deploy GitHub pages'
-task :gh_pages do |t|
+task :gh_pages => :site do |t|
   sh 'middleman deploy'
 end
 
