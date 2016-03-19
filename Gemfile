@@ -10,7 +10,7 @@ gem 'tzinfo-data', platforms: [:mswin, :mingw, :jruby]
 
 # Middleman Gems
 gem 'middleman', '~> 4'
-gem 'middleman-blog'
+gem 'middleman-blog', '~> 4'
 gem 'middleman-deploy', '>= 2.0.0.pre.alpha'
 gem 'middleman-minify-html'
 
