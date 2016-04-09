@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/ranguba/groonga-client.git
-  revision: 8d6714a9aad1f0320a510b62c86301f2af6235cf
-  specs:
-    groonga-client (0.2.6)
-      gqtp (>= 1.0.4)
-      groonga-command (>= 1.2.0)
-      hashie
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,6 +30,10 @@ GEM
       addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.10)
     gqtp (1.0.6)
+    groonga-client (0.2.5)
+      gqtp (>= 1.0.4)
+      groonga-command (>= 1.2.0)
+      hashie
     groonga-command (1.2.0)
       json
     haml (4.0.7)
@@ -139,7 +134,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  groonga-client!
+  groonga-client
   middleman (~> 4)
   middleman-blog (~> 4)
   middleman-deploy (>= 2.0.0.pre.alpha)
