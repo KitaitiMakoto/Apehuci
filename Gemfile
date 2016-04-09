@@ -21,4 +21,4 @@ gem 'middleman-web_components'
 
 gem 'rake'
 gem 'nokogiri'
-gem 'groonga-client', github: 'ranguba/groonga-client'
+gem 'groonga-client'
