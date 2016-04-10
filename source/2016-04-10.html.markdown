@@ -1,0 +1,26 @@
+---
+title: 日記のコメント用にHypothes.isを埋め込んでみた
+tags:
+  - Hypothes.is
+  - Web Annotation
+---
+
+<img alt="Hypothes.isのバー" src="https://gyazo.com/c2c66762e491d0a02b466706f561d83d.png" style="float: right; margin-left: 1em; margin-bottom: 1em;"/>
+この日記は自分が読んでいて邪魔だなと感じる物はなるべく置かないようにしていて、ツイートとかシェアとかのボタンがないのはそのため。コメントについてはずっと迷っていたけど、まあ、置いてみようかということにした。静的サイトジェネレーターと組み合わせるコメントソリューションとしては[DISQUS][]がデファクトスタンダード（ドファクトスタンダール？）だと思うけど、気になっていた[Hypothes.is][]を試すことにした。ページ右端に見えているエリアがそれだ。タイトルを隠してしまったりして「邪魔」なのは間違いないのだけど好奇心が勝ってしまった。タイトルの位置は後で調整する（かも）。
+
+<img alt="記事中の文章を選択するとアノテーションとハイライトのアイコンが現れる。" src="https://gyazo.com/a32998784be0efafe88123489493fe23.png" style="float: left; height: 4em; margin-right: 1em; margin-bottom: 1em;"/>
+記事の適当な所を選択するとAnnotateとHighlightのアイコンが出てきて、コメントを付けたりハイライトしたりできる。他人が付けたコメントについては、右端のバーを引っ張りだすことで見られる（コメントを残す時に、ここに現れてもよいかどうかを選べる）。
+
+Hypothes.isはウェブページなどにアノテーションを付けられるようにしようというプロジェクトで、そのための埋め込みJavaScriptコードやChrome拡張なんかを作っている。アノテーションというのは、ページの全体や一部分をハイライトしたり、コメントを付けたりすること。はてなスターとかはてブみたいなイメージ。W3Cが[Web Annotation][]としてこうしたニーズのための仕様を策定中だったりする（Hypothes.isがWeb Annotationに従っているかは分からない。その前身のOpen Annotationに従ってはいたと思うので、プランとして追従するつもりはあるんだと思う）。アノテーションについては[かざかざ][]さんの素晴らしい記事を参照されたい。リンク先末尾の「関連エントリ」もぜひ辿ってほしい。
+
+[日本よっ！これがOpen Annotationだっ！！](http://code.kzakza.com/2013/08/open-annotation_data_model/)
+
+ウェブページごと（URIごと）にフィードを吐いているので、このページに付けられたコメント一覧」みたいな物をページ末尾に付けたりすることはできるので、後でちょっとやってみようと思う（邪魔だったら公開しない）。
+
+しかしまあ、Hypothes.isへの登録が必要なところとか、そもそもこの日記でコメントを残したいのかとか、使われるか不安はあるが、まあ、いいか。
+
+[DISQUS]: https://gyazo.com/c2c66762e491d0a02b466706f561d83d
+[Hypothes.is]: https://hypothes.is/
+[Web Annotation]: https://www.w3.org/annotation/
+[Open Annotation]: http://www.openannotation.org/
+[かざかざ]: http://code.kzakza.com/
