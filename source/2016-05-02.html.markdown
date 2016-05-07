@@ -1,0 +1,21 @@
+---
+title: "Sendagaya.rb #147"
+tags:
+  - Ruby
+  - Ruby on Rails
+---
+
+[Sendagaya.rb #147][]@[株式会社ランチェスター][]に参加して来た。
+
+前半、[Rails セキュリティガイド][]の[3 クロスサイトリクエストフォージェリ (CSRF)][]の所を読んだ。話している中で出て来て知ったのけど「Railsゆとり」っていい言葉だな。
+
+後半は[メタプログラミングRuby][]のブロックの所を読んだ。Procとlambdaの違いなどをやった。
+
+次回もこの二本立ての予定とのこと。参加申込はこちら：[Sendagaya.rb #148][]
+
+[Sendagaya.rb #147]: https://sendagayarb.doorkeeper.jp/events/44004
+[株式会社ランチェスター]: http://www.lanches.co.jp/
+[Rails セキュリティガイド]: http://railsguides.jp/security.html
+[3 クロスサイトリクエストフォージェリ (CSRF)]: http://railsguides.jp/security.html#%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%B5%E3%82%A4%E3%83%88%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%AA-csrf
+[メタプログラミングRuby]: https://www.oreilly.co.jp/books/9784873117430/
+[Sendagaya.rb #148]: https://sendagayarb.doorkeeper.jp/events/44607
