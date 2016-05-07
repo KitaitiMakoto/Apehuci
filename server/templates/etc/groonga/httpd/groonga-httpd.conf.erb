@@ -77,4 +77,17 @@ http {
       root html;
     }
   }
+
+  server {
+    listen 80;
+
+    # Used to renew Let's Encrypt certs
+    location /.well-known/ {
+      root /usr/share/groonga/html;
+    }
+
+    location / {
+      return 403;
+    }
+  }
 }

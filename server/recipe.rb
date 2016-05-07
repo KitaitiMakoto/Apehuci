@@ -62,3 +62,10 @@ execute 'install letsencrypt' do
   cwd '/root/letsencrypt'
   not_if 'test -e /etc/letsencrypt/live/search.apehuci.kitaitimakoto.net/cert.pem'
 end
+
+template '/etc/cron.weekly/renew-letsencrypt-cert.bash' do
+  source :auto
+  owner 'root'
+  group 'root'
+  mode '755'
+end
