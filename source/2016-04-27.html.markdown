@@ -1,0 +1,25 @@
+---
+title: Groonga新リリース自慢会 6.0.2
+tags:
+  - Groonga
+  - 全文検索
+---
+
+[Groonga新リリース自慢会 6.0.2][]@[クラウドワークス][]に参加して来た。
+
+Groongaは毎月29日に新バージョンをリリースしているので、今日は一足早いお披露目ということになる。主な変更点は次のページにまとまっている：
+
+[Groonga 6.0.2リリース][]
+
+主に[@ktou][]さんが自慢していってくれたのだけど、追加や修正されたうち[naoa_y][]さんが実装した物も多かったようで、一緒に参加していたnaoa_yさんに自慢してもらった物も結構あった。今回の個人的な目玉はそのうちの多段ドリルダウンだった。自ら詳しい紹介を書いているのでそちらを参照されたい：[Groonga 6.0.2から多段ドリルダウンが利用可能に][]。naoa_yさんはユーザーにとってキャッチーな新機能を実装してくれることが多くありがたいことだ。
+
+もう一つの個人的な目玉は、PGroongaの各種機能追加だ：[1.0.7: 2016-04-24][pgroonga]。PGroongaは使っていないけど個人的にこの機能は欲しくて、GitHubでイシューを上げていたりする： [\[RFC\]API to retrieve query position in document #437][position]。早くGroonga（と言うかgroonga-httpd）にも入ってほしい。
+
+[Groonga新リリース自慢会 6.0.2]: https://groonga.doorkeeper.jp/events/44055
+[クラウドワークス]: https://crowdworks.co.jp/
+[Groonga 6.0.2リリース]: http://groonga.org/ja/blog/2016/04/29/groonga-6.0.2.html
+[@ktou]: http://twitter.com/ktou
+[naoa_y]: http://blog.createfield.com/
+[Groonga 6.0.2から多段ドリルダウンが利用可能に]: http://blog.createfield.com/entry/2016/04/27/200305
+[pgroonga]: https://pgroonga.github.io/ja/news/#version-1-0-7
+[position]: https://github.com/groonga/groonga/issues/437
