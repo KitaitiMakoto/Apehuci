@@ -1,0 +1,26 @@
+---
+title: "Sendagaya.rb #148"
+tags:
+  - Ruby
+  - Ruby on Rails
+---
+
+[Sendagaya.rb #148][]@[株式会社ランチェスター][]に参加して来た。
+
+[先週][]同様、前半は[Rails セキュリティガイド][]の[4 リダイレクトとファイル][]、後半は[メタプログラミングRuby][]の「4.5.3　Methodオブジェクト」を読んだ。
+
+「お酒は九時になってから」という謎ルールのもと、おもむろに持ち込んでいた（！）ビールを開け始めるメンバーに混じって（僕はお酒を飲めない）、pryで遊びながら[Method][]や[UnboundMethod][]の理解を深めた。`include`によって生えたメソッドを無効化して、元の（より親側のクラスの）メソッドに戻す、というのの実装が激しかった。
+
+次回は#149、ではなくて、特別編らしい：[Sendagaya.rb #川村さんを囲む会][]
+
+たぶんRubyとか関係ない。
+
+[Sendagaya.rb #148]: https://sendagayarb.doorkeeper.jp/events/44607
+[株式会社ランチェスター]: http://www.lanches.co.jp/
+[先週]: ../../../2016/05/02.html
+[Rails セキュリティガイド]: http://railsguides.jp/security.html
+[4 リダイレクトとファイル]: http://railsguides.jp/security.html#%E3%83%AA%E3%83%80%E3%82%A4%E3%83%AC%E3%82%AF%E3%83%88%E3%81%A8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB
+[メタプログラミングRuby]: https://www.oreilly.co.jp/books/9784873117430/
+[Method]: http://docs.ruby-lang.org/ja/2.3.0/class/Method.html
+[UnboundMethod]: http://docs.ruby-lang.org/ja/2.3.0/class/UnboundMethod.html
+[Sendagaya.rb #川村さんを囲む会]: https://sendagayarb.doorkeeper.jp/events/44390
