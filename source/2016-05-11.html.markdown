@@ -1,0 +1,197 @@
+---
+title: Robust Annotation（安定したアノテーション）
+tags:
+  - Web Annotation
+  - Robust Links
+---
+
+ウェブページにアノテーションを付ける時、ページの更新に対してアノテーションの指し示す場所はどうしたらいいのだろうという悩みがある。Robust Linksのやり方と同じにアノテーション作成日時を記録し、その時点でのウェブページをInternet Archive上のページなどとして参照しておけばいいのだと思い至った。そこから、欠けたピースはやはり「DOMの差分計算」になりそうだとも思った。
+
+アノテーション
+--------------
+
+ウェブページのある部分を大事だと思ってハイライトしたり、そこに自分の疑問点や思い付きを書き込んでおきたいことがある。前者は栞として後で参照するのに使ったり、はてなスターのように（はてなスターを使ったことがないので推測だ）「いいことを書いてあると思う」ということを書いた人、そのページを読む人に伝えるために使ったりする。後者はあまり見ないかも知れないが、例えばはてなブックマークはページ全体に対するコメントと見做せるだろう。「[日記のコメント用にHypothes.isを埋め込んでみた][]」に書いたようなまさにそのためのツールもあるにはある。ウェブページを離れれば、Kindleで日々やっていることとして想像しやすい人も多いと思う。
+
+この二つを「アノテーション（注釈）」と定義して、その（プログラムで扱うための）表現方法ややり取りのためのプロトコルを、W3Cがワーキンググループを立ち上げて策定している（[W3C Web Annotation Working Group][]。[kzakza][]さんの[W3C Web Annotation Working Group 紹介][]も読まれたい）。これをWeb Annotationと呼ぶ（これ、とか言ったが、どこのことを呼ぶんだかはっきりとは考えていない）。策定中でまだ変わるだろうし、本題でもないので詳細は気にしないでいいのだが、JSON（JSON-LD）でこのように書く（フォーマットを定めた[Web Annotation Data Model][]仕様の[Complete Example][]から抜粋）。
+
+~~~ json
+{
+  // ...
+  "type": "Annotation",
+  "motivation": "commenting",
+  // ...
+  "created": "2015-10-13T13:00:00Z",
+  // ...
+  "generated": "2015-10-14T15:13:28Z",
+  // ...
+  "body": [
+    {
+      "type": "TextualBody",
+      "role": "tagging",
+      "text": "love"
+    },
+    {
+      "type": "Choice",
+      "members": [
+        {
+          "type": "TextualBody",
+          "role": "describing",
+          "text": "I really love this particular bit of text in this XML. No really.",
+          "format": "text/plain",
+          "language": "en",
+          "creator": "http://example.org/user1"
+        },
+        // ...
+      ]
+    }
+  ],
+  "target": {
+    "type": "SpecificResource",
+    // ...
+    "source": "http://example.com/document1",
+    // ...
+    "selector": {
+      "type": "List",
+      "members": [
+        {
+          "type": "FragmentSelector",
+          "value": "xpointer(/doc/body/section[2]/para[1])"
+        },
+        // ...
+      ]
+    }
+  }
+}
+~~~
+
+何となく分かると思う。「http://example.com/document1のページの`/doc/body/section[2]/para[1]`というXPointerで表現されるパラグラフ（サンプルがHTMLだったらもっと都合がよかった……。その場合はCSSセレクターを使うことになるだろう）に対して、『I really love this particular bit of text in this XML. No really.』というコメントを付けている」ことになる。
+
+さて、当然の悩みとして、「http://example.com/document1が更新されて、コメントの対象が無くなってしまったら、または内容が変わってしまったらどうなるのだろう」というのが生まれる（Kindleはどうなるんだっけ？　全部消える？）。
+
+解決として、Robust Linksと同じ方法を取るのはどうか、と思い至った。
+
+Robust Links
+------------
+
+ウェブページはどれも、内容が変わり得るし、無くなってしまうことだってある。こういう性質を持つ、もっと言うとより「強く」持つ物を、僕等はよく知っている。コードだ。日記でソースコードリーディングや実装解説をしていてGitHub上のソースコードの特定の行へのリンクを張る時、`master`ブランチのURLを使ったりはしない。「その時点でのコミット」を指す、ハッシュダイジェスト入りのURLを使う。
+
+Robust Link（安定したリンク）はこのアイディアをどのページヘのリンクにも適用したようなものだ。普段使う`<a>`要素を強化して、リンク切れに強くする。そのアイディアはおおよそ次の通り。
+
+1. 普通の方法で`<a>`要素を使ってリンクを作る（`<a href="https://github.com/mementoweb/robustlinks">mementoweb/robustlinks</a>`）
+2. その時点でのスナップショットへのURLを、`data-versionurl`属性として付加する（`data-versionurl="https://github.com/mementoweb/robustlinks/commit/314640710584fcf91b0af64112714edd9ca4cb32"`）
+3. リンクを作成した日を、`data-versiondate`属性として付加する（`data-versiondate="2016-05-11"`）
+
+結果こうなる：
+
+~~~ html
+<a href="https://github.com/mementoweb/robustlinks"
+   data-versionurl="https://github.com/mementoweb/robustlinks/commit/314640710584fcf91b0af64112714edd9ca4cb32"
+   data-versiondate="2016-05-11">mementoweb/robustlinks</a>
+~~~
+
+これによって「このリンクは2016年5月11日に作られたmemento/robustlinksへのリンクで、その時点でのこのページ（リポジトリー）は`https://github.com/mementoweb/robustlinks/commit/314640710584fcf91b0af64112714edd9ca4cb32`を見れば再現できる」と見做すのだ。（細かくは色々あるので、プロジェクトのサイトを参照されたい、特に「こんな面倒なマークアップをしないといけないなんて、正気か？」と感じた人：[Robust Links][]）。実際これで問題はなくて、この例のようにGitHubであれば僕達には馴染み深いし、そうでなくても[Internet Archve][]のようなアーカイブサイト（魚拓サイト？）をポイントしておけば、（理想的には）リンク時点の物を再現できる。記事内に作ったリンクがある時切れてしまっても、これによって記事執筆時点でのリンク先を見て、記事内容を理解することができるわけだ（そして、そういうリンクを追加するJavaScriptライブラリーをRobust Linksプロジェクトは提供している）。
+
+Robust Annotation
+-----------------
+
+この方法、アノテーションにも応用できることは、ここまで読めば、すぐに分かるだろう。「アノテーションの対象を示す物」はリンクに他ならない。さっきのWeb Annotationのサンプルの`target`オブジェクトに注目し、例えば次のように`versionurl`プロパティを足してやればよい。
+
+~~~ json
+  // ...
+  "created": "2015-10-13T13:00:00Z",
+  // ...
+  "generated": "2015-10-14T15:13:28Z",
+  // ...
+  "target": {
+    "type": "SpecificResource",
+    // ...
+    "source": "http://example.com/document1",
+    "versionurl": "http://web.archive.org/web/20151001135202/http://example.com/document1",
+    // ...
+    "selector": {
+      "type": "List",
+      "members": [
+        {
+          "type": "FragmentSelector",
+          "value": "xpointer(/doc/body/section[2]/para[1])"
+        },
+        // ...
+      ]
+    }
+  }
+  // ...
+~~~
+
+これで、「たとえ対象ページが大きく変更されていても、少なくとも2015年10月13日時点でのhttp://example.com/document1に対するコメントとしては意味を理解できる」ということになる。元々Web Annotation Data Modelで`created`や`generated`、サンプルにはないが`modified`が定義されているので、Robust Linksの`data-versiondate`に相当する物は追加しなくてもよい。
+
+アノテーションの更新
+--------------------
+
+なるほど「古い」アノテーションを、コンテクスト込みで理解できるようになった。だがこれが嬉しいのは、そのページのコンテンツに深い興味を持っている人と、そのページを取り巻く環境に興味を持っている人くらいなのではないかと思う。言い方を変えると、大多数のライトな読者は、そんな「ちょっとした違い」でしかないところまで探求しないだろうと思う。それより、最新のページを見ている時に、古いバージョンへのアノテーションも含めた色々なアノテーションが見られたほうが楽しくはないだろうか。それを実現するにはどうしたらいいだろうか。
+
+まず、最新のページに、全てのアノテーションを表示すること。これは、当然ながら、記事の一部が削除されたり、追加されてアノテーションしていた部分の位置が変わった時に対応できない。
+
+全てのアノテーションについて、それが指し示している「バージョン」を調べ、各バージョンのウェブページを集める。それぞれについて、最新のページとの差分を求める。その差分によって、アノテーションの対象が消えているか、場所が移動しているか、内容が変更されているかを判断できれば、いいはずだ。変更については意味の理解も必要だから簡単にはいかないが、削除と位置変更くらいなら簡単なはずだ（もちろん、前後の文脈を視野に入れたアノテーションであれば、離れたパラグラフの削除などのせいで意味を持たなくなることはあるが）。
+
+例を出そう。こんなHTML断片があったとする。バージョン1と呼ぼう。
+
+~~~ html
+<p><span>こんにちは。</span><span>お元気ですか。</span><span>わたしは元気です。</span></p>
+~~~
+
+これに対して、こんな三つのアノテーションがあったとする（Web Annotation Data Modelの記法ではなく、CSSセレクターと日本語のかぎかっこを使う）。
+
+アノテーション1
+: バージョン1の`*:nth-child(n) > *:nth-child(1)`（`<span>こんにちは。</span>`）に対して「普通の挨拶」というコメント
+
+アノテーション2
+: バージョン1の`*:nth-child(n) > *:nth-child(2)`（`<span>お元気ですか。</span>`）に対して「珍しい挨拶」というコメント
+
+アノテーション3
+: バージョン1の`*:nth-child(n) > *:nth-child(3)`（`<span>わたしは元気です。</span>`）に対して「つまらない挨拶」というコメント
+
+このページは何か理由があって編集され、こんなバージョン2になったとする。
+
+~~~ html
+<p><span>お元気ですか。</span><span>わたしは元気です。</span></p>
+~~~
+
+「こんにちは。」は平凡すぎて恥ずかしくなったのかも知れない。それはさておき、先の二つのアノテーションは **バージョン1に対する物** なので、最新であるバージョン2のどこに対してコメントしているかは自明ではない。もし何も処理をせず、そのままバージョン2に対する物として適用してしまうと、`<span>お元気ですか。</span>`に対して、「普通の挨拶」というコメントが表示されてしまう。「珍しい挨拶」としてコメントしたはずなのに。明らかに、アノテーション作成者の意図を捻じ曲げてしまっている。
+
+これを是正するためには、何らかの処理を施して次のようになってほしい（名前にプライム記号「&prime;」を付けた）。
+
+アノテーション1&prime;
+: （なし）
+
+アノテーション2&prime;
+: バージョン2の`*:nth-child(n) > *:nth-child(1)`に対して「珍しい挨拶」というコメント
+
+アノテーション3&prime;
+: バージョン2の`*:nth-child(n) > *:nth-child(2)`に対して「つまらない挨拶」というコメント
+
+`nth-child(2)`だった所が`nth-child(1)`に、`nth-child(3)`だった所が`nth-child(2)`に変わっている。
+
+これを実現するためには何が分かるといいだろうか。「`*:nth-child(n)`（`<p>`要素）の`1`番目の子要素が無くなった」ということが分かればいいはずだ。すると、`1`番目より後だった要素の`nth-child()`の中を一つ減らせばいいということが分かる。単純な引き算だ。
+
+ではそうしたHTMLの変更をどうやって知ればいいだろうか。二つあると思う。
+
+一つは、HTMLを編集する時に、同時にこうした「どのような操作か」という情報も作り出すこと。テキストエディターのようにユーザーが直接（？）テキストを編集してしまうタイプのアプリケーションでは無理そうだが、ユーザーの操作と結果の生成の間にギャップが大きくて、何らかのフックを掛けやすそうなWYSIWYGエディターではそれが可能かも知れない。
+
+もう一つは、二つのHTMLを比べて「差分」を抽出すること。テキストファイルに対する`diff`コマンドのような物だ。ここではHTMLなので、DOMツリーの差分ということになる。僕はこちらに期待している。
+
+というわけで、「バージョン」間のDOMツリーの差分を計算することができれば、古めのアノテーションのうち、最新版でも有効なものを（ある程度）抽出して適用させることができる、つまり対象ページの履歴を見るだけで「アノテーションの更新」を実現できるのではないか、と思っているわけだ。
+
+実はこの話は前にもしたことがあって、「[EPUB書籍に正誤表を反映する（Rubyスクリプトで）、またはEPUBのパッチプログラムの試み][]」の「追記」に言及がある。また、こうした関心とは無関係に、フロントエンドエンジニアの[@kitak][]さんから「アプリケーション開発やデバッグの簡単のためにDOMツリーの差分を表示するツールが欲しい」という声を聞いたこともあって、今、DOMツリーの差分計算は、結構、ニーズがあるのではないかと思っている。
+
+なお、補足だが、アノテーションを必ずCSSセレクターなどのDOM構造を前提とした方法で行わなければいけないわけではない。Web Annotation Data Modelでも、「先頭から何文字目か」でアノテーションを付ける方法も提供している。しかし、そうした「位置情報」を使っている時に、場所の移動を計算するのは、HTMLの場合はだいぶ大変だと思う。
+
+[日記のコメント用にHypothes.isを埋め込んでみた]: ../../2016/04/10.html
+[W3C Web Annotation Working Group]: https://www.w3.org/annotation/
+[kzakza]: https://twitter.com/kzakza
+[W3C Web Annotation Working Group 紹介]: http://code.kzakza.com/2014/08/w3c-web-annotation-working-group/
+[Web Annotation Data Model]: https://www.w3.org/TR/annotation-model/
+[Complete Example]: https://www.w3.org/TR/annotation-model/#complete-example
+[Robust Links]: http://robustlinks.mementoweb.org/
+[Internet Archve]: https://archive.org/index.php
+[EPUB書籍に正誤表を反映する（Rubyスクリプトで）、またはEPUBのパッチプログラムの試み]: ../../2016/01/02.html
+[@kitak]: https://twitter.com/kitak
