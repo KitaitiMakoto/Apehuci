@@ -89,7 +89,7 @@ activate :web_components
 
 activate :blog do |blog|
   Time.zone = 'Tokyo'
-  blog.sources = '{year}-{month}-{day}.html'
+  blog.sources = '{year}/{month}/{day}.html'
   blog.permalink = '{year}/{month}/{day}.html'
   blog.layout = 'blog'
   blog.tag_template = 'tag.html'
