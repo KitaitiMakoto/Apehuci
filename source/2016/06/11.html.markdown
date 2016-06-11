@@ -1,0 +1,52 @@
+---
+title: Fluentd設定ファイルのシンタックスハイライト
+tags:
+  - Ruby
+  - Rouge
+  - Fluentd
+---
+
+[Rouge][]というRuby製のシンタックスハイライト用ライブラリーがあって、それのFluentd設定ファイル用の追加レクサー（トークナイザー）を作ってみた。
+
+[https://github.com/KitaitiMakoto/rouge-lexers-fluentd](https://github.com/KitaitiMakoto/rouge-lexers-fluentd)
+
+始めはApache用のレクサーを使ってみたんだけどうまくいかなかった。`<Directory>`とかのキーワードがホワイトリスト形式だったり（これはサブクラス作ることで簡単に解決できたけど）、やっぱりFluentd独自の構文に対応したくなったりしてきたので、自分で書いたのだった。
+
+使ってみると、こんな感じ。
+
+~~~ fluentd
+# Receive events from 24224/tcp
+# This is used by log forwarding and the fluent-cat command
+<source>
+  @type forward
+  port 24224
+</source>
+
+# http://this.host:9880/myapp.access?json={"event":"data"}
+<source>
+  @type http
+  port 9880
+</source>
+
+# Match events tagged with "myapp.access" and
+# store them to /var/log/fluent/access.%Y-%m-%d
+# Of course, you can control how you partition your data
+# with the time_slice_format option.
+<match myapp.access>
+  @type file
+  path /var/log/fluent/access
+</match>
+~~~
+
+Rougeはターミナル向けにもフォーマットできる。
+![シンタックスハイライトのターミナルアウトプット](https://gyazo.com/89808bd1f93c33658cc632253980677f.png)
+
+READMEに書いた通りまだやることは残っているけど、取り敢えず最低限の用はなすと思う。具体的には、『[サーバ／インフラエンジニア養成読本 ログ収集〜可視化編][]』のシンタックスハイライトをできる程度には使える。
+
+![サーバ／インフラエンジニア養成読本 ログ収集〜可視化編でのシンタックスハイライト](https://gyazo.com/9db066f8005d35bba48e0196917bf1ec.png)
+
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="http://www.amazon.co.jp/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E9%A4%8A%E6%88%90%E8%AA%AD%E6%9C%AC-%E3%83%AD%E3%82%B0%E5%8F%8E%E9%9B%86%7E%E5%8F%AF%E8%A6%96%E5%8C%96%E7%B7%A8-%E7%8F%BE%E5%A0%B4%E4%B8%BB%E5%B0%8E%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E7%92%B0%E5%A2%83%E3%82%92%E6%A7%8B%E7%AF%89-Software-Design/dp/4774169838%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774169838" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51lSb2Ie7WL._SL160_.jpg" width="105" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="http://www.amazon.co.jp/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E9%A4%8A%E6%88%90%E8%AA%AD%E6%9C%AC-%E3%83%AD%E3%82%B0%E5%8F%8E%E9%9B%86%7E%E5%8F%AF%E8%A6%96%E5%8C%96%E7%B7%A8-%E7%8F%BE%E5%A0%B4%E4%B8%BB%E5%B0%8E%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E7%92%B0%E5%A2%83%E3%82%92%E6%A7%8B%E7%AF%89-Software-Design/dp/4774169838%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774169838" target="_blank">サーバ/インフラエンジニア養成読本 ログ収集~可視化編 [現場主導のデータ分析環境を構築!] (Software Design plus)</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E9%88%B4%E6%9C%A8%E5%81%A5%E5%A4%AA" target="_blank">鈴木健太</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">技術評論社</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2014-08-08</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4774169838" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+[Rouge]: http://rouge.jneen.net/
+[サーバ／インフラエンジニア養成読本 ログ収集〜可視化編]: https://gihyo.jp/dp/ebook/2014/978-4-7741-6698-8
