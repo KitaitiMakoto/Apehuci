@@ -16,6 +16,7 @@ gem 'middleman-minify-html'
 
 # Used to highlight syntax via kramdown
 gem 'rouge'
+gem 'rouge-lexers-fluentd', require: 'rouge/lexers/fluentd'
 
 gem 'middleman-web_components'
 
