@@ -23,7 +23,7 @@ GEM
     fast_blank (1.0.0)
     fastimage (2.0.0)
       addressable (~> 2)
-    ffi (1.9.10)
+    ffi (1.9.13)
     gqtp (1.0.6)
     groonga-client (0.2.6)
       gqtp (>= 1.0.4)
