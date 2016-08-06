@@ -29,7 +29,7 @@ GEM
       gqtp (>= 1.0.4)
       groonga-command (>= 1.2.0)
       hashie
-    groonga-command (1.2.0)
+    groonga-command (1.2.2)
       json
     haml (4.0.7)
       tilt
