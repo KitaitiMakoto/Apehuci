@@ -1,0 +1,18 @@
+---
+title: "Farewell to Firefox OS"
+tags:
+  - Firefox OS
+  - Android
+---
+
+携帯を買い換えた。
+
+これまでFirefox OSの[Fx0][]を使っていたが、諸々の事情で、と言うかタブレットのNexus 7が充電できなくなってしまって、さすがに携帯端末がFirefox OSしかないのは不便が大きすぎるのでAndroid携帯に変えた。本当はNexusにしたかったけど、auにはFirefox OSを出してもらった義理を（一方的に）感じているので、一回はauを選びたかった。その中で有効な選択肢はGalaxy S7 edgeとHTC 10だったが何となくでGalaxyにした。
+
+正直Galayx S7 edgeもHTP 10も大き過ぎるので、多少は小さいHTC 10にしようかなあとは思っていたのだが、店頭で見てみるとどちらも変わらないのでGalaxyにしたのだった。
+
+それはそれとして、タブレットをどうしようかすごい迷ってて、Nexus 7は最高だったと思う。Nexus 9は大き過ぎる。iPad miniは有力候補だけどちょっとした不便を解消したいと思って簡単なアプリ作ってもストア申請めんどいなあ、だったらAndroidの方がまだ自由かなあとか、ASUSのAndroidタブレット大きさ的にはいいけど最新のOSに追従してほしいなあとか、なんかいい感じのところがない。一月くらいGalaxyとくらしてみて決めようと思う。早速BookLive!アプリでまんが読んでみたところやっぱちょっと画面小さいので、何かは買うと思うが。
+
+[Fx0]: http://au-fx.kddi.com/
+[Galaxy S7 edage]: http://www.au.kddi.com/mobile/product/smartphone/scv33/
+[HTC 10]: http://www.au.kddi.com/mobile/product/smartphone/htv32/
