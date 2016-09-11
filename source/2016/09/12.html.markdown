@@ -1,0 +1,63 @@
+---
+title: Intersection Observerによるモバイル用スクロールスパイ
+tags:
+  - JavaScript
+  - CSS
+---
+
+[Jxck][]さんによる[Intersection Observer を用いた要素出現検出の最適化][]という記事を読んで、Intersection Observerを使ってみたくなった。そこで、これを使ってモバイル用のスクロールスパイを実装してみた：[Scrollspy example][]（iOS以外のFirefoxが一番綺麗に動く。次点でSafari。）
+
+## Intersection Observer ##
+
+[Intersection Observer][]を使うと`scroll`イベントの監視が不要になるケースがあり、その際に動作が軽快になるというのが主なメリットで、ユースケースとしてはデータや（画像などの）リソースの遅延読み込みが想定されているようだ。`img`要素が画面に入ってくる直前のタイミングで画像読み込みを開始する、という用途だ。
+
+ところが`scroll`イベントの出番は他にもあり、最近出くわしたのが画面上部固定のナビゲーションとスクロールスパイだった。
+
+## 固定ナビゲーション ##
+
+固定のナビゲーションというのは、 この言い方だったら「`position: fixed`使えば？」という感じだが、
+
+* 最初はナビゲーションが普通にスクロールで移動するようになっている
+* スクロールによってナビゲーションが画面最上部に来たら、その位置で固定する
+
+という物で、「ナビゲーションが画面最上部に到達しているかどうか」を判定するのに、`scroll`イベントを監視しなくてはならない。これについてはIntersection Observerではなく、[Passive Event Listener][]の出番なのだが（これもJxckさんの記事[Passive Event Listeners によるスクロールの改善]が素晴らしい）、今回はブラウザーを絞って、CSSの`position: sticky`で解決した（参考：[素敵な position: sticky; Unformed Building][]）。
+
+## スクロールスパイ ##
+
+残ったスクロールスパイを、Intersection Observerで実装してみた。それもモバイル用にしてみた。
+
+別にモバイルに絞らなくても、Intersection Observerによるスクロールスパイの実装というのは妥当な選択ではあるのだが、別所で「モバイルでもスクロールスパイのようなナビゲーションが欲しい」という話をしていたこともあって、その解決策の例示と併せた。
+
+モバイルでスクロールスパイがあまり見られないのは、やはり「常時サイドバーなどでナビゲーションを表示する」というのが、画面の狭い環境では受け入れ難いから。ただ、一般にヘッダーとフッターくらいは常時表示が許容されているので、ここをスクロールスパイに使ってしまおうというのがアイディアだった。スクロールスパイの目的は
+
+* 全体のナビゲーションを表示すること
+* その中で現在位置を示すこと
+
+だが、後者に特にフォーカスして、「現在位置が変わる度に表示を切り替えて、その場所の名前にする」という方法をとった。前者については、タップするとナビゲーションの全メニューを表示することで解決とした。
+
+あと、巷のスクロールスパイでは、現在位置が変わった時に
+
+1. 一旦ナビゲーション中の全部を「選択されていない」状態にする
+2. その後、現在位置に対応するメニューだけを「選択」状態にする
+
+となっているのが多いのだが、Intersection Observerによって注目すべき対象が絞れるので、不要なループを削れたのも嬉しい。
+
+## FirefoxのCSS対応 ###
+
+スムーススクロールやカスタムプロパティ、`position: sticky;`、`text-decoration-style`など、Firefoxが、意外と色々なCSSの機能に対応していて驚いた。
+
+特にスムーススクロールはお気に入りで、JavaScriptでスムーススクロールを実装する場合には、自動で`location`のフラグメント部が変わらないし、何より`:target`擬似クラスの対象が変わらない。その点、ブラウザーネイティブのスムーススクロールなら`:target`を使ったスタイリングもできるので非常にいい（今回は使わなかったが）。
+
+最後に、改めてリンクを：
+
+* [Scrollspy example][]
+* [KitaitiMakoto/scrollspy-example][]
+
+[Jxck]: https://jxck.io/
+[Intersection Observer を用いた要素出現検出の最適化]: https://blog.jxck.io/entries/2016-06-25/intersection-observer.html
+[Scrollspy example]: https://kitaitimakoto.github.io/scrollspy-example/
+[Intersection Observer]: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+[Passive Event Listener]: https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+[Passive Event Listeners によるスクロールの改善]: https://blog.jxck.io/entries/2016-06-09/passive-event-listeners.html
+[素敵な position: sticky; Unformed Building]: http://unformedbuilding.com/articles/css-position-sticky/
+[KitaitiMakoto/scrollspy-example]: https://github.com/KitaitiMakoto/scrollspy-example
