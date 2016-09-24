@@ -19,6 +19,9 @@
     <%= stylesheet_link_tag :highlight %>
     <%= javascript_include_tag :all %>
 
+    <%= favicon_tag '../favicon.ico', rel: 'shortcut icon', type: 'image/x-icon' %>
+    <%= favicon_tag 'favicon.png', size: '60x60' %>
+
     <meta name=og:title content="<%= current_page.data.title || data.site.title %>">
     <meta name=twitter:description content="<%=h current_page.summary(180) %>">
     <meta name=twitter:card content=summary>

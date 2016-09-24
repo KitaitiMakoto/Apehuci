@@ -20,6 +20,9 @@
     <%= stylesheet_link_tag :highlight %>
     <%= javascript_include_tag :all %>
 
+    <%= favicon_tag '../favicon.ico', rel: 'shortcut icon', type: 'image/x-icon' %>
+    <%= favicon_tag 'favicon.png', size: '60x60' %>
+
     <meta name=og:description content="<%=h app.data.site.description%>">
     <meta name=og:title content="<%=h app.data.site.title %>">
     <meta name=twitter:card content=summary>
