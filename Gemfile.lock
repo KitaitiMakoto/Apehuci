@@ -25,11 +25,11 @@ GEM
       addressable (~> 2)
     ffi (1.9.14)
     gqtp (1.0.6)
-    groonga-client (0.3.0)
+    groonga-client (0.3.1)
       gqtp (>= 1.0.4)
-      groonga-command (>= 1.2.0)
+      groonga-command (>= 1.2.8)
       hashie
-    groonga-command (1.2.7)
+    groonga-command (1.2.9)
       json
     haml (4.0.7)
       tilt
