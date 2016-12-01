@@ -14,6 +14,8 @@ gem 'middleman-blog', '~> 4'
 gem 'middleman-deploy', '>= 2.0.0.pre.alpha'
 gem 'middleman-minify-html'
 
+gem 'typescript-node'
+
 # Used to highlight syntax via kramdown
 gem 'rouge'
 gem 'rouge-lexers-fluentd', require: 'rouge/lexers/fluentd'
