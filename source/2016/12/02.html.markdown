@@ -1,0 +1,82 @@
+---
+title: "アドカレ #コルクおすすめ2016 二日目 おすすめファンタジーまんが五選"
+tags:
+  - ファンタジー
+  - まんが
+---
+
+これはアドベントカレンダー「[年末年始おすすめ作品　BY.CORK Advent Calendar 2016][adcal]」の二日目です。
+
+本当は二日目の僕が書く必要はないと思うのですが、初日がまさかのツイッター投稿（[https://twitter.com/boogie_go/status/804517137784008704](https://twitter.com/boogie_go/status/804517137784008704)）だったので、「アドベントカレンダーとは何か」ということも一緒にご説明しますね。
+
+## アドベントカレンダーとは ##
+
+アドベントカレンダーは、元々は、クリスマスまでの日数を数える日めくり（？）カレンダーだそうです（参考：[ウィキペディア][]）。
+
+ただ、ここでのアドベントカレンダーは日本の（主にウェブ・スマホアプリの）エンジニアの慣習を指していて、「12月1日からスタートし、クリスマスまで、ある話題を決めて、それについて持ち回りでブログ記事などを書いていく」という物です。一箇所に色んなサービスや会社の知見が集まるので読む側としては毎日楽しみだし、後から見ても、一通り情報が手に入るので便利です。
+
+これを、僕が所属する[コルク][]で、（技術情報でなく）おすすめ作品でやろう、ということになりました。経緯を把握していないんだけど、たぶん、「コルクはクリエイターのエージェンシーだが、ITにも力を入れている（入れていきたい）」というところからIT業界のノウハウとか取り入れようとしているので、そこからの派生なのかな。内輪褒めになっちゃうけど、みんな僕よりもずっと色々な物を見ているし、さすが編集担当なんかはそれを言語化するのもうまいので、僕自身が楽しみ。
+
+僕の担当分「おすすめファンタジーまんが五選」は次の通り。
+
+## 諸星大二郎「妖怪ハンター」シリーズ ##
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="https://www.amazon.co.jp/%E5%A6%96%E6%80%AA%E3%83%8F%E3%83%B3%E3%82%BF%E3%83%BC-%E5%9C%B0%E3%81%AE%E5%B7%BB-%E9%9B%86%E8%8B%B1%E7%A4%BE%E6%96%87%E5%BA%AB-%E8%AB%B8%E6%98%9F-%E5%A4%A7%E4%BA%8C%E9%83%8E/dp/4086183900%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4086183900" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51TmXXBItiL._SL160_.jpg" width="104" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="https://www.amazon.co.jp/%E5%A6%96%E6%80%AA%E3%83%8F%E3%83%B3%E3%82%BF%E3%83%BC-%E5%9C%B0%E3%81%AE%E5%B7%BB-%E9%9B%86%E8%8B%B1%E7%A4%BE%E6%96%87%E5%BA%AB-%E8%AB%B8%E6%98%9F-%E5%A4%A7%E4%BA%8C%E9%83%8E/dp/4086183900%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4086183900" target="_blank">妖怪ハンター 地の巻 (集英社文庫)</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E8%AB%B8%E6%98%9F%E5%A4%A7%E4%BA%8C%E9%83%8E" target="_blank">諸星大二郎</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">集英社</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2005-11-18</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4086183900" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+考古学者とされる稗田礼二郎が、フィールドワークで訪れた先々で、色々な怪異を体験するという話。シリーズ名に「ハンター」が含まれていますが、特にハントはしません。
+
+怪異の元となっているのが宗教。舞台が日本ではあるのですが、特に土地土地の信仰を重視しているところが面白い。「神道はこういう宗教で、こういう神様がいて……」「仏教のこの宗派はこういう教えなので……」みたいなことは焦点ではなく、その上で、「この土地では古来の巨石への信仰と仏教がこう結び付いて……」など「生きた信仰」を描き出し、その可視化として、化け物が出てきます。（そして倒さず、去るのを待ちます……。）
+
+それまでは大体ライトファンタジー、それも異世界ファンタジーばかり読んでいたので、ファンタジー観が変わりました。と同時に、宗教や信仰というのは、本来（？）小さなコミュニティの物であって、現代でも適応して形を変えていく物なんだ、と、世界観まで変わる体験でした。諸星大二郎を読んでから、神社を巡るのが楽しくなりました。
+
+## 五十嵐大介『はなしっぱなし』 ##
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="https://www.amazon.co.jp/%E3%81%AF%E3%81%AA%E3%81%97%E3%81%A3%E3%81%B1%E3%81%AA%E3%81%97-%E4%B8%8A-%E4%B9%9D%E9%BE%8DCOMICS-%E4%BA%94%E5%8D%81%E5%B5%90-%E5%A4%A7%E4%BB%8B/dp/4309728405%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4309728405" target="_blank"><img src="http://ecx.images-amazon.com/images/I/419DCGKFDZL._SL160_.jpg" width="104" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="https://www.amazon.co.jp/%E3%81%AF%E3%81%AA%E3%81%97%E3%81%A3%E3%81%B1%E3%81%AA%E3%81%97-%E4%B8%8A-%E4%B9%9D%E9%BE%8DCOMICS-%E4%BA%94%E5%8D%81%E5%B5%90-%E5%A4%A7%E4%BB%8B/dp/4309728405%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4309728405" target="_blank">はなしっぱなし 上 (九龍COMICS)</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E4%BA%94%E5%8D%81%E5%B5%90%E5%A4%A7%E4%BB%8B" target="_blank">五十嵐大介</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">河出書房新社</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2004-02-18</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4309728405" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+これも現代の日本を舞台にしたファンタジーですが（いわゆる現代ファンタジーとは違う）、よりライトと言うか、「事件」ではなくて、日常的な「気が付かないけれど起こっていること」というのを描いています。話に山や谷があまりないのですが、そのファンタジー世界に浸ることができる短編集です。
+
+五十嵐大介は、読むと感性の一部を譲り受けることができるような作家で、読んだ後しばらくは日常の見方が変わる、本当に彼が見ているように見える気分になるようなパワーを持った人だと思います。理屈先行の僕はその減退が割と早いので、一時期は毎日『はなしっぱなし』を読んでファンタジー的感覚を補充していました。
+
+## ニール ゲイマン「サンドマン」シリーズ ##
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="https://www.amazon.co.jp/%E3%82%B5%E3%83%B3%E3%83%89%E3%83%9E%E3%83%B3-1-DC-COMICS-VERTIGO/dp/4924914061%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4924914061" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51KMRRKBRYL._SL160_.jpg" width="97" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="https://www.amazon.co.jp/%E3%82%B5%E3%83%B3%E3%83%89%E3%83%9E%E3%83%B3-1-DC-COMICS-VERTIGO/dp/4924914061%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4924914061" target="_blank">サンドマン (1) (DC COMICS VERTIGO)</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E3%83%8B%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%B2%E3%82%A4%E3%83%9E%E3%83%B3" target="_blank">ニール・ゲイマン</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">インターブックス</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 1998-04-08</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4924914061" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+どう紹介したものか……。
+
+主人公は「[サンドマン][]」「モルフェウス」などの呼び名を持つ超常の存在ドリーム。文字通り夢（そして眠り）を司る存在で、宇宙の始まりから存在し、人間が滅んでも（夢を見る知性体がいる限り）あり続ける存在です（同様の存在が他にも何人がいて、その一つ、ドリームの姉であるデス（もちろん、死を司る）とは仲がいいのが読んでいて感じられます）。例えば、物語の冒頭で、魔術師に彼が捕えられてしまうのですが、そうすると世界の眠りがめちゃくちゃになり、ある人は永久に夢を見続けることに、また別の人は眠ることができなくなったりしてしまうほどで、本当に夢その物なのです。
+
+まんがはその彼のアドベンチャーを描いた物。始め二巻は捕えられてから出るまでと、捉えられている間に奪われてしまった三つのアイテムを見付け出すまで。次の二巻は、「渦」と呼ぶ、夢に関するおかしな現象が、アメリカのある少女を中心に（というか、彼女が渦その物となって）国中を巻き込む規模で起こり、その解決まで。第五巻は完全に独立した短編集で、猫が夢を見る話などがある。そして、六巻以降は、残念ながら邦訳されていない。
+
+上手く感想を言葉にできないのだけど、伏線の扱いが上手とかも技術的な点もありますが、とにかくその発想と、夢に対する解釈の深さに圧倒されっぱなしのまんがでした。
+
+## 萱島雄太『西遊少女』 ##
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="http://p.booklog.jp/book/54478" target="_blank"><img src="http://img.p.booklog.jp/393D6F56-DC31-11E1-B1E1-2928058D85C2_m.gif" width="105" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="http://p.booklog.jp/book/54478" target="_blank">西遊少女 #01 -無料サンプル号-</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E8%90%B1%E5%B3%B6%E9%9B%84%E5%A4%AA" target="_blank">萱島雄太</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">パブー</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2012-08-02</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/3/54478" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+[disclosure]僕はかつて、『西遊少女』が連載されていたパブーの開発をしていました。
+
+有名な『西遊記』をモチーフに、少女になった三蔵、沙悟浄、八戒、悟空が天竺を目指す……向かう話。主人公の三蔵はそもそも天竺に行きたくなくて、何とか離脱しようとするところを他の連中が頑張って連れ戻すスラップスティックです。[パブー][]では非公開になっており、[電脳マヴォ][]で公開されています。
+
+当時（2012年）としては非常に珍しい、ウェブの縦スクロールを意識した、というか、その特徴を使ってのびのびと遊んでいるまんが。
+
+単に「スクロールを活かす」というのだと「あーはいはい『実験的』まんがね、はいはい」となりがちだと思うんですが、『西遊少女』はお話自体が面白いので、そういう「技術に偏った奴らが何かやってる」というネガティブイメージを生まないという意味でもおすすめです。パブーの頃は第九話で連載がストップしてしまったのですが、マヴォでは最後まで描かれるんだろうか……。
+
+## 曽田正人『テンプリズム』 ##
+
+<div class="booklog_html"><table><tr><td class="booklog_html_image"><a href="https://www.amazon.co.jp/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AA%E3%82%BA%E3%83%A0-1-%E3%83%93%E3%83%83%E3%82%B0%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E6%9B%BD%E7%94%B0-%E6%AD%A3%E4%BA%BA/dp/4091864104%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4091864104" target="_blank"><img src="http://ecx.images-amazon.com/images/I/61u7E-vwJHL._SL160_.jpg" width="105" height="150" style="border:0;border-radius:0;" /></a></td><td class="booklog_html_info" style="padding-left:20px;"><div class="booklog_html_title" style="margin-bottom:10px;font-size:14px;font-weight:bold;"><a href="https://www.amazon.co.jp/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AA%E3%82%BA%E3%83%A0-1-%E3%83%93%E3%83%83%E3%82%B0%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E6%9B%BD%E7%94%B0-%E6%AD%A3%E4%BA%BA/dp/4091864104%3FSubscriptionId%3D0AVSM5SVKRWTFMG7ZR82%26tag%3Dbooklog.jp-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4091864104" target="_blank">テンプリズム 1 (ビッグコミックス)</a></div><div style="margin-bottom:10px;"><div class="booklog_html_author" style="margin-bottom:15px;font-size:12px;;line-height:1.2em">著者 : <a href="http://booklog.jp/author/%E6%9B%BD%E7%94%B0%E6%AD%A3%E4%BA%BA" target="_blank">曽田正人</a></div><div class="booklog_html_manufacturer" style="margin-bottom:5px;font-size:12px;;line-height:1.2em">小学館</div><div class="booklog_html_release" style="font-size:12px;;line-height:1.2em">発売日 : 2014-08-29</div></div><div class="booklog_html_link_amazon"><a href="http://booklog.jp/item/1/4091864104" style="font-size:12px;" target="_blank">ブクログでレビューを見る»</a></div></td></tr></table></div>
+
+[disclosure]僕は現在、『テンプリズム』の編集を担当しているコルクに所属しています。
+
+曽田正人初めての異世界ファンタジー。伝説の力を有するツナシが、魔力と呼ばれる力を持ち、どんどん国を拡大して世界を侵略していっている<ruby>骨<rt>グゥ</rt></ruby>の国と戦う物語。
+
+曽田正人と言えば僕は『昴』から入り、それ以外の作品も読んでいった、という流れなのですが、どれも共通するのは、主人公が天才であること。特に、自分の力で成長することのできる天才。ファンタジーになってもそれは健在なのですが、変わったのが天才性が目に見えるようになったことです。
+
+作中で「オロメテオールの力」と呼ばれるその力はツナシの眼に宿り、自分の意図ではその発動を制御できない。思わぬ時にその力が使えたり、望んだ時に使えなかったりする。こう書くと分かりやすいですが、結構、これまでの主人公の天才性と似ていますね。そして、ここが、さすが曽田正人という感じなんですが、「目に見える」「名前がある」という、「自分の外にある物である」と認識する条件が満たされているので、天才 vs 天才性という軸で主人公を眺める楽しみも出てきています。その上で、「それでも自分なのだし、責任を引き受ける」という決断を描くまでの成長があるところが、ファンタジーにして生まれた曽田正人の新しさだと感じました。
+
+[ウィキペディア]: https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%89%E3%83%99%E3%83%B3%E3%83%88%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC
+[adcal]: http://www.adventar.org/calendars/1885
+[コルク]: https://corkagency.com/
+[サンドマン]: https://ja.wikipedia.org/wiki/%E3%82%B6%E3%83%B3%E3%83%88%E3%83%9E%E3%83%B3
+[モルフェウス]: https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%AB%E3%83%9A%E3%82%A6%E3%82%B9
+[パブー]: http://p.booklog.jp/
+[電脳マヴォ]: http://mavo.takekuma.jp/title.php?title=67
