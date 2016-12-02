@@ -39,8 +39,8 @@
       </main>
       <footer>
         <%= partial 'adjacent', :locals => {
-              :next_page => {:page => prev_page, :label => "前#{per_page}日分"},
-              :previous_page => {:page => next_page, :label => "次#{per_page}日分"}
+              :next_page_info => {:page => prev_page, :label => "前#{per_page}日分"},
+              :previous_page_info => {:page => next_page, :label => "次#{per_page}日分"}
             } %>
         <paper-card>
           <%= partial 'search' %>

@@ -1,13 +1,13 @@
-<% if next_page[:page] || previous_page[:page] %>
+<% if next_page_info[:page] || previous_page_info[:page] %>
 <ul>
-  <% if next_page[:page] %>
-  <% link_to next_page[:page], :rel => 'next' do %>
-  <li><paper-button raised><%=h next_page[:label] %></paper-button></li>
+  <% if next_page_info[:page] %>
+  <% link_to next_page_info[:page], :rel => 'next' do %>
+  <li><paper-button raised><%=h next_page_info[:label] %></paper-button></li>
   <% end %>
   <% end %>
-  <% if previous_page[:page] %>
-  <% link_to previous_page[:page], :rel => 'prev' do %>
-  <li><paper-button raised><%=h previous_page[:label] %></paper-button></li>
+  <% if previous_page_info[:page] %>
+  <% link_to previous_page_info[:page], :rel => 'prev' do %>
+  <li><paper-button raised><%=h previous_page_info[:label] %></paper-button></li>
   <% end %>
   <% end %>
 </ul>

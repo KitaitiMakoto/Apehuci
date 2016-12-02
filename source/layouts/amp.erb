@@ -38,8 +38,8 @@
       <%= yield %>
       <footer>
         <%= partial 'adjacent.amp', :locals => {
-        :next_page => {:page => current_page.next_article, :label => current_page.next_article&.data&.title},
-        :previous_page => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
+        :next_page_info => {:page => current_page.next_article, :label => current_page.next_article&.data&.title},
+        :previous_page_info => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
         } %>
         <%= partial 'author' %>
       </footer>
