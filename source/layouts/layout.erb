@@ -27,7 +27,7 @@
     <meta name=og:title content="<%=h app.data.site.title %>">
     <meta name=twitter:card content=summary>
     <meta name=twitter:site content=@KitaitiMakoto>
-    <meta name=twitter:image content="<%= app.data.site.uri + image_path('icon.png') %>">
+    <meta name=twitter:image content="<%= URI(app.data.site.uri) + current_page.destination_path + image_path('icon.png') %>">
   </head>
 
   <body class="<%= page_classes %>" unresolved>
