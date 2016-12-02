@@ -26,6 +26,7 @@
     <meta name=twitter:description content="<%=h current_page.summary(180) %>">
     <meta name=twitter:card content=summary>
     <meta name=twitter:site content=@KitaitiMakoto>
+    <meta name=twitter:image content="<%= image_path 'icon.png' %>">
     <link href="<%= url_for h(File.join('/', current_page.destination_path.sub(/\.html\z/, '.amp.html'))) %>" rel=amphtml>
   </head>
 
