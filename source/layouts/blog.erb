@@ -9,7 +9,7 @@
     <title><%= current_page.data.title || data.site.title %></title>
 
     <%= partial 'android_firefox' %>
-    <%= javascript_include_tag '../bower_components/webcomponentsjs/webcomponents.min.js' %>
+    <%= javascript_include_tag '../bower_components/webcomponentsjs/webcomponents-lite.js' %>
     <%= component_import_tag :elements %>
 
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
@@ -32,7 +32,7 @@
 
   <body class="<%= page_classes %>" unresolved>
     <paper-header-panel>
-      <paper-toolbar>
+      <paper-toolbar slot=header>
         <h2 class="site-title">
           <% link_to '/index.html' do %>
           <%=h data.site.title %>
@@ -40,7 +40,7 @@
           <% end %>
         </h2>
       </paper-toolbar>
-      <article>
+      <article slot=content>
         <header>
           <paper-card>
             <h1><%= current_page.data.title %></h1>

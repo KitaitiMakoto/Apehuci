@@ -10,7 +10,7 @@
     <title><%= current_page.data.title || data.site.title %></title>
 
     <%= partial 'android_firefox' %>
-    <script src="<%= url_for('/bower_components/webcomponentsjs/webcomponents.min.js') %>"></script>
+    <script src="<%= url_for('/bower_components/webcomponentsjs/webcomponents-lite.js') %>"></script>
     <%= component_import_tag :elements %>
 
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
@@ -32,13 +32,13 @@
 
   <body class="<%= page_classes %>" unresolved>
     <paper-header-panel mode=waterfall-tall>
-      <paper-toolbar>
+      <paper-toolbar slot=header>
         <h1 class=site-title><%= link_to data.site.title, '/index.html' %></h1>
       </paper-toolbar>
-      <main>
+      <main slot=content>
         <%= yield %>
       </main>
-      <footer>
+      <footer slot=content>
         <%= partial 'adjacent', :locals => {
               :next_page_info => {:page => prev_page, :label => "前#{per_page}日分"},
               :previous_page_info => {:page => next_page, :label => "次#{per_page}日分"}

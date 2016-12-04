@@ -50,7 +50,42 @@ configure :build do
 
   used_bower_components = %w[
     promise-polyfill/Promise.js
-    webcomponentsjs/webcomponents.min.js
+    webcomponentsjs/webcomponents-lite.js
+    webcomponentsjs/src/URL/URL.js
+    webcomponentsjs/src/WeakMap/WeakMap.js
+    webcomponentsjs/src/Template/Template.js
+    webcomponentsjs/src/HTMLImports/HTMLImports.js
+    webcomponentsjs/src/WebComponents/Promise.js
+    webcomponentsjs/src/WebComponents/pre-polyfill.js
+    webcomponentsjs/src/WebComponents/post-polyfill.js
+    webcomponentsjs/src/WebComponents/lang.js
+    webcomponentsjs/src/WebComponents/dom.js
+    webcomponentsjs/src/WebComponents/unresolved.js
+    webcomponentsjs/src/MutationObserver/MutationObserver.js
+    webcomponentsjs/src/HTMLImports/base.js
+    webcomponentsjs/src/HTMLImports/module.js
+    webcomponentsjs/src/HTMLImports/path.js
+    webcomponentsjs/src/HTMLImports/xhr.js
+    webcomponentsjs/src/HTMLImports/Loader.js
+    webcomponentsjs/src/HTMLImports/Observer.js
+    webcomponentsjs/src/HTMLImports/parser.js
+    webcomponentsjs/src/HTMLImports/importer.js
+    webcomponentsjs/src/HTMLImports/dynamic.js
+    webcomponentsjs/src/HTMLImports/boot.js
+    webcomponentsjs/src/MutationObserver/MutationObserver.js
+    webcomponentsjs/src/HTMLImports/base.js
+    webcomponentsjs/src/HTMLImports/module.js
+    webcomponentsjs/src/HTMLImports/path.js
+    webcomponentsjs/src/HTMLImports/xhr.js
+    webcomponentsjs/src/HTMLImports/Loader.js
+    webcomponentsjs/src/HTMLImports/Observer.js
+    webcomponentsjs/src/HTMLImports/parser.js
+    webcomponentsjs/src/HTMLImports/importer.js
+    webcomponentsjs/src/HTMLImports/dynamic.js
+    webcomponentsjs/src/HTMLImports/boot.js
+    custom-elements/custom-elements.min.js
+    shadydom/shadydom.min.js
+    shadycss/shadycss.min.js
   ]
 
   ignore do |path|

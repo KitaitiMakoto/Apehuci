@@ -1,158 +1,164 @@
-<style is=custom-style>
-  :root {
-    --primary-color: #F44336;
-    --primary-text-color: #212121;
-    --link-color: #F44336;
-    --tag-active-link-color: #aa524b;
-  }
-  body {
-    margin: 0;
-    height: 100vh;
-    @apply(--layout-vertical);
-  }
-  body[unresolved] {
-    opacity: 0;
-  }
-  article, section {
-    margin: 1em auto;
-    text-align: center;
-    color: var(--primary-text-color);
-  }
-  article header, section header {
-    margin-bottom: 0.5em;
-  }
-  article time {
-    display: block;
-    text-align: right;
-  }
-  code {
-    margin: 0 0.2em;
-    padding: 0.1em 0.4em;
-  }
-  pre code {
-    margin: initial;
-    padding: initial;
-  }
-  paper-button {
-    @apply(--layout-horizontal);
-    @apply(--layout-flex);
-  }
-  [rel="next"] paper-button {
-    @apply(--layout-start-justified);
-    text-align: left;
-  }
-  [rel="prev"] paper-button {
-    @apply(--layout-end-justified);
-    text-align: right;
-  }
-  [rel="tag"] {
-    color: #616161;
-  }
-  [rel="tag"]:hover, [rel="tag"]:active {
-    color: var(--tag-active-link-color);
-    text-decoration: underline;
-  }
-  p {
-    line-height: 1.8;
-  }
-  a {
-    color: var(--link-color);
-    text-decoration: none;
-  }
-  figcaption {
-    font-size: smaller;
-  }
-  ul.tags {
-    @apply(--layout-horizontal);
-    @apply(--layout-end-justified);
-    list-style: none;
-  }
-  ul.tags li {
-    padding: 0.2em;
-  }
-  footer {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    text-align: center;
-  }
-  footer ul {
-    width: 80%;
-    margin: 1em auto;
-    padding: 0;
-    list-style: none;
-  }
-  footer li {
-    margin: 0.3em 0;
-  }
-  footer paper-button {
-    margin: 0;
-  }
-  footer [rel="next"] paper-button {
-    margin-right: 20%;
-  }
-  footer [rel="prev"] paper-button {
-    margin-left: 20%;
-  }
-  paper-toolbar {
-    @apply(--layout-vertical);
-    @apply(--layout-end-justified);
-      background-image: url("../images/title-bg.png");
-      background-size: cover;
-      background-position: center;
-  }
-  .site-title {
-    @apply(--layout-horizontal);
-    @apply(--layout-flex);
-    @apply(--layout-start-justified);
-  }
-  .site-title a {
-    color: white;
-  }
-  paper-toolbar h2 {
-    @apply(--layout-horizontal);
-    @apply(--layout-flex);
-    @apply(--layout-end-justified);
-    position: relative;
-  }
-  paper-toolbar h2 a {
-    color: inherit;
-    text-decoration: inherit;
-  }
-  paper-card {
-    width: 80%;
-    padding: 1em;
-    text-align: left;
-  }
-  .index article {
-    left: 0;
-    right: 0;
-    transition: top 0.5s ease 0.6s;
-  }
-  pre {
-    background-color: #EEEEEE;
-    padding: 2em;
-    overflow-x: auto;
-  }
-  ul.tagged-articles {
-    list-style: none;
-  }
-  ul.tagged-articles li {
-    padding: 0.2em;
-  }
-  .keyword {
-    color: red;
-    font-weight: bolder;
-  }
-  .copy::before {
-    content: "";
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    margin-right: 0.2em;
-    vertical-align: text-top;
-    background-image: url("../images/icon.png");
-    background-repeat: no-repeat;
-    background-size: 1em;
-    border-radius: 50%;
-  }
-</style>
+<custom-style>
+  <style>
+    :root {
+      --primary-color: #F44336;
+      --primary-text-color: #212121;
+      --link-color: #F44336;
+      --tag-active-link-color: #aa524b;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      @apply(--layout-vertical);
+    }
+    body[unresolved] {
+      opacity: 0;
+    }
+    article, section {
+      margin: 1em auto;
+      text-align: center;
+      color: var(--primary-text-color);
+    }
+    article header, section header {
+      margin-bottom: 0.5em;
+    }
+    article time {
+      display: block;
+      text-align: right;
+    }
+    header > paper-card, article > paper-card, footer > paper-card {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    code {
+      margin: 0 0.2em;
+      padding: 0.1em 0.4em;
+    }
+    pre code {
+      margin: initial;
+      padding: initial;
+    }
+    paper-button {
+      @apply(--layout-horizontal);
+      @apply(--layout-flex);
+    }
+    [rel="next"] paper-button {
+      @apply(--layout-start-justified);
+      text-align: left;
+    }
+    [rel="prev"] paper-button {
+      @apply(--layout-end-justified);
+      text-align: right;
+    }
+    [rel="tag"] {
+      color: #616161;
+    }
+    [rel="tag"]:hover, [rel="tag"]:active {
+      color: var(--tag-active-link-color);
+      text-decoration: underline;
+    }
+    p {
+      line-height: 1.8;
+    }
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    figcaption {
+      font-size: smaller;
+    }
+    ul.tags {
+      @apply(--layout-horizontal);
+      @apply(--layout-end-justified);
+      list-style: none;
+    }
+    ul.tags li {
+      padding: 0.2em;
+    }
+    footer {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+    footer ul {
+      width: 80%;
+      margin: 1em auto;
+      padding: 0;
+      list-style: none;
+    }
+    footer li {
+      margin: 0.3em 0;
+    }
+    footer paper-button {
+      margin: 0;
+    }
+    footer [rel="next"] paper-button {
+      margin-right: 20%;
+    }
+    footer [rel="prev"] paper-button {
+      margin-left: 20%;
+    }
+    paper-toolbar {
+      @apply(--layout-vertical);
+      @apply(--layout-end-justified);
+        background-image: url("../images/title-bg.png");
+        background-size: cover;
+        background-position: center;
+    }
+    .site-title {
+      @apply(--layout-horizontal);
+      @apply(--layout-flex);
+      @apply(--layout-start-justified);
+    }
+    .site-title a {
+      color: white;
+    }
+    paper-toolbar h2 {
+      @apply(--layout-horizontal);
+      @apply(--layout-flex);
+      @apply(--layout-end-justified);
+      position: relative;
+    }
+    paper-toolbar h2 a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+    paper-card {
+      width: 80%;
+      padding: 1em;
+      text-align: left;
+    }
+    .index article {
+      left: 0;
+      right: 0;
+      transition: top 0.5s ease 0.6s;
+    }
+    pre {
+      background-color: #EEEEEE;
+      padding: 2em;
+      overflow-x: auto;
+    }
+    ul.tagged-articles {
+      list-style: none;
+    }
+    ul.tagged-articles li {
+      padding: 0.2em;
+    }
+    .keyword {
+      color: red;
+      font-weight: bolder;
+    }
+    .copy::before {
+      content: "";
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.2em;
+      vertical-align: text-top;
+      background-image: url("../images/icon.png");
+      background-repeat: no-repeat;
+      background-size: 1em;
+      border-radius: 50%;
+    }
+  </style>
+</custom-style>
