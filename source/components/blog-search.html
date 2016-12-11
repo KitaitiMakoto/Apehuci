@@ -89,7 +89,7 @@
             url: base + article[0],
             title: article[1],
             tags: article[2].join(", "),
-              snippetHtml: article[3].join("<br>").
+            snippetHtml: article[3].join("<br>").
                 replace('<span class="keyword">', '<span class="keyword blog-search">'), // Address Polymer bug that non-Chrome browser needs additional .blog-search but dynamically inserted elementes are taken care.
             score: article[4]
           };
