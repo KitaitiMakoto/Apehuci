@@ -4,6 +4,11 @@
       :host {
         display: block;
       }
+
+      .keyword {
+        color: var(--keyword-color, red);
+        font-weight: var(--keyword-font-weight, bolder);
+      }
     </style>
     <paper-input id=groongaQuery name=query label=検索 placeholder="例）Web Components" on-keyup=search type=search required></paper-input>
     <iron-ajax
