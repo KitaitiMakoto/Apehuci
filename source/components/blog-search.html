@@ -72,6 +72,10 @@
       }
 
       showResult() {
+        var lastResponse = this.$.groongaSelect.lastResponse;
+        if (! lastResponse) {
+          return;
+        }
         var body = this.$.groongaSelect.lastResponse[1];
         if (! body) {
           return;
