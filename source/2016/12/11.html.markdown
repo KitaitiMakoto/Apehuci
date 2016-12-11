@@ -1,0 +1,250 @@
+---
+title: Polymerを2.0 Previewに上げた
+tags:
+  - Polymer
+  - Webコンポーネント
+---
+
+この日記では[Polymer][]を使っているのだけど、1.xから[2.0][] Previewに上げた。その時にやったことやはまったことなど。
+
+目次
+----
+
+1. [前提](#heading-2016-12-11-assumption)
+    1. [参考ドキュメント](#heading-2016-12-11-references)
+2. [ライブラリーのアップグレード](#heading-2016-12-11-upgrading-libraries)
+    1. [Paper Elements](#heading-2016-12-11-upgrading-paper-elements)
+3. [コードの修正](#heading-2016-12-11-modifying-existing-code)
+    1. [webcomponentsjsなど](#heading-2016-12-11-changing-file-webcomponentsjs)
+    2. [paper-header-panel](#heading-2016-12-11-upgrading-paper-header-panel)
+    3. [dom-module](#heading-2016-12-11-removing-is-from-dom-module)
+    4. [動的に挿入される要素のスタイリング](#heading-2016-12-11-styling-dynamic-inserted-elements)
+    5. [paper-cardとpaper-buttonのエラー](#heading-2016-12-11-fixing-paper-card-paper-button-error)
+
+前提 {#heading-2016-12-11-assumption}
+----
+
+まず、Polymerを使っていると言うけど、[Webコンポーネント][]用ライブラリー（フレームワーク）としての他、Googleが提唱するUIデザインであるマテリアルデザイン用のコンポーネント（[Paper Elements][]）なども使っていた。そのうち[Paper Card][]ではまったりしたのでまずここで断っておく。
+
+また、自分で作ったコンポーネントは一つだけで、フッターに置いてある検索ボックス用の`blog-search`という要素のみ。これの書き換えについても触れる。
+
+### 参考ドキュメント ### {#heading-2016-12-11-references}
+
+[https://www.polymer-project.org/2.0/docs/about_20](https://www.polymer-project.org/2.0/docs/about_20)
+: Polymer 2.0になって変わったことの概要。
+
+[https://www.polymer-project.org/2.0/docs/upgrade][アップグレードガイド]
+: Polymer 1.xから2.0へアップグレードする時のガイド。
+
+[https://codelabs.developers.google.com/codelabs/polymer-2-carousel/](https://codelabs.developers.google.com/codelabs/polymer-2-carousel/)
+: Polymer 2.0でコンポーネントを作るチュートリアル。
+
+ライブラリーのアップグレード {#heading-2016-12-11-upgrading-libraries}
+----------------------------
+
+[https://github.com/KitaitiMakoto/apehuci/commit/8bd0c722cdeea984948ee4ebc89f5a3dfd5c74ca](https://github.com/KitaitiMakoto/apehuci/commit/8bd0c722cdeea984948ee4ebc89f5a3dfd5c74ca)
+
+### Paper Elements ### {#heading-2016-12-11-upgrading-paper-elements}
+
+[概要ページのインストールの項目][]にあるように、Polymerは
+
+~~~ shell
+bower install --save Polymer/polymer#2.0-preview
+~~~
+
+でアップグレードできる。
+この時に選択肢が出てくるが、Polymerは2.0、webcomponentsjsは1.0を選んでおけばよい。
+
+各コンポーネントをインストールするにも同様に、各コンポーネントの`2.0-preview`ブランチをインストールすればいい。これまでは`paper-elements`という全体をまとめたコンポーネントがあって、それをインストールするだけで全Paper Elementがインストールできたのだけど、なぜか`2.0-preview`ブランチはないので、自分が使っている物を個別にインストール必要があった。めんどくさい（イシューは上がってる、と思ったのだけど、今探したら無いな、幻か知ら）。
+
+あと、
+
+~~~ shell
+bower install --save paper-input#2.0-preview
+~~~
+
+みたいに、既存の物を`2.0-preview`にアップグレードすればいいコンポーネントと、
+
+~~~ shell
+bower install --save PaperElements/paper-card#2.0-preview
+~~~
+
+みたいに、GitHubのオーガニゼーションも明示しないといけないコンポーネントがある。[Polymer/paper-card](https://github.com/Polymer/paper-card)を見てみて、`2.0-preview`ブランチがなければ[PolymerElements/paper-card](https://github.com/PolymerElements/paper-card)を見る、ということをしなくてはならず、これもめんどくさい。
+
+### webcomponentsjsなど ### {#heading-2016-12-11-changing-file-webcomponentsjs}
+
+webcomponentsjsなどは、パッケージその物はPolymerアップグレードの時に一緒に自動でアップグレードされるのだけど、Polymerが使うファイルが変わっていることがある。例えば`webcomponents.min.js`というファイルを使っていたのが`webcomponents-lite.js`に変わっていたりするので、コンソールのエラーメッセージを見ながら参照先を変えていく。
+
+コードの修正 {#heading-2016-12-11-modifying-existing-code}
+------------
+
+アップグレードに伴って、いくつか既存のコードを修正する必要があった。大体は[アップグレードガイド][]に従えばいいが、幾つか嵌った所。
+
+### paper-header-panel ### {#heading-2016-12-11-upgrading-paper-header-panel}
+
+コンポーネントをアップグレードしたら画面が真っ白になってしまった。
+
+この日記の大部分は[paper-header-panel][]の中に入っているのだけど、これの使い方が変わっていて、そのせいだった。子要素を配置するための[slot][]（従来はcontent）に`name`属性で名前が付くようになって、ユーザー（＝僕）が配置する子要素にも、対応する名前を付けておかなければいけなくなっていた。一応、`paper-header-panel`のソースコードコメントにはそのことが書いてある： [paper-header-panel.html#L32-L37](https://github.com/PolymerElements/paper-header-panel/blob/226e265f151dfd229c68780626342dd2b6295f6f/paper-header-panel.html#L32-L37)
+
+これに合わせてテンプレートを修正した（`slot`属性を足しているのに注目）：
+
+Before：
+
+~~~ html
+<paper-header-panel mode=waterfall-tall>
+  <paper-toolbar>
+    <!-- ... -->
+  </paper-toolbar>
+  <main>
+    <!-- ... -->
+  </main>
+  <footer>
+    <!-- ... -->
+  </footer>
+</paper-header-panel>
+~~~
+
+After：
+
+~~~ html
+<paper-header-panel mode=waterfall-tall>
+  <paper-toolbar slot=header>
+    <!-- ... -->
+  </paper-toolbar>
+  <main slot=content>
+    <!-- ... -->
+  </main>
+  <footer slot=content>
+    <!-- ... -->
+  </footer>
+</paper-header-panel>
+~~~
+
+### dom-module ### {#heading-2016-12-11-removing-is-from-dom-module}
+
+カスタム要素を定義するのに使う[dom-module][]という要素（メタ要素？）をPolymerは提供している。カスタム要素の定義は本来JavaScriptでやるのだけど、`dom-module`を使うとHTMLを使ってある程度宣言的にできて、僕はこのアプローチを気に入っている。
+
+自分で作ったカスタム要素である`blog-search`はこの`dom-module`で定義しているのだけど、その時に、`dom-module`に`is`属性を付けていた。
+
+~~~ html
+<dom-module is=blog-search id=blog-search>
+  <!-- ... -->
+</dom-module>
+~~~
+
+`is`というのは、その要素（ここでは`dom-module`）を更に拡張したバージョンの要素を使う、という時に使う物で、例えばオートコンプリート機能を追加した検索インプットを作って
+
+~~~ html
+<input type=search is=auto-complete>
+~~~
+
+などとして使う（ちなみにブラウザーベンダー間で要不要の意見が割れているらしいので、この仕様はなくなるかも）。
+
+`dom-module`を使う時には`is`属性は不要なので、ここでは使い方が間違っているのだけど、問題なく動いていた。単に無視されていたのだろうと思う。2.0 Previewに上げても同様に動いていたのだけど、Chromeで全く動かない（`blog-search`の定義自体が失敗している）ことに気が付いた。`is`を外すと動いたので、ChromeがネイティブでWebコンポーネントに対応しているのと関係していそうだが調べていない（他のブラウザーでは、現在のところ、Webコンポーネントの多くの機能がpolyfillやshimで動いている）。
+
+### 動的に挿入される要素のスタイリング ### {#heading-2016-12-11-styling-dynamic-inserted-elements}
+
+この日記の検索機能では、`XMLHttpRequest`で[groonga-httpd][] （NginxのGroongaモジュール）から検索結果を取得し、DOMツリー内に挿入している（参考：[日記に検索機能をつけた][]）。Groongaが検索キーワードに`keyword`というクラスを付けてくれるので、赤い太字になるようスタイリングしていた。
+
+~~~ css
+.keyword {
+  color: red;
+  font-weight: bolder;
+}
+~~~
+
+Chromeでスタイリングされなくなった。これは、ChromeがShadow DOMを実装していて、Polymerもそのネイティブ実装を活かしている、つまり外部でのスタイル宣言がShadow DOM内に影響を及ぼしていないからだと思う。Webコンポーネントの大きな特長がこのカプセル化なのでむしろ歓迎すべき変更。というわけで、喜んで、Shadow DOMに閉じたスタイリングに変更した。
+
+~~~ html
+<dom-module id=blog-search>
+  <template>
+    <style>
+      /* ... */
+
+      .keyword {
+        color: var(--keyword-color, red);
+        font-weight: var(--keyword-font-weight, bolder);
+      }
+    </style>
+  </template>
+  <!-- ... -->
+</dom-module>
+~~~
+
+すると、今度はFirefoxでスタイルが外れてしまった。
+
+FirefoxではShadow DOMが実装されておらずshimを使っている。具体的にはHTMLの`style`要素に、Shadow DOM内に閉じているのとある程度同等のスタイル宣言をして、それを持ってスコープ付きのスタイリングとしている。
+
+~~~ html
+<html>
+  <head>
+    <!-- ... -->
+    <style>
+      /* ... */
+
+      .keyword.blog-search {
+        color: var(--keyword-color, red);
+        font-weight: var(--keyword-font-weight, bolder);
+      }
+    </style>
+    <!-- ... -->
+~~~
+
+このスタイル宣言を活かすために行われるのが、「要素名と同じクラスを追加する」という処理だ。
+
+~~~ html
+ <blog-search>
+  <!-- ... -->
+  <paper-input ... class="style-scope blog-search" ...>
+    <!-- ... -->
+  </paper-input>
+  <!-- ... -->
+</blog-search>
+~~~
+（`class`に`blog-search`が追加されている）
+
+元々HTML内に書かれているタグであれば、このようにPolymerが自動でクラスを追加してくれるのだが、検索結果のように、動的に挿入される要素ではそうはいかない。仕方がないので、挿入する時に自分でクラスを追加するようにした。
+
+~~~ javascript
+// ...
+snippetHtml: article[3].join("<br>").
+  replace('<span class="keyword">', '<span class="keyword style-scope blog-search">'),
+// ...
+~~~
+
+文字列処理なので乱暴だが、この場合はセキュリティホールにはならない（はず）。
+
+「Firefoxはカスタムプロパティには対応しているんだからそっち使ってくれればいいんだけどなあ」とちょっと釈然としないが、まあ、過渡期ということで仕方ないのだろう。
+
+### paper-cardとpaper-buttonのエラー ### {#heading-2016-12-11-fixing-paper-card-paper-button-error}
+
+`paper-card`と`paper-button`が（例によって）Chromeでだけ動かない。
+
+> Uncaught DOMException: Failed to construct 'CustomElement': The result must not have attributes
+
+というエラーが出てしまっている。
+
+ググるとStack Overflowがヒットして（[Failed to execute 'createElement' on 'Document': The result must not have children](http://stackoverflow.com/questions/40181683/failed-to-execute-createelement-on-document-the-result-must-not-have-childr)）、見ると`created`（新しくは`constructor`）コールバックの使い方が、新しいCustom Elements仕様としては不正なようだ。しようがないのでフォークしてここを`ready`コールバックに書き換えて対応とした。イシューも上げた（[2.0-preview throw an error Uncaught DOMException: Failed to construct 'CustomElement': The result must not have attributes #90](https://github.com/PolymerElements/paper-card/issues/90)）。
+
+`ready`はCustom Elements標準にはなく、Polymer独自のコールバック。1.xの時代から存在していて、2.0でも残るようなので（[Lifecycle changes][]）、`blog-search`でも使っていたがそのままにしてある。
+
+---
+
+こんなところかな。あとは公式の[アップグレードガイド][]に従えばいいことばかりだった。
+
+コミットログを見るとコードレベルで何をやっているかが分かると思う：
+[https://github.com/KitaitiMakoto/apehuci/commits/master](https://github.com/KitaitiMakoto/apehuci/commits/master)
+
+[Polymer]: https://www.polymer-project.org/
+[2.0]: https://www.polymer-project.org/2.0/docs/about_20
+[Webコンポーネント]: http://webcomponents.org/
+[Paper Elements]: https://elements.polymer-project.org/browse?package=paper-elements
+[Paper Card]: https://elements.polymer-project.org/elements/paper-card
+[アップグレードガイド]: https://www.polymer-project.org/2.0/docs/upgrade
+[概要ページのインストールの項目]: https://www.polymer-project.org/2.0/docs/about_20#installing
+[paper-header-panel]: https://elements.polymer-project.org/elements/paper-header-panel
+[slot]: https://www.polymer-project.org/2.0/docs/upgrade#replace-content-elements
+[dom-module]: https://www.polymer-project.org/1.0/docs/devguide/local-dom#template-stamping
+[groonga-httpd]: http://groonga.org/ja/docs/reference/executables/groonga-httpd.html
+[日記に検索機能をつけた]: ../../2016/02/07.html
+[Lifecycle changes]: https://www.polymer-project.org/2.0/docs/about_20#lifecycle-changes
