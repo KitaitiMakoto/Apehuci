@@ -22,17 +22,26 @@
     </template>
   </template>
   <script>
-    Polymer({
-      is: "blog-search",
-      properties: {
-        url: String,
-        base: String,
-        table: String,
-        debounceDuration: Number,
-        query: String,
-        result: Array
-      },
-      ready: function() {
+    class BlogSearch extends Polymer.Element {
+      static get is() {
+        return 'blog-search';
+      }
+
+      static get config() {
+        return {
+          properties: {
+            url: String,
+            base: String,
+            table: String,
+            debounceDuration: Number,
+            query: String,
+            result: Array
+          }
+        }
+      }
+
+      ready() {
+        super.ready();
         this.$.groongaSelect.url = this.url + "/select";
         this.$.groongaSelect.debounceDuration = this.debounceDuration;
         this.$.groongaSelect.params = {
@@ -42,8 +51,9 @@
           sortby: "-_score",
           command_version: 2
         };
-      },
-      search: function() {
+      }
+
+      search() {
         var query = this.$.groongaQuery.value;
         if (query === "") {
           this.result = [];
@@ -54,8 +64,9 @@
         }
         this.$.groongaSelect.params.query = this.$.groongaQuery.value;
         this.$.groongaSelect.generateRequest();
-      },
-      showResult: function() {
+      }
+
+      showResult() {
         var body = this.$.groongaSelect.lastResponse[1];
         if (! body) {
           return;
@@ -74,6 +85,8 @@
           };
         });
       }
-    });
+    }
+
+    customElements.define(BlogSearch.is, BlogSearch)
   </script>
 </dom-module>
