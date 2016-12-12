@@ -1,0 +1,12 @@
+-
+  name: search
+  display_name: 検索
+  path: search.html
+-
+  name: comment
+  display_name: コメント
+  path: comment.html
+-
+  name: share
+  display_name: シェア
+  path: share.html
