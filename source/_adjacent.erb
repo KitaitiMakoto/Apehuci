@@ -1,14 +1,14 @@
 <% if next_page_info[:page] || previous_page_info[:page] %>
 <ul>
   <% if next_page_info[:page] %>
-  <li>
+  <li class=next>
     <% link_to next_page_info[:page], :rel => 'next' do %>
     <paper-button raised><%=h next_page_info[:label] %></paper-button>
     <% end %>
-</li>
+  </li>
   <% end %>
   <% if previous_page_info[:page] %>
-  <li>
+  <li class=prev>
     <% link_to previous_page_info[:page], :rel => 'prev' do %>
     <paper-button raised><%=h previous_page_info[:label] %></paper-button>
     <% end %>
