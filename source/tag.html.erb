@@ -22,7 +22,7 @@ layout: false
 
   <body class="<%= page_classes %>" unresolved>
     <paper-header-panel>
-      <paper-toolbar>
+      <paper-toolbar slot=header>
         <h2 class=site-title>
           <% link_to '/index.html' do %>
           <%=h data.site.title %>
@@ -30,7 +30,7 @@ layout: false
           <% end %>
         </h2>
       </paper-toolbar>
-      <section>
+      <section slot=content>
         <header>
           <paper-card>
             <h1><%=h tagname %>とタグ付けられたページ</h1>
