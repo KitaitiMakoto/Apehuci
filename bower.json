@@ -24,6 +24,7 @@
     "paper-header-panel": "2.0-preview",
     "paper-toolbar": "2.0-preview",
     "paper-card": "https://github.com/KitaitiMakoto/paper-card.git#2.0-preview",
-    "paper-input": "2.0-preview"
+    "paper-input": "2.0-preview",
+    "paper-checkbox": "PolymerElements/paper-checkbox#2.0-preview"
   }
 }
