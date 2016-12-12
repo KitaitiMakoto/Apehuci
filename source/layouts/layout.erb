@@ -9,7 +9,6 @@
     <!-- Use title if it's in the page YAML frontmatter -->
     <title><%= current_page.data.title || data.site.title %></title>
 
-    <%= partial 'android_firefox' %>
     <script src="<%= url_for('/bower_components/webcomponentsjs/webcomponents-lite.js') %>"></script>
     <%= component_import_tag :elements %>
 
