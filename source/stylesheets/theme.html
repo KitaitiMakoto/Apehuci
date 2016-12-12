@@ -5,10 +5,12 @@
       --primary-text-color: #212121;
       --link-color: #F44336;
       --tag-active-link-color: #aa524b;
+      --content-width: 80%;
     }
     @media (max-width: 599px) {
       html {
         font-size: smaller;
+        --content-width: 90%;
       }
     }
     body {
@@ -136,7 +138,7 @@
       text-decoration: inherit;
     }
     paper-card {
-      width: 80%;
+      width: var(--content-width);
       padding: 1em;
       text-align: left;
     }
