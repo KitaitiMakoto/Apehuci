@@ -1,0 +1,27 @@
+---
+layout: preference
+---
+<section>
+  <header>
+    <paper-card>
+      <h2>カスタマイズ</h2>
+      <p>設定はウェブブラウザーに保存されます。</p>
+    </paper-card>
+  </header>
+  <paper-card>
+    <table>
+      <tr>
+        <th>有効</th>
+        <th>設定名</th>
+        <th>詳細設定</th>
+      </tr>
+      <% data.preference.each do |pref|  %>
+      <tr>
+        <td><paper-checkbox type=checkbox name="<%=h pref.name %>" id="preference-<%=h pref.name %>"></paper-checkbox></td>
+        <td><iron-label for="preference-<%= pref.name %>"><%=h pref.display_name %></iron-label></td>
+        <td><%= link_to '設定', pref.path %></td>
+      </tr>
+    <% end %>
+    </table>
+  </paper-card>
+</section>
