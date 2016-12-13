@@ -8,6 +8,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     backports (3.6.8)
     coffee-script (2.4.1)
       coffee-script-source
@@ -131,6 +135,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  babel-transpiler
   groonga-client
   middleman (~> 4)
   middleman-blog (~> 4)
