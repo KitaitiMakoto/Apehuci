@@ -232,6 +232,10 @@ snippetHtml: article[3].join("<br>").
 
 `ready`はCustom Elements標準にはなく、Polymer独自のコールバック。1.xの時代から存在していて、2.0でも残るようなので（[Lifecycle changes][]）、`blog-search`でも使っていたがそのままにしてある。
 
+#### 追記 ####
+
+これは`paper-card`や`paper-button`ではなく、[vulcanize][]の問題だということが分かった（[PolymerElements/paper-card/issues/90](https://github.com/PolymerElements/paper-card/issues/90)）。どうもJavaScriptのclass構文で定義した物ををvulcanizeがうまく扱えないということみたい。なので2.0でclass構文使う際には注意されたい。
+
 ---
 
 こんなところかな。あとは公式の[アップグレードガイド][]に従えばいいことばかりだった。
@@ -252,3 +256,4 @@ snippetHtml: article[3].join("<br>").
 [groonga-httpd]: http://groonga.org/ja/docs/reference/executables/groonga-httpd.html
 [日記に検索機能をつけた]: ../../2016/02/07.html
 [Lifecycle changes]: https://www.polymer-project.org/2.0/docs/about_20#lifecycle-changes
+[vulcanize]: https://github.com/Polymer/vulcanize
