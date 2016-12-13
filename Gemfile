@@ -15,6 +15,7 @@ gem 'middleman-deploy', '>= 2.0.0.pre.alpha'
 gem 'middleman-minify-html'
 
 gem 'typescript-node'
+gem 'babel-transpiler'
 
 # Used to highlight syntax via kramdown
 gem 'rouge'
