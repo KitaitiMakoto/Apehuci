@@ -1,0 +1,242 @@
+---
+title: Railsでの検索機能にgroonga-client-railsを使う（後編）
+tags:
+  - Ruby on Rails
+  - Groonga
+---
+
+アドベントカレンダー「[Groonga Advent Calendar 2016][]」の21日目です、書いているのは25日ですが……済みません
+
+前回の[Railsでの検索機能にgroonga-client-railsを使う（前編）][]では、[groonga-client-rails][] gemを使って
+
+* Groongaのデータベースを作ること
+* Railsのモデル操作とGroongaデータベースの同期を取ること
+
+をやりました。
+
+後編の今日は、Groongaデータベースを使って、Railsアプリに検索機能を付けてみようと思います。
+
+引き続きアプリケーションのリポジトリーをGitHubに置いています：[KitaitiMakoto/groonga-client-rails-sample](https://github.com/KitaitiMakoto/groonga-client-rails-sample)
+
+目次 {#heading-2016-12-21-table-of-contents}
+----
+
+1. [ルーティングの追加](#heading-2016-12-21-adding-route)
+2. [検索アクションの追加](#heading-2016-12-21-adding-search-action)
+3. [検索結果の表示](#heading-2016-12-21-showing-search-result)
+4. [検索フォームの作成](#heading-2016-12-21-adding-search-form)
+5. [検索語のハイライト](#heading-2016-12-21-highlighting-query)
+6. [高度な検索（カラムの指定、並び替え、ページネーション）](#heading-2016-12-21-advanced-search)
+
+ルーティングの追加 {#heading-2016-12-21-adding-route}
+------------------
+
+検索用のルーティングを追加します。
+
+* `posts?q=xxx`と既存のコレクションリソースを使ってクエリーで検索機能を呼び出す
+* `posts/search`と検索専用のリソースを追加する
+
+の二通りあり、アプリケーション全体のデザインで選ぶべき物だと思いますが、ここでは後者にします。
+
+~~~ ruby
+# config/routes.rb
+
+resources :posts do
+  collection do
+    get :search
+  end
+end
+~~~
+
+検索アクションの追加 {#heading-2016-12-21-adding-search-action}
+--------------------
+
+`PostsController`に検索アクションを追加します。
+
+~~~ ruby
+# app/controllers/posts_controller.rb
+
+def search
+  searcher = PostsSearcher.new
+  query = params[:q]
+  if query.blank?
+    redirect_to action: "index"
+    return
+  end
+  @posts = searcher.search.
+             query(query).
+             result_set.records
+end
+~~~
+
+（モデルの代わりに）サーチャークラスをインスタンス化し、クエリーを組み立てていきます。
+
+検索の開始には`#search`メソッドを呼び出します。これでクエリー組み立ての準備が整います（クエリーオブジェクトが返されます）。
+
+`query`メソッドに文字列を渡すことで、検索語を認識させます。
+
+`result_set`を呼ぶとリモートのGroongaサーバーにHTTPリクエストを送って検索結果を取得します。
+
+`records`によって、それをRubyのオブジェクトに変換して返します。
+
+検索結果の表示 {#heading-2016-12-21-showing-search-result}
+--------------
+
+検索結果を表示します。`app/views/posts/index.html.erb`を`app/views/posts/search.html.erb`にコピーし、ActiveModel依存の所を書き換えます。
+
+~~~ erb
+<!-- app/views/posts/search.html.erb -->
+
+<h1>Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.body %></td>
+        <td><%= link_to 'Show', post_path(extract_id(post)) %></td>
+        <td><%= link_to 'Edit', edit_post_path(extract_id(post)) %></td>
+        <td><%= link_to 'Destroy', post_path(extract_id(post)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
+~~~
+
+`extract_id`は、レコードデータからIDを取り出すヘルパーです。これも自分で定義します。
+
+~~~ ruby
+module PostsHelper
+  def extract_id(post)
+    post["_key"].split("-")[1]
+  end
+end
+~~~
+
+Groongaでは、`_key`というカラムによって、レコードを一意に特定するのですが、groonga-client-rails（のデフォルト）では、「モデル名-連番」となる（`Post-1`）ので、そこからAcitiveRecordのIDに変換しています。
+
+検索フォームはありませんが、これで一応機能はできました。http://localhost:3000/posts/search?q=Qiita などにアクセスすると、検索結果が見られると思います。
+
+検索フォームの作成 {#heading-2016-12-21-adding-search-form}
+------------------
+
+次にフォームです。`/posts/search`に`q`クエリー付きでGETアクセスを投げるだけなので簡単です。
+
+~~~ erb
+<!-- app/views/posts/_search_form.html.erb -->
+
+<%= form_tag(search_posts_path, method: "get") do %>
+  <input type=search name=q value="<%= params[:q] %>" required>
+  <%= submit_tag("Search") %>
+<% end %>
+~~~
+
+これをそれぞれのテンプレートファイルに埋め込んでやります（省略）。
+
+検索語のハイライト {#heading-2016-12-21-highlighting-query}
+------------------
+
+ただ、せっかくだから、検索語が分かりやすくなっていてほしいですよね。また、メモの全文をここで表示してしまうと、長過ぎるという場合もあると思います。両方をいっぺんに解決できる方法として、Groongaの`snippet_html`関数があります（[7.14.17. snippet_html][]）。
+
+これは検索語の周辺数十文字（スニペット）を返してくれる関数です。更に、検索語を`<span class="keyword">...</span>`でマークアップしてくれます（HTML）。
+
+`snippet_html`を使うには、Groongaから取得するカラムにこれを指定します。groonga-client-railsはデフォルトで、モデルで設定したカラムを取得してくれます（なので`title`と`body`が取れていた）。これをカスタマイズするには、クエリーに`output_columns`というパラメーターを追加する必要があります（[7.3.54.4.4.1. output_columns][]）。
+
+~~~ ruby
+# app/controllers/posts_controller.rb
+
+  @posts = searcher.search.
+             query(query).
+             output_columns('_key,title,snippet_html(body)').
+             result_set.records
+~~~
+
+これで、「`body`カラムでの検索結果にはスニペットを取得する」という意味になります。
+
+これに合わせてビューも変えなくてはいけません。
+
+~~~ erb
+        <td><%== post.snippet_html.join("<br>") %></td>
+~~~
+
+HTMLを埋め込むので`=`を`==`にしています。また、結果は配列になっているので（一つのメモの離れた所に検索語がある場合、それぞれの周辺を取得します）改行で接続します。
+
+先述の通り、検索語はマークアップされるので、スタイリングしましょう。
+
+~~~ css
+/* app/assets/stylesheets/posts.scss */
+
+.keyword {
+  font-weight: bolder;
+  color: red;
+}
+~~~
+
+これで、検索語が赤い太字になりました。
+
+何とか見られる結果になったんではないでしょうか。
+![](https://gyazo.com/2cc4ffc1487555bbd51fe768f6c7fcac.png)
+
+高度な検索（カラムの指定、並び替え、ページネーション） {#heading-2016-12-21-advanced-search}
+------------------------------------------------------
+
+Groongaでは、検索の際に様々な条件を付け加えたり、結果を加工したりできます。機能の詳細はドキュメント（[7.3.54. select][]）に譲りますが、ここでは以下の三つに対応してみましょう。
+
+match_columns
+: 検索に使用するカラムを試定。例えば「検索語がタイトルに含まれる場合のみ表示する」など。
+
+sortby
+: 指定したカラムで並び替える。
+
+paginate
+: 検索結果が多過ぎる場合にページネーションします。
+
+と言っても簡単で、クエリーオブジェクトから、それぞれのメソッドを呼び出すだけです。
+
+~~~ ruby
+# app/controllers/posts_controller.rb
+
+  @posts = searcher.search.
+             query(query).
+             output_columns('_key,title,snippet_html(body)')
+  [:match_columns, :sortby, :paginate].each do |param|
+    if params[param].present?
+      @posts = @posts.send(param, params[param])
+    end
+  end
+  @posts = @posts.result_set.records
+~~~
+
+これにフォームを対応させれば出来上がりです。
+
+例えば、タイトルで並び替えした場合はこうなります。
+![](https://gyazo.com/969feded70e51520aab4962369291908.png)
+
+並び順を逆にするには、カラム名の前にマイナス記号（`-`）を付けます。
+![](https://gyazo.com/b117f1fc42863df60684437bcc2298c5.png)
+
+どうでしたか、groonga-client-railsは、無理にActiveModel風にしない所が気に入っていたりします……と言っている間に、開発者の[@kou][]さんがよりちゃんとした記事を書いていました、締め切り破って済みませんでした……。
+
+&raquo; [Ruby on RailsでMySQL・PostgreSQL・SQLite3とGroongaを使って日本語全文検索を実現する方法][]
+
+[Groonga Advent Calendar 2016]: http://qiita.com/advent-calendar/2016/groonga
+[Railsでの検索機能にgroonga-client-railsを使う（前編）]: ../../2016/12/18.html
+[groonga-client-rails]: https://github.com/ranguba/groonga-client-rails
+[7.14.17. snippet_html]: http://groonga.org/ja/docs/reference/functions/snippet_html.html
+[7.3.54.4.4.1. output_columns]: http://groonga.org/ja/docs/reference/commands/select.html#output-columns
+[7.3.54. select]: http://groonga.org/ja/docs/reference/commands/select.html
+[@kou]: https://github.com/kou
+[Ruby on RailsでMySQL・PostgreSQL・SQLite3とGroongaを使って日本語全文検索を実現する方法]: http://www.clear-code.com/blog/2016/12/22.html
