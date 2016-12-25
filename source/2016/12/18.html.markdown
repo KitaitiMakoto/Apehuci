@@ -361,6 +361,10 @@ searcher.search.query('Qiita').result_set
 
 後編ではこれを使って検索UIを組み立てます。
 
+追記。
+
+後編を書きました：[Railsでの検索機能にgroonga-client-railsを使う（後編）][]
+
 [Groonga Advent Calendar 2016]: http://qiita.com/advent-calendar/2016/groonga
 [groonga-client-rails]: https://github.com/ranguba/groonga-client-rails
 [Ruby on Rails]: http://rubyonrails.org/
@@ -374,3 +378,4 @@ searcher.search.query('Qiita').result_set
 [groonga-client-railsのテストディレクトリー]: https://github.com/ranguba/groonga-client-rails/tree/master/test/apps
 [2. インストール]: http://groonga.org/ja/docs/install.html
 [7.4. データ型]: http://groonga.org/ja/docs/reference/types.html
+[Railsでの検索機能にgroonga-client-railsを使う（後編）]: ../../2016/12/21.html
