@@ -86,6 +86,7 @@ configure :build do
     custom-elements/custom-elements.min.js
     shadydom/shadydom.min.js
     shadycss/shadycss.min.js
+    rxjs/dist/rx.lite.min.js
   ]
 
   ignore do |path|
