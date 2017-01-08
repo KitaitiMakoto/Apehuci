@@ -6,6 +6,7 @@
       --link-color: #F44336;
       --tag-active-link-color: #aa524b;
       --content-width: 80%;
+      --app-toolbar-font-size: 1em;
     }
     @media (max-width: 599px) {
       html {
@@ -126,10 +127,15 @@
       @apply --layout-horizontal;
       @apply --layout-flex;
       @apply --layout-start-justified;
+      width: 100%;
+      margin: 0;
     }
     .site-title a {
       color: white;
       text-shadow: 0 0 3px var(--link-color);
+    }
+    app-toolbar h1, app-toolbar h2 {
+      align-items: center;
     }
     app-toolbar h2 {
       @apply --layout-horizontal;
