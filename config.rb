@@ -49,43 +49,37 @@ configure :build do
   config[:base] = '/apehuci/'
 
   used_bower_components = %w[
-    promise-polyfill/Promise.js
     webcomponentsjs/webcomponents-lite.js
-    webcomponentsjs/src/URL/URL.js
-    webcomponentsjs/src/WeakMap/WeakMap.js
-    webcomponentsjs/src/Template/Template.js
-    webcomponentsjs/src/HTMLImports/HTMLImports.js
-    webcomponentsjs/src/WebComponents/Promise.js
-    webcomponentsjs/src/WebComponents/pre-polyfill.js
-    webcomponentsjs/src/WebComponents/post-polyfill.js
-    webcomponentsjs/src/WebComponents/lang.js
-    webcomponentsjs/src/WebComponents/dom.js
-    webcomponentsjs/src/WebComponents/unresolved.js
-    webcomponentsjs/src/MutationObserver/MutationObserver.js
-    webcomponentsjs/src/HTMLImports/base.js
-    webcomponentsjs/src/HTMLImports/module.js
-    webcomponentsjs/src/HTMLImports/path.js
-    webcomponentsjs/src/HTMLImports/xhr.js
-    webcomponentsjs/src/HTMLImports/Loader.js
-    webcomponentsjs/src/HTMLImports/Observer.js
-    webcomponentsjs/src/HTMLImports/parser.js
-    webcomponentsjs/src/HTMLImports/importer.js
-    webcomponentsjs/src/HTMLImports/dynamic.js
-    webcomponentsjs/src/HTMLImports/boot.js
-    webcomponentsjs/src/MutationObserver/MutationObserver.js
-    webcomponentsjs/src/HTMLImports/base.js
-    webcomponentsjs/src/HTMLImports/module.js
-    webcomponentsjs/src/HTMLImports/path.js
-    webcomponentsjs/src/HTMLImports/xhr.js
-    webcomponentsjs/src/HTMLImports/Loader.js
-    webcomponentsjs/src/HTMLImports/Observer.js
-    webcomponentsjs/src/HTMLImports/parser.js
-    webcomponentsjs/src/HTMLImports/importer.js
-    webcomponentsjs/src/HTMLImports/dynamic.js
-    webcomponentsjs/src/HTMLImports/boot.js
+    webcomponents-platform/webcomponents-platform.js
+    URL/url.js
+    template/template.js
+    html-imports/src/html-imports.js
+    es6-promise/dist/es6-promise.auto.min.js
+    webcomponentsjs/src/pre-polyfill.js
     custom-elements/custom-elements.min.js
     shadydom/shadydom.min.js
     shadycss/shadycss.min.js
+    webcomponentsjs/src/post-polyfill.js
+    webcomponentsjs/src/unresolved.js
+    html-imports/src/base.js
+    html-imports/src/module.js
+    html-imports/src/path.js
+    html-imports/src/xhr.js
+    html-imports/src/Loader.js
+    html-imports/src/Observer.js
+    html-imports/src/parser.js
+    html-imports/src/importer.js
+    html-imports/src/dynamic.js
+    html-imports/src/boot.js
+    html-imports/src/module.js
+    html-imports/src/path.js
+    html-imports/src/xhr.js
+    html-imports/src/Loader.js
+    html-imports/src/Observer.js
+    html-imports/src/parser.js
+    html-imports/src/importer.js
+    html-imports/src/dynamic.js
+    html-imports/src/boot.js
   ]
 
   ignore do |path|
