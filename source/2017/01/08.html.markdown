@@ -49,9 +49,16 @@ Gitリポジトリーのホスティングの他、READMEの表示、スター�
 
 この日記はGitHub Pagesのドメインで公開しているので、移行できない。
 
+追記：GitLab参考記事 {#heading-2017-01-08-reference}
+--------------------
+
+奇しくも最近、1/5に、Gihyo.jpでGitLabの記事が上がっていた：  
+[GitLabのこれまでとこれから：新春特別企画｜gihyo.jp … 技術評論社][gihyo]
+
 [EPUB Parser]: http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown
 [GitHub]: https://github.com/
 [GitLab]: https://gitlab.com/
 [Travis CI]: https://travis-ci.org/
 [CircleCI]: https://circleci.com/
 [Community Edition]: https://gitlab.com/gitlab-org/gitlab-ce
+[gihyo]: http://gihyo.jp/dev/column/newyear/2017/gitlab
