@@ -30,14 +30,17 @@
   </head>
 
   <body class="<%= page_classes %>" unresolved>
-    <paper-header-panel mode=waterfall-tall>
-      <paper-toolbar slot=header class="tall animate">
-        <h1 class=site-title><%= link_to data.site.title, '/index.html' %></h1>
-      </paper-toolbar>
-      <main slot=content>
+    <app-header-layout>
+      <app-header fixed condenses effects=waterfall slot=header>
+        <app-toolbar></app-toolbar>
+        <app-toolbar sticky>
+          <h1 class=site-title><%= link_to data.site.title, '/index.html' %></h1>
+        </app-toolbar>
+      </app-header>
+      <main>
         <%= yield %>
       </main>
-      <footer slot=content>
+      <footer>
         <%= partial 'adjacent', :locals => {
               :next_page_info => {:page => prev_page, :label => "前#{per_page}日分"},
               :previous_page_info => {:page => next_page, :label => "次#{per_page}日分"}
@@ -49,6 +52,6 @@
           <%= partial 'author' %>
         </paper-card>
       </footer>
-    </paper-header-panel>
+    </app-header-layout>
   </body>
 </html>

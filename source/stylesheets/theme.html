@@ -113,12 +113,14 @@
     footer li.prev {
       margin-left: 20%;
     }
-    paper-toolbar {
-      @apply --layout-vertical;
-      @apply --layout-end-justified;
+    app-header {
       background-image: url("../images/title-bg.png");
       background-size: cover;
       background-position: center;
+    }
+    app-toolbar {
+      @apply --layout-vertical;
+      @apply --layout-end-justified;
     }
     .site-title {
       @apply --layout-horizontal;
@@ -129,13 +131,13 @@
       color: white;
       text-shadow: 0 0 3px var(--link-color);
     }
-    paper-toolbar h2 {
+    app-toolbar h2 {
       @apply --layout-horizontal;
       @apply --layout-flex;
       @apply --layout-end-justified;
       position: relative;
     }
-    paper-toolbar h2 a {
+    app-toolbar h2 a {
       color: inherit;
       text-decoration: inherit;
     }

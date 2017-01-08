@@ -29,16 +29,18 @@
   </head>
 
   <body class="<%= page_classes %>" unresolved>
-    <paper-header-panel>
-      <paper-toolbar slot=header>
-        <h2 class="site-title">
-          <% link_to '/index.html' do %>
-          <%=h data.site.title %>
-          <paper-ripple></paper-ripple>
-          <% end %>
-        </h2>
-      </paper-toolbar>
-      <article slot=content>
+    <app-header-layout>
+      <app-header fixed shadow slot=header>
+        <app-toolbar>
+          <h2 class="site-title">
+            <% link_to '/index.html' do %>
+            <%=h data.site.title %>
+            <paper-ripple></paper-ripple>
+            <% end %>
+          </h2>
+        </app-toolbar>
+      </app-header>
+      <article>
         <header>
           <paper-card>
             <h1><%= current_page.data.title %></h1>
@@ -68,7 +70,7 @@
           </paper-card>
         </footer>
       </article>
-    </paper-header-panel>
+    </app-header-layout>
 
     <script defer async src="//hypothes.is/embed.js"></script>
   </body>
