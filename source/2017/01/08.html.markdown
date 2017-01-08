@@ -1,0 +1,57 @@
+---
+title: リポジトリーをGitHubからGitLabに移してみた
+tags:
+  - GitLab
+---
+
+[EPUB Parser][] gemのリポジトリーを、[GitHub][]から[GitLab][]に移してみた：  
+[https://gitlab.com/KitaitiMakoto/epub-parser](https://gitlab.com/KitaitiMakoto/epub-parser)
+
+ここのところフリーとかオープンソースソフトウェアとサービスとかについて感じるところの記事を書いていて（未公開）、その過程でGitLabのことを思い出したので、やってみたのだった。
+
+前にクローンはしていたのだけど、`master`ブランチへのフォースプッシュが禁止されていたので、使わなくなっていた。でも今見てみたら、設定によりそれが可能になっていたので、改めて移行した。
+
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">GitLabがmasterブランチにもフォースプッシュ可能になってた。<br>右上歯車→Protected Branches→画面下ブランチの「Unprotect」</p>&mdash; 北市真 (@KitaitiMakoto) <a href="https://twitter.com/KitaitiMakoto/status/816234964412809216">2017年1月3日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+GitHubは[Travis CI][]や[CircleCI][]なんかとのインテグレーションが便利だけど、GitLab.comは自前でCI機能を備えていて、YAMLファイル（`.gitlab-ci.yml`）をリポジトリーに入れておくと、その他の設定なしで自動でテストを走らせてくれる。べんり。
+
+~~~ yaml
+before_script:
+  - apt-get update -qq && apt-get install -y zip
+  - ruby -v
+  - which ruby
+  - gem install bundler --no-document
+  - bundle install --jobs=$(nproc) "${FLAGS[@]}"
+
+test:2.2:
+  image: ruby:2.2
+  script:
+    - bundle exec rake test
+
+test:2.3:
+  image: ruby:2.3
+  script: bundle exec rake test
+
+test:2.4:
+  image: ruby:2.4
+  script: bundle exec rake test
+~~~
+
+GitLabとは {#heading-2017-01-08-whats-gitlab}
+----------
+
+[GitLab][]は、Gitを使ったプロジェクトのホスティングウェブアプリケーションで、ざっくり言ってGitHubクローンだ。基本的な部分（[Community Edition][]）のソースコードは公開されていて、自前のサーバーにインストールして使うことができる。Enterprise Editionが有償になっている。その他にホスティングサービス（GitLab.com）もやっていて、これを今回は使った。
+
+Gitリポジトリーのホスティングの他、READMEの表示、スター、フォーク、マージリクエスト（プルリクエスト）、イシュー登録、コミット履歴表示、コミット毎の差分表示、ウィキ、グループによるメンバー管理、（GitHub Pagesのような）静的ウェブサイトのホスティング、（Gistのような）スニペットなどなど、GitHubの基本的な機能は備えている（使い勝手や速度で及ばないところはある）。
+
+ちょっとググった感じだと自前サーバーでGitのプロジェクトをホストするために使われる例が多いようだけど、GitHub.comの代替として使ってもいいと思う。僕は、アプリケーションのソースコードが公開されているということで、使い始めてみた。前はGitoriousが担っていた立ち位置だと思う（事実、Gitoriousがシャットダウンする時に、GitLabを案内していた）。
+
+この日記はGitHub Pagesのドメインで公開しているので、移行できない。
+
+[EPUB Parser]: http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown
+[GitHub]: https://github.com/
+[GitLab]: https://gitlab.com/
+[Travis CI]: https://travis-ci.org/
+[CircleCI]: https://circleci.com/
+[Community Edition]: https://gitlab.com/gitlab-org/gitlab-ce
