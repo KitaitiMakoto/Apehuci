@@ -27,6 +27,7 @@
     "paper-input": "2.0-preview",
     "paper-checkbox": "PolymerElements/paper-checkbox#2.0-preview",
     "iron-label": "PolymerElements/iron-label#2.0-preview",
-    "rxjs": "^4.1.0"
+    "rxjs": "^4.1.0",
+    "app-layout": "PolymerElements/app-layout#2.0-preview"
   }
 }
