@@ -21,37 +21,39 @@ layout: false
   </head>
 
   <body class="<%= page_classes %>" unresolved>
-    <app-header-layout>
-      <app-header fixed shadow slot=header>
-        <app-toolbar>
-          <h2 class=site-title>
-            <% link_to '/index.html' do %>
-            <%=h data.site.title %>
-            <paper-ripple></paper-ripple>
-            <% end %>
-          </h2>
-        </app-toolbar>
-      </app-header>
-      <section>
-        <header>
+    <main>
+      <app-header-layout>
+        <app-header fixed shadow slot=header>
+          <app-toolbar>
+            <h2 class=site-title>
+              <% link_to '/index.html' do %>
+              <%=h data.site.title %>
+              <paper-ripple></paper-ripple>
+              <% end %>
+            </h2>
+          </app-toolbar>
+        </app-header>
+        <section>
+          <header>
+            <paper-card>
+              <h1><%=h tagname %>とタグ付けられたページ</h1>
+            </paper-card>
+          </header>
           <paper-card>
-            <h1><%=h tagname %>とタグ付けられたページ</h1>
+            <ul class=tagged-articles>
+              <% articles.each do |article| %>
+              <li><%= link_to h("#{article.date.strftime('%F')} #{article.title}"), article %></li>
+              <% end %>
+            </ul>
           </paper-card>
-        </header>
-        <paper-card>
-          <ul class=tagged-articles>
-            <% articles.each do |article| %>
-            <li><%= link_to h("#{article.date.strftime('%F')} #{article.title}"), article %></li>
-            <% end %>
-          </ul>
-        </paper-card>
-        <footer>
-          <paper-card>
-            <%= partial 'author' %>
-            <%= partial 'search' %>
-          </paper-card>
-        </footer>
-      </section>
-    </app-header-layout>
+          <footer>
+            <paper-card>
+              <%= partial 'author' %>
+              <%= partial 'search' %>
+            </paper-card>
+          </footer>
+        </section>
+      </app-header-layout>
+    </main>
   </body>
 </html>
