@@ -29,7 +29,7 @@
   </head>
 
   <body class="<%= page_classes %>" unresolved>
-    <blog-router></blog-router>
+    <blog-router base-regex="^<%= config[:base] %>"></blog-router>
     <main>
       <app-header-layout>
         <app-header fixed shadow slot=header>
