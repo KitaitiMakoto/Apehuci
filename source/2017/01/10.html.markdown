@@ -1,0 +1,165 @@
+---
+title: "Polymerでpjaxする、またはapp-locationの使い方"
+tags:
+  - Polymer
+  - pjax
+---
+
+この日記は[Polymer][]で作っている、つまり[Webコンポーネント][]を使っている。そのために表示が遅い。表示するまでに
+
+1. Webコンポーネントに必要なpolyfillを読み込む
+2. Polymerライブラリーを読み込む
+3. 各種カスタムエレメント定義をロードする
+4. JavaScriptで各種カスタムエレメント定義を実行する
+5. HTML中の各種カスタムエレメントを有効化する
+
+というステップがあって、これを毎ページ繰り返すからだ。前々から何とかしたいなあとは思っていて、この連休で、サイト内リンクをpjaxにすることで少し改善させた。
+
+各ステップはpjaxによって以下のように改善される。
+
+目次 {#heading-2017-01-10-table-of-contents}
+----
+
+1. [pjaxとは](#heading-2017-01-10-whats-pjax)
+2. [polyfill読み込み](#heading-2017-01-10-loading-polyfill)
+3. [Polymerライブラリーの読み込み](#heading-2017-01-10-loading-polymer)
+4. [カスタムエレメント読み込み](#heading-2017-01-10-loading-custom-elements)
+5. [カスタムエレメント定義の実行](#heading-2017-01-10-defining-custom-elements)
+6. [Polymerでpjax](#heading-2017-01-10-pjax-using-polymer)
+    1. [app-location](#heading-2017-01-10-app-location)
+    2. [iron-ajax](#heading-2017-01-10-iron-ajax)
+7. [終わりに](#heading-2017-01-10-afterwords)
+
+pjaxとは {#heading-2017-01-10-whats-pjax}
+--------
+
+有名なので不要だとは思うけど、一応pjaxを説明しておく。
+
+pjaxは、
+
+* Ajaxによる画面遷移
+* `location`オブジェクト（アドレスバーのURL）の書き換え
+
+の組み合わせだ。サイト内の別ページへのリンクをタップした際に、通常のブラウザーの画面遷移をする代わりに、JavaScriptでリンク先のHTMLを取得して、現在のページと置き換える。今回は、`title`要素と`main`要素を置き換えることで、画面遷移としている。ページ全体でなく、一部の書き換え・更新にもよく使われる。
+
+同時に`location`を書き換えることで、ブラウザーの進む/戻る・リロード、アドレスバーからURLをコピーしての共有など、通常の画面遷移であればできていることを可能にしている。
+
+後者のためにJavaScriptの`pushState`機能を使っていることからpjaxと名付けられている：  
+[defunkt/jquery-pjax: pushState + ajax = pjax](https://github.com/defunkt/jquery-pjax)
+
+pjaxは「現在のDOMツリー内での置き換え」が機能なので、外から飛んできて最初に表示するページでは役に立たない。
+
+polyfill読み込み {#heading-2017-01-10-loading-polyfill}
+----------------
+
+Webコンポーネントはまだ策定中・ブラウザー実装途中の仕様なので、クロスブラウザーでは動かない。具体的には、Chromeでしか全部は動かない。そこで、他のブラウザーでも動くよう、polyfillやshimを読み込む必要がある。
+
+これにはWebコンポーネント仕様の一部であるカスタムエレメントなど以外にも、URLコンストラクターやPromiseなどのpolyfillも含まれる。サーバー側でブラウザーの判定などはしていないので（GitHub Pagesなのでそもそもできない）、Chromeのように不要であっても読み込んでいる。
+
+こういうのは普通、`libs.js`のような一つのファイルにまとめることでリクエスト回数を減らすものだけど、面倒くさくて後回しにしている（後回しにするうちにGitHub PagesでHTTP/2が使えるようになるといいなあ、という期待もちょっとある）。
+
+pjaxによって、`main`の外にある`script`の読み込みと実行がスキップされるので、パフォーマンスがよくなっている。あと、そもそも同じ`script`を二回読み込んだりすると、イベントリスナーの登録が複数回行われたりして意図しない動作になりがちなので、基本的に`script`はpjaxでの置き換え対象に入れたくない。
+
+Polymerライブラリーの読み込み {#heading-2017-01-10-loading-polymer}
+-----------------------------
+
+ページをPolymerで作っている以上、当然Polymerを読み込む必要がある。
+
+これもJavaScriptの読み込みなので、上と同じくpjaxによってスキップし、パフォーマンスを向上させている。
+
+カスタムエレメント読み込み {#heading-2017-01-10-loading-custom-elements}
+--------------------------
+
+Polymerが提供していてマテリアルデザインを実現するのに便利な[Paper Elements][]や自作の物など、各種カスタムエレメントは通常一つのHTMLファイルになっている。その中に、HTMLタグの他CSS宣言や要素定義のJavaScriptを書くようになっているし、僕もそうしている。一つのカスタムエレメントが複数のカスタムエレメントの組み合わせであることもよくあって、依存エレメントの分HTMLを読み込む必要があるのが普通だ。
+
+先のJavaScriptライブラリーとは違って、これはさすがにリクエストが多くなり過ぎるので[vulcanize][]によって一つのファイルにまとめている。その一つにまとめたHTMLファイルは`head`要素中の`link`要素
+
+~~~ html
+<link href="components/elements.vulcanized.html" rel="import" />
+~~~
+
+によって読み込んでいる（実際にはこのタグを書き出すヘルパーが[Middleman Web Components][]にあるので、それを使っている）。
+
+これも`main`要素の外にあるので、pjaxによってスキップしている。
+
+カスタムエレメント定義の実行 {#heading-2017-01-10-defining-custom-elements}
+----------------------------
+
+カスタムエレメントは、単にHTML中に`<paper-card>`などタグを書くだけでは有効にならない（知らないタグとして扱われる）。このタグがカスタムエレメントの物であることをブラウザーに知らせ、各種機能を定義するにはJavaScriptを使う必要がある（参考：[Custom Elements v1: Reusable Web Components][]）。
+
+この定義は、上の`elements.vulcanized.html`に書かれているので、pjaxによってやはりこのステップもスキップできる。
+
+これまでのステップは、（HTTPヘッダーやService Workerなどで）キャッシュを上手に使うことでも飛ばせるのだけど、カスタムエレメント定義は、ファイルを読み込んだ**後**の処理なので、ページ遷移ごとに毎回実行する必要があり、キャッシュできない。なのでここが、キャッシュ機構を入れてもなおpjaxが活きるところだと思う。
+
+本当はpolyfillやPolymer読み込みをキャッシュしても、同様にJavaScript実行はページ表示毎に発生するのだけど、カスタムエレメント定義は特に多くなりがちなので特別に節を設けた。
+
+カスタムエレメントの有効化 {#heading-2017-01-10-activating-custom-elements}
+--------------------------
+
+カスタムエレメント定義が終わったらブラウザーは、HTML中のカスタムエレメント定義（に相当するDOMノード）を、そのカスタムエレメントとして扱い始める。このステップはpjaxではスキップできない。
+
+Polymerでpjax {#heading-2017-01-10-pjax-using-polymer}
+-------------
+
+ようやく本題だけど、今回のpjax実装では、Polymerが提供している[app-location][]と[iron-ajax][]というカスタムエレメントを使って実現してみた（[blog-router.html](https://github.com/KitaitiMakoto/apehuci/blob/26e1f03ac1a28983faa094b32b98ed1ad4822c26/source/components/blog-router.html)）。pjaxは普通、全部JavaScriptでやるものだと思うけど、半分くらいの処理はHTMLタグを書くことで実現できてしまっていて、不思議な感じがした。
+
+### app-location ### {#heading-2017-01-10-app-location}
+
+`app-location`を使うと、ページ内リンクが全部無効化される。その代わり、イベントリスナーでクリックイベントをハンドリングしたり、リンクに関する情報をデータバインディングを使って別の要素に渡したりできる。
+
+今回は
+
+~~~ html
+<app-location url-space-regex$="[[baseRegex]]" route="{{route}}" id=location></app-location>
+~~~
+
+と`route`というオブジェクトに、画面遷移に関する情報を入れることにした。
+
+`{{...}}`はPolymerの提供するデータバインディング用の記法で、他に`{{route}}`と書かれた場所と連動する（[Data binding - Polymer Project][]）。
+
+### iron-ajax ### {#heading-2017-01-10-iron-ajax}
+
+`app-location`は、アドレスバーのURLの書き換えはしてくれるけど、実際のリクエストは投げてくれない。ので、それをJavaScriptでイベントハンドラーとして書くか、今回のように別の要素と連携させないと意味がない。
+
+`iron-ajax`はその名の通りAjaxしてくれるカスタムエレメントで、画面上にレンダリングはされない。純粋にJavaScript的な実行のためにある。これが要素になっているが不思議な感じがする。
+
+これもデータバインディングの記法を使いつつ
+
+~~~ html
+<iron-ajax url="{{route.path}}" handle-as=document auto on-response=transit on-error=fallback id=ajax></iron-ajax>
+~~~
+
+と書くことで、`app-location`の`route`オブジェクトから`path`プロパティを取り出してセットしている（`path`の他に`hash`プロパティもあって、本当はこれもちゃんとハンドリングしないといけない）。
+
+`auto`属性をつけていると`url`属性が変わった際に自動でAjaxが行われるので、
+
+    リンクをタップ -> app-locationのroute属性変更 -> iron-ajaxのurl変更 -> Ajaxリクエスト
+
+という流れをJavaScriptを書かずに実現してくれる（リクエストを間引くのも、使ってないけど、HTML属性によって定義できる）。
+
+あとはレスポンス時やエラー時の処理をそれぞれ`transit`、`fallback`という関数としてJavaScriptで書いてやって出来上がりだ。`transit`としてJavaScriptで書いた処理は、殆ど`title`要素と`main`要素の書き換えのみ。
+
+終わりに {#heading-2017-01-10-afterwords}
+--------
+
+Polymerによるpjaxはこのようにして実現できる。これには、公式サイトの以下のページがとても参考になった。
+
+&raquo; [Routing with &lt;app-route&gt; - Polymer Project][]
+
+余談だけど、[Turbolinks][]を使うと自分で実装しなくてよかったのかも知れないなと思っている。
+
+あと、今回、ページ内に一つ`blog-router`を置くことによって、つまり一元的なルーターを使ってpjaxを実現している。ReactやAngularでもルーターライブラリーがあるように、この手の処理は一元的なルーターでやるのが普通なのかも知れない。でも、次へリンクなどのHTML要素に結び付く形で、それがpjaxによる遷移かどうかを管理できるようにする、引いては、そのリンクのカスタムエレメントの機能としてpjax処理を実装できた方が、コンポーネント志向としてはいいのかも知れないなあと、やった後で思った。気が向いたらやってみるかも（そして、世界中のみんながルーターを一元的に作っている理由を知るのだ、きっと）。
+
+今この記事書いてて気付いたけど、ページ内リンクが機能しなくなってしまった……。もう遅いので、後日の対応とします。
+
+[Polymer]: https://www.polymer-project.org/1.0/
+[Webコンポーネント]: http://webcomponents.org/
+[Turbolinks]: https://github.com/turbolinks/turbolinks
+[Paper Elements]: https://elements.polymer-project.org/browse?package=paper-elements
+[vulcanize]: https://github.com/Polymer/vulcanize
+[Middleman Web Components]: https://github.com/KitaitiMakoto/middleman-web_components
+[Custom Elements v1: Reusable Web Components]: https://developers.google.com/web/fundamentals/getting-started/primers/customelements
+[app-location]: https://elements.polymer-project.org/elements/app-route?active=app-location
+[iron-ajax]: https://elements.polymer-project.org/elements/iron-ajax
+[Data binding - Polymer Project]: https://www.polymer-project.org/1.0/docs/devguide/data-binding
+[Routing with &lt;app-route&gt; - Polymer Project]: https://www.polymer-project.org/1.0/toolbox/routing
