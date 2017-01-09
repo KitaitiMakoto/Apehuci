@@ -29,48 +29,51 @@
   </head>
 
   <body class="<%= page_classes %>" unresolved>
-    <app-header-layout>
-      <app-header fixed shadow slot=header>
-        <app-toolbar>
-          <h2 class="site-title">
-            <% link_to '/index.html' do %>
-            <%=h data.site.title %>
-            <paper-ripple></paper-ripple>
-            <% end %>
-          </h2>
-        </app-toolbar>
-      </app-header>
-      <article>
-        <header>
-          <paper-card>
-            <h1><%= current_page.data.title %></h1>
-            <time pubdate><%=h current_page.date.strftime('%F') %></time>
-            <% if current_page.data.tags && !current_page.data.tags.empty? %>
-            <ul class="tags">
-              <% current_page.data.tags.each do |tag| %>
-              <li><%= link_to tag, upath(tag_path(tag)), :rel => 'tag' %></li>
+    <blog-router></blog-router>
+    <main>
+      <app-header-layout>
+        <app-header fixed shadow slot=header>
+          <app-toolbar>
+            <h2 class="site-title">
+              <% link_to '/index.html' do %>
+              <%=h data.site.title %>
+              <paper-ripple></paper-ripple>
               <% end %>
-            </ul>
-            <% end %>
-          </paper-card>
-        </header>
-        <paper-card>
-          <%= yield %>
-        </paper-card>
-        <footer>
-          <%= partial 'adjacent', :locals => {
-                :next_page_info => {:page => current_page.next_article, :label => current_page.next_article&.data&.title},
-                :previous_page_info => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
-              } %>
+            </h2>
+          </app-toolbar>
+        </app-header>
+        <article>
+          <header>
+            <paper-card>
+              <h1><%= current_page.data.title %></h1>
+              <time pubdate><%=h current_page.date.strftime('%F') %></time>
+              <% if current_page.data.tags && !current_page.data.tags.empty? %>
+              <ul class="tags">
+                <% current_page.data.tags.each do |tag| %>
+                <li><%= link_to tag, upath(tag_path(tag)), :rel => 'tag' %></li>
+                <% end %>
+              </ul>
+              <% end %>
+            </paper-card>
+          </header>
           <paper-card>
-            <%= partial 'search' %>
-        </paper-card>
-        <paper-card>
-            <%= partial 'author' %>
+            <%= yield %>
           </paper-card>
-        </footer>
-      </article>
-    </app-header-layout>
+          <footer>
+            <%= partial 'adjacent', :locals => {
+                  :next_page_info => {:page => current_page.next_article, :label => current_page.next_article&.data&.title},
+                  :previous_page_info => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
+                } %>
+            <paper-card>
+              <%= partial 'search' %>
+          </paper-card>
+          <paper-card>
+              <%= partial 'author' %>
+            </paper-card>
+          </footer>
+        </article>
+      </app-header-layout>
+    </main>
 
     <script defer async src="//hypothes.is/embed.js"></script>
   </body>
