@@ -30,28 +30,28 @@
   </head>
 
   <body class="<%= page_classes %>" unresolved>
-    <app-header-layout>
-      <app-header fixed condenses effects=waterfall slot=header>
-        <app-toolbar></app-toolbar>
-        <app-toolbar sticky>
-          <h1 class=site-title><%= link_to data.site.title, '/index.html' %></h1>
-        </app-toolbar>
-      </app-header>
-      <main>
+    <main>
+      <app-header-layout>
+        <app-header fixed condenses effects=waterfall slot=header>
+          <app-toolbar></app-toolbar>
+          <app-toolbar sticky>
+            <h1 class=site-title><%= link_to data.site.title, '/index.html' %></h1>
+          </app-toolbar>
+        </app-header>
         <%= yield %>
-      </main>
-      <footer>
-        <%= partial 'adjacent', :locals => {
-              :next_page_info => {:page => prev_page, :label => "前#{per_page}日分"},
-              :previous_page_info => {:page => next_page, :label => "次#{per_page}日分"}
-            } %>
-        <paper-card>
-          <%= partial 'search' %>
-        </paper-card>
-        <paper-card>
-          <%= partial 'author' %>
-        </paper-card>
-      </footer>
-    </app-header-layout>
+        <footer>
+          <%= partial 'adjacent', :locals => {
+          :next_page_info => {:page => prev_page, :label => "前#{per_page}日分"},
+          :previous_page_info => {:page => next_page, :label => "次#{per_page}日分"}
+          } %>
+          <paper-card>
+            <%= partial 'search' %>
+          </paper-card>
+          <paper-card>
+            <%= partial 'author' %>
+          </paper-card>
+        </footer>
+      </app-header-layout>
+    </main>
   </body>
 </html>
