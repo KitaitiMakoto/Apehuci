@@ -1,6 +1,6 @@
 <dom-module id=blog-router>
     <template>
-      <app-location url-space-regex$="[[baseRegex]]" route="{{route}}" id=location></app-location>
+      <app-location url-space-regex$="[[baseRegex]][^#]*$" route="{{route}}" id=location></app-location>
       <iron-ajax url="{{route.path}}" handle-as=document auto on-response=transit on-error=fallback id=ajax></iron-ajax>
   </template>
   <script>
