@@ -20,7 +20,7 @@ layout: false
     <%= javascript_include_tag :all %>
   </head>
 
-  <body class="<%= page_classes %>" unresolved>
+  <body class="<%= page_classes %>">
     <blog-router base-regex="^<%= config[:base] %>"></blog-router>
     <main>
       <app-header-layout>
