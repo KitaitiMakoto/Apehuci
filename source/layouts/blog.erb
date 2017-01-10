@@ -15,6 +15,7 @@
     <%= feed_tag :atom, h(url_for(File.join('/', app.extensions[:feed].options.uri))), :title => app.data.site.title %>
 
     <%= stylesheet_link_tag :site %>
+    <%= stylesheet_link_tag '../../bower_components/sanitize-css/sanitize.css' %>
     <%= stylesheet_link_tag :highlight %>
     <%= javascript_include_tag :all %>
 
