@@ -12,7 +12,6 @@
     <script src="<%= url_for('/bower_components/webcomponentsjs/webcomponents-lite.js') %>"></script>
     <%= component_import_tag :elements %>
 
-    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
     <%= feed_tag :atom, h(url_for(File.join('/', app.extensions[:feed].options.uri))), :title => app.data.site.title %>
 
     <%= stylesheet_link_tag 'bower_components/sanitize-css/sanitize.css' %>
