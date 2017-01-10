@@ -49,6 +49,7 @@
           document.body.classList = doc.body.classList;
           oldContent.parentNode.replaceChild(newContent, oldContent);
           scrollTo(0, 0);
+          twttr.widgets.load(newContent);
         } catch (error) {
           location.href = event.detail.url;
         }
