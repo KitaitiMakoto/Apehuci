@@ -9,7 +9,7 @@
     <!-- Use title if it's in the page YAML frontmatter -->
     <title><%= current_page.data.title || data.site.title %></title>
 
-    <script src="<%= url_for('/bower_components/webcomponentsjs/webcomponents-lite.js') %>"></script>
+    <%= javascript_include_tag '../bower_components/webcomponentsjs/webcomponents-lite.js' %>
     <%= component_import_tag :elements %>
 
     <%= feed_tag :atom, h(url_for(File.join('/', app.extensions[:feed].options.uri))), :title => app.data.site.title %>
