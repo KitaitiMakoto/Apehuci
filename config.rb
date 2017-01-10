@@ -49,6 +49,7 @@ configure :build do
   config[:base] = '/apehuci/'
 
   used_bower_components = %w[
+    sanitize-css/sanitize.css
     webcomponentsjs/webcomponents-lite.js
     webcomponents-platform/webcomponents-platform.js
     URL/url.js
