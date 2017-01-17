@@ -104,7 +104,7 @@ configure :build do
   end
 
   activate :asset_hash do |asset|
-    asset.ignore = /\Abower_components\//
+    asset.ignore = /\A(?:bower_components\/|images\/icons\/)/
   end
 
   activate :minify_html do |html|
