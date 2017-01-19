@@ -34,10 +34,10 @@ GEM
       groonga-command (>= 1.2.8)
       groonga-command-parser (>= 1.0.7)
       hashie
-    groonga-command (1.3.1)
+    groonga-command (1.3.2)
       json
-    groonga-command-parser (1.0.7)
-      groonga-command (>= 1.0.9)
+    groonga-command-parser (1.0.9)
+      groonga-command (>= 1.3.2)
       json-stream
     haml (4.0.7)
       tilt
