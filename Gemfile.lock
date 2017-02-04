@@ -106,6 +106,7 @@ GEM
     net-ssh (4.0.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
+    openssl (2.0.3)
     padrino-helpers (0.13.3.3)
       i18n (~> 0.6, >= 0.6.7)
       padrino-support (= 0.13.3.3)
@@ -148,6 +149,7 @@ DEPENDENCIES
   middleman-minify-html
   middleman-web_components
   nokogiri
+  openssl (>= 2.0.3)
   rake
   rouge
   rouge-lexers-fluentd
