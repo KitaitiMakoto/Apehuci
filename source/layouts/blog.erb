@@ -6,7 +6,7 @@
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title><%= current_page.data.title || data.site.title %></title>
+    <title><% if current_page.data.tags && !current_page.data.tags.empty? %>[<%= current_page.data.tags.join("][") %>]<% end %><%= current_page.data.title %> | <%= data.site.title %></title>
 
     <%= javascript_include_tag '../bower_components/webcomponentsjs/webcomponents-lite.js' %>
     <%= component_import_tag :elements %>
@@ -23,7 +23,7 @@
     <link href="<%= config[:base] %>manifest.json" rel=manifest>
     <meta name=theme-color content="<%= data.site.theme_color %>">
 
-    <meta name=og:title content="<%= current_page.data.title || data.site.title %>">
+    <meta name=og:title content="<% if current_page.data.tags && !current_page.data.tags.empty? %>[<%= current_page.data.tags.join("][") %>]<% end %><%= current_page.data.title %><%= current_page.data.title || data.site.title %>">
     <meta name=twitter:description content="<%=h current_page.summary(180) %>">
     <meta name=twitter:card content=summary>
     <meta name=twitter:site content=@KitaitiMakoto>
