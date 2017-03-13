@@ -1,0 +1,119 @@
+---
+title: Hypothes.isがEPUBへのアノテーションのためのパートナーシップを結ぶ
+tags:
+  - 電子書籍
+  - アノテーション
+  - EPUB
+  - Hypothes.is
+---
+
+[note][]や[cakes][]をやってる[ピースオブケイク][]さんと勤め先の[コルク][]とで、毎週月曜ジャンプの発売日（僕の住んでいた札幌では火曜発売だったけどね）に[#テック会議][]と称してみんなでテック記事を上げるようにしましょうってなって、面白そうだし[note][]でなくて自分の日記でもいいってことだったので参加してみます。[これまでの記事][#テック会議]を見てみると抽象的な話が多いようで、普段書いてる「これやってみた」という記事とは違うけど頑張ります。
+
+別に参加者を絞るつもりはないようなので、皆さんも興味があれば更新日を月曜にずらしてみてください。[note][]を使う場合は[#テック会議][]でタグ付けしておくと探しやすくてありがたいです。特に報酬とかはありません。
+
+さて長い前置きだったけど今日は、この前[Hypothes.is][]が出してきた、とても興奮するニュースの話をします。
+
+[A partnership to bring open annotation to eBooks][hypothesis news]  
+（電子書籍にオープンなアノテーションをもたらすパートナーシップ）
+
+一行で言うと、「ウェブページやPDFへのアノテーション用のウェブアプリケーション開発及びそのホスティングサービス運用を行ってきたHypothes.isが、EPUBにアノテーションを付けられるようにするべく、複数の組織とパートナーシップを結ぶ」というニュースです。これで伝わる人は殆どいないと思うので解説します。
+
+目次 {#heading-2017-03-13-table-of-contents}
+----
+
+1. [アノテーションとは](#heading-2017-03-13-whats-annotation)
+2. [アノテーションサービスのHypothes.is](#heading-2017-03-13-whats-hypothesis)
+3. [電子書籍フォーマットのEPUB](#heading-2017-03-13-epub-ebook-format)
+4. [Hypothes.isのパートナーシップ](#heading-2017-03-13-hypothesis-partnership)
+
+アノテーションとは {#heading-2017-03-13-whats-annotation}
+------------------
+
+アノテーションというのは日本語だと「注釈」です。例えばウェブページで、ある文章に線を引っ張って自分のメモ書きを残すことはアノテーションです。
+
+「注釈」という言葉からは外れると感じますが、単に線を引っ張るだけでも、ここではアノテーションと呼びます。
+<figure>
+  <a href="https://gyazo.com/1ff7a03324fdc08da7f2f86c245431db"><img src="https://gyazo.com/1ff7a03324fdc08da7f2f86c245431db.png" alt=""></a>
+  <figcaption>先のニュースページでハイライトされている様子。ハイライトされた部分の背景が黄色になっている。</figcaption>
+</figure>
+
+また、ページの一部でなく、ページ全体に対して何か言及することもアノテーションです。[はてなブックマーク][]なんかがいい例だと思います。
+<figure>
+  <a href="https://gyazo.com/47eb628941ce4e66cbc7928bb254753c"><img src="https://gyazo.com/47eb628941ce4e66cbc7928bb254753c.png" alt=""></a>
+  <figcaption>ページ全体に対するコメントを残すのもアノテーション。画像ははてなブックマークの例。</figcaption>
+</figure>
+
+先と同じパターンで、コメントのないブックマークも、アノテーションです。
+
+アノテーションサービスのHypothes.is {#heading-2017-03-13-whats-hypothesis}
+-----------------------------------
+
+[Hypothes.is][]は、こういうアノテーションを、ウェブページとPDFに付けられるようにするウェブアプリケーションです。ページをハイライトしたりコメントを入力したりするためのChrome拡張やJavaScriptウィジェットを作ったり、そのアノテーションを保存・参照するためのサーバー用のアプリケーションを開発しています。
+
+と同時に、そのアプリケーションを実際に運用して、無償で提供してもいます。この日記にもJavaScriptウィジェットを埋め込んでいて、記事を（一覧ページでなく）個別ページで読んでいる場合には右側にそのためのバーが見えているはずです。
+<figure>
+  <a href="https://gyazo.com/777f1accfa73f2787a6b4c1bb0e0cd72"><img src="https://gyazo.com/777f1accfa73f2787a6b4c1bb0e0cd72.png" alt=""></a>
+  <figcaption>アノテーションサービスHypothes.isのためのウィジェットを、無償で自分のウェブサイトにも埋め込める。</figcaption>
+</figure>
+
+サイトの運用者はこのウィジェットを埋め込むことで、ページ全体または一部に閲覧者がハイライトやコメントを残せるようにできます。サイト側が対応していなくても、Chrome拡張を入れることで閲覧者はどのページにもアノテーションを付けられるようになります。付けられたアノテーションは（許可すれば）誰でも見ることができます。
+
+こうして付けたアノテーションはHypothes.isのサーバーに保管され、どの端末、どのブラウザーでも見られるようになります（ブラウザー拡張は今のところChromeだけですが。Firefoxのは開発中で、自分でビルドして入れることはできます）。
+
+電子書籍フォーマットのEPUB {#heading-2017-03-13-epub-ebook-format}
+--------------------------
+
+電子書籍では、こうした「アノテーションを付けて、それをどの端末でも参照できる」という体験を既に経験していると思います。Kindleのことです。
+<figure>
+  <a href="https://gyazo.com/f29495ff624f3e64f395cb21f9247848"><img src="https://gyazo.com/f29495ff624f3e64f395cb21f9247848.png" alt=""></a>
+  <figcaption>Kindleでは電子書籍にハイライトやコメント、即ちアノテーションを付けることができる。</figcaption>
+</figure>
+
+ところで、EPUBという電子書籍フォーマットがあります。IDPFという団体が策定した**オープン**なフォーマットです（KindleのはKindle Formatとかmobiとか呼ばれて、Kindleを作っているAmazon社が仕様を決めて運用しています。つまりオープンではありません）。仕様は誰でも見ることができますし、従って誰でも閲覧や作成用のアプリケーションを作れます。iBooksなどで読むことができます。
+
+ちなみにPDFやWordファイル（\*.docx）、Excelファイル（\*.xlsx）、MP3なんかもオープンなファイルフォーマットです。Photoshop用ファイル（\*.psd）やInDesign用ファイル（\*.indd）はオープンではありません。
+
+Hypothes.isのパートナーシップ {#heading-2017-03-13-hypothesis-partnership}
+-----------------------------
+
+今回のニュースは、Hypothes.isがこのEPUBにも対応するべく、幾つかの組織とパートナーシップを結ぶ、という物です。Hypothes.isとのパートナーシップが発表された組織は以下の五つ。
+
+[NYU Libraries][]
+: ニューヨーク大学の、デジタルな物を処理し、アクセスを可能にし、また保管する所。
+
+[NYU Press][]
+: ニューヨーク大学の出版社？
+
+[Evident Point][]
+: 電子出版ソリューションを提供する提供する会社。Readium（下記参照）のコアコントリビューターを数人抱えているらしい。
+
+[Readium Foundation][]
+: ReadiumJSという、EPUBを扱うJavaScriptのリファレンス実装を作っている所。ReadiumJSはDRMも扱えるとのこと。
+
+[EPUBjs project][]
+: epub.jsという、Readiumとはまた別のJavaScript実装を作っているプロジェクト。既にHypothes.isと連携したプルーフオブコンセプトを作った実績がある。
+
+イデオロギー的に僕はオープンな物やフリーな物を支持しているので、オープンなファイルフォーマットにオープンなアプリケーションでアノテーションが付けられるというこのニュースにはとても興奮しました。
+
+いきなりイデオロギーの話が出てきて面喰らうかも知れませんが、フリーとかオープンとかは殆どイデオロギーの話だと思っています[^free-open-as-ideology]。
+
+ま、イデオロギーは置いておいても、オープンであればロックインされない（Kindleだと、Kindleがなくなると同時に自分の本のコメントが失われてしまう）、とか無料だとかメリットがあります。例えばiBooksで付けたブックマークをGoogle Play Booksで開くといったこともできるかも知れません（Appleがブックマークデータをダウンロードさせてくれれば）。
+
+[^free-open-as-ideology]: 川上量生『[鈴木さんにも分かるネットの未来][]』でそんな感じのことが書かれていてはっとしました。
+
+というような感じでいいのか知ら？　皆さんも、[#テック会議][]ぜひ参加してみてください。
+
+[コルク]: https://corkagency.com/
+[note]: https://note.mu/
+[cakes]: https://cakes.mu/
+[ピースオブケイク]: https://www.pieceofcake.co.jp/
+[#テック会議]: https://note.mu/hashtag/%E3%83%86%E3%83%83%E3%82%AF%E4%BC%9A%E8%AD%B0?f=new&search=on
+[hypothesis news]: https://hypothes.is/blog/ebook-partnership/
+[Hypothes.is]: https://hypothes.is/
+[鈴木さんにも分かるネットの未来]: https://www.iwanami.co.jp/book/b226338.html
+[NYU Libraries]: http://dlib.nyu.edu/dlts/
+[NYU Press]: https://nyupress.org/
+[Evident Point]: http://www.evidentpoint.com/
+[Readium Foundation]: http://readium.org/
+[EPUBjs project]: http://futurepress.org/
+[はてなブックマーク]: http://b.hatena.ne.jp/
