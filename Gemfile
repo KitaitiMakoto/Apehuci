@@ -20,7 +20,7 @@ gem 'typescript-node'
 gem 'babel-transpiler'
 
 # Used to highlight syntax via kramdown
-gem 'rouge'
+gem 'rouge', '~> 1'
 gem 'rouge-lexers-fluentd', require: 'rouge/lexers/fluentd'
 
 gem 'middleman-web_components'
