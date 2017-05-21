@@ -1,4 +1,4 @@
-image: starefossen/ruby-node:alipine
+image: ruby
 
 cache:
   paths:
@@ -6,8 +6,11 @@ cache:
 
 pages:
   script:
-    - bundle install --path=gems
+    - apt-get update -yqqq
+    - apt-get install -y nodejs
     - npm install -g bower
+    - bundle install --path=gems
+    - npm install -g bower vulcanize
     - bundle exec rake site
   artifacts:
     paths:
