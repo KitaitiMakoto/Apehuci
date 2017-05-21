@@ -1,4 +1,4 @@
-image: ruby
+image: ruby:2.4
 
 cache:
   paths:
@@ -7,10 +7,10 @@ cache:
 pages:
   script:
     - apt-get update -yqqq
+    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     - apt-get install -y nodejs
-    - npm install -g bower
-    - bundle install --path=gems
     - npm install -g bower vulcanize
+    - bundle install --path=gems
     - bundle exec rake site
   artifacts:
     paths:
