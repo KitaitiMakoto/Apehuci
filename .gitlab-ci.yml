@@ -7,7 +7,7 @@ cache:
 pages:
   script:
     - apt-get update -yqqq
-    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    - curl -sL https://deb.nodesource.com/setup_6.x | bash -
     - apt-get install -y nodejs
     - npm install -g bower vulcanize
     - bundle install --path=gems
