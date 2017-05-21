@@ -1,0 +1,16 @@
+image: starefossen/ruby-node:alipine
+
+cache:
+  paths:
+    - gems
+
+pages:
+  script:
+    - bundle install --path=gems
+    - npm install -g bower
+    - bundle exec rake site
+  artifacts:
+    paths:
+      - build
+  only:
+    - master
