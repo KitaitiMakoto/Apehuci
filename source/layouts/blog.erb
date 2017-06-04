@@ -63,8 +63,8 @@
           </paper-card>
           <footer>
             <%= partial 'adjacent', :locals => {
-                  :next_page_info => {:page => current_page.next_article, :label => current_page.next_article&.data&.title},
-                  :previous_page_info => {:page => current_page.previous_article, :label => current_page.previous_article&.data&.title},
+                  :next_page_info => {:page => current_page.article_next, :label => current_page.article_next&.data&.title},
+                  :previous_page_info => {:page => current_page.article_previous, :label => current_page.article_previous&.data&.title},
                 } %>
             <paper-card>
               <%= partial 'search' %>
