@@ -1,0 +1,59 @@
+<html><head><meta charset=UTF-8></head><body><dom-module id=blog-router><template><app-location url-space-regex$="[[baseRegex]][^#]*$" route="{{route}}" id=location></app-location><iron-ajax url="{{route.path}}" handle-as=document auto="" on-response=transit on-error=fallback id=ajax></iron-ajax></template><script>
+    class BlogRouter extends Polymer.Element {
+      static get is() {
+        return 'blog-router';
+      }
+
+      static get config() {
+        return {
+          properties: {
+            baseRegex: {
+              type: String,
+              value: '^/',
+              reflectToAttribute: true,
+              notify: true
+            }
+          }
+        };
+      }
+
+      ready() {
+        super.ready();
+        this.currentURL = location.href;
+      }
+
+      transit(event) {
+        try {
+          var resURL = event.detail.xhr.responseURL;
+          if (resURL === this.currentURL) {
+            return;
+          }
+          this.currentURL = resURL;
+          var doc = this.$.ajax.lastResponse;
+          if (! doc) {
+            location.href = event.detail.url;
+            return;
+          }
+          document.title = doc.title;
+          var oldContent = document.getElementsByTagName('main')[0];
+          var newContent = doc.getElementsByTagName('main')[0];
+          if ((! oldContent) || (! newContent)) {
+            location.href = event.detail.url;
+            return;
+          }
+          document.body.classList = doc.body.classList;
+          oldContent.parentNode.replaceChild(newContent, oldContent);
+          scrollTo(0, 0);
+          twttr.widgets.load(newContent);
+        } catch (error) {
+          location.href = event.detail.url;
+        }
+      }
+
+      fallback(event) {
+        location.href = location.href;
+      }
+    }
+
+    customElements.define(BlogRouter.is, BlogRouter)
+  </script></dom-module></body></html>

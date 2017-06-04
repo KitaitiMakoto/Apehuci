@@ -1,0 +1,39 @@
+{
+  "name": "アペフチ",
+  "short_name": "アペフチ",
+  "lang": "ja",
+  "dir": "ltr",
+  "discription": "北市真の日記。",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "images/icons/60x60.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "images/icons/80x80.png",
+      "type": "image/png",
+      "sizes": "80x80"
+    },
+    {
+      "src": "images/icons/130x130.png",
+      "type": "image/png",
+      "sizes": "130x130"
+    },
+    {
+      "src": "images/icons/400x400.png",
+      "type": "image/png",
+      "sizes": "400x400"
+    },
+    {
+      "src": "images/icons/512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "scope": "/apehuci/",
+  "start_url": "/apehuci/",
+  "backgroud_color": "#b71c1c",
+  "theme_color": "#b71c1c"
+}

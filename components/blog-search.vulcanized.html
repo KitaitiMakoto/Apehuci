@@ -1,0 +1,82 @@
+<html><head><meta charset=UTF-8></head><body><dom-module id=blog-search><template><style>
+      :host {
+        display: block;
+      }
+
+      .keyword {
+        color: var(--keyword-color, red);
+        font-weight: var(--keyword-font-weight, bolder);
+      }
+    </style><paper-input id=groongaQuery name=query label="検索" placeholder="例）Web Components" on-keyup=search type=search required=""></paper-input><iron-ajax id=groongaSelect handle-as=json on-response=showResult></iron-ajax><template is=dom-if if="{{result}}"><dl><template is=dom-repeat items="{{result}}"><dt><a href="{{item.url}}">[{{item.tags}}]{{item.title}}</a>({{item.score}})</dt><dd inner-h-t-m-l="{{item.snippetHtml}}"></dd></template></dl></template></template><script>
+    class BlogSearch extends Polymer.Element {
+      static get is() {
+        return 'blog-search';
+      }
+
+      static get config() {
+        return {
+          properties: {
+            url: String,
+            base: String,
+            table: String,
+            debounceDuration: Number,
+            query: String,
+            result: Array
+          }
+        }
+      }
+
+      ready() {
+        super.ready();
+        this.$.groongaSelect.url = this.url + "/select";
+        this.$.groongaSelect.debounceDuration = this.debounceDuration;
+        this.$.groongaSelect.params = {
+          table: this.table,
+          match_columns: "title * 2,tags * 2,content",
+          output_columns: "_key,title,tags,snippet_html(content),_score",
+          sortby: "-_score",
+          command_version: 2
+        };
+      }
+
+      search() {
+        var query = this.$.groongaQuery.value;
+        if (query === "") {
+          this.result = [];
+          return;
+        }
+        if (this.$.groongaSelect.params.query === query) {
+          return;
+        }
+        this.$.groongaSelect.params.query = this.$.groongaQuery.value;
+        this.$.groongaSelect.generateRequest();
+      }
+
+      showResult() {
+        var lastResponse = this.$.groongaSelect.lastResponse;
+        if (! lastResponse) {
+          return;
+        }
+        var body = this.$.groongaSelect.lastResponse[1];
+        if (! body) {
+          return;
+        }
+        var data = body[0];
+        var count = data.shift();
+        var header = data.shift();
+        var base = this.base;
+        this.result = data.map(function(article) {
+          return {
+            url: base + article[0],
+            title: article[1],
+            tags: article[2].join(", "),
+            snippetHtml: article[3].join("<br>").
+                replace('<span class="keyword">', '<span class="keyword style-scope blog-search">'), // Address Polymer bug that non-Chrome browser needs additional .blog-search but dynamically inserted elementes are not taken care.
+            score: article[4]
+          };
+        });
+      }
+    }
+
+    customElements.define(BlogSearch.is, BlogSearch)
+  </script></dom-module></body></html>
