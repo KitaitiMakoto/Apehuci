@@ -60,6 +60,8 @@ configure :build do
     custom-elements/custom-elements.min.js
     shadydom/shadydom.min.js
     shadycss/shadycss.min.js
+    shadycss/apply-shim.min.js
+    shadycss/custom-style-interface.min.js
     webcomponentsjs/src/post-polyfill.js
     webcomponentsjs/src/unresolved.js
     html-imports/src/base.js
