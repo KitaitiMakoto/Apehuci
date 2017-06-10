@@ -11,6 +11,7 @@ pages:
     - apt-get install -y nodejs
     - npm install bower vulcanize
     - bundle install --path=gems
+    - $(npm bin)/bower install
     - RUBYOPT=-EUTF-8 bundle exec rake site
   artifacts:
     paths:
