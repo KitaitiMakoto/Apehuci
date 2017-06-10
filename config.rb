@@ -87,7 +87,9 @@ configure :build do
   end
 end
 
-activate :web_components
+activate :web_components do |web_components|
+  web_components.command = "$(npm bin)/vulcanize"
+end
 
 activate :blog do |blog|
   Time.zone = 'Tokyo'
