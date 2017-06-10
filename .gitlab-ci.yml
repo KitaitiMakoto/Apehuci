@@ -5,6 +5,11 @@ cache:
     - gems
 
 pages:
+  cache:
+    paths:
+      - gems/
+      - node_modules/
+      - source/bower_components/
   script:
     - apt-get update -yqqq
     - curl -sL https://deb.nodesource.com/setup_6.x | bash -
