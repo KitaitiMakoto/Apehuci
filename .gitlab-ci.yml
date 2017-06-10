@@ -18,8 +18,11 @@ pages:
     - bundle install --path=gems
     - bower install --allow-root
     - RUBYOPT=-EUTF-8 bundle exec rake site
+    - mkdir .public
+    - mv build/* .public/
+    - mv .public public
   artifacts:
     paths:
-      - build
+      - public
   only:
     - master
