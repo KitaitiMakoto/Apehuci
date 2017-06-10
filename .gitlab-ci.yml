@@ -9,7 +9,8 @@ pages:
     - apt-get update -yqqq
     - curl -sL https://deb.nodesource.com/setup_6.x | bash -
     - apt-get install -y nodejs
-    - npm install -g bower vulcanize
+    - npm install -g bower
+    - npm install vulcanize
     - bundle install --path=gems
     - RUBYOPT=-EUTF-8 bundle exec rake site
   artifacts:
